@@ -22,6 +22,17 @@
 
 全ページ `noindex, nofollow`（公開判断時に外す）。`robots.txt` で `/_production/` `/tools/` `/docs/` を除外。
 
+## ローカルで見る
+
+Node.js（v16以上）が入っていれば追加インストールは不要です。
+
+- **Windows**：`start-local.bat` をダブルクリック → ブラウザで比較TOPが開きます
+- **Mac / Linux**：`./start-local.sh`（または `npm start` / `node tools/serve.cjs`）
+- 開くURL：<http://localhost:8080/kitte-kaitori/>（8080が使用中なら 8081… に自動でずれます。表示されたURLを使う）
+- 止めるとき：起動した画面で `Ctrl + C`
+
+`index.html` をダブルクリックで直接開く（file://）と、ページ間リンクが `uriel/` などのフォルダ指定のため個別ページへ移動できません。必ず上の方法で開いてください。
+
 ## ファイル
 
 ```
@@ -38,6 +49,8 @@ tools/assets.json         … 画像台帳
 tools/build-preview.cjs   … 台帳 → 画像一覧md＋image-1プレビュー
 tools/audit.cjs           … 静的監査（29パーツ・禁止語・alt/width/height・リンク・プレースホルダ）
 tools/check.cjs           … ブラウザ動作チェック（Playwright）
+tools/serve.cjs           … ローカル確認サーバー（依存なし）
+start-local.bat / start-local.sh / package.json … 起動用
 ```
 
 ## ASPリンクの入れ方

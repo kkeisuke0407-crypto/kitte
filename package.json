@@ -1,0 +1,11 @@
+{
+  "name": "kitte-kaitori-lp",
+  "private": true,
+  "description": "切手買取3社比較LP（静的HTML）",
+  "scripts": {
+    "start": "node tools/serve.cjs",
+    "audit": "node tools/audit.cjs",
+    "check": "node tools/check.cjs",
+    "build:preview": "node tools/build-preview.cjs"
+  }
+}
