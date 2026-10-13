@@ -24,14 +24,18 @@
 
 ## ローカルで見る
 
-Node.js（v16以上）が入っていれば追加インストールは不要です。
+### A. HTMLファイルをダブルクリック（いちばん簡単）
 
-- **Windows**：`start-local.bat` をダブルクリック → ブラウザで比較TOPが開きます
-- **Mac / Linux**：`./start-local.sh`（または `npm start` / `node tools/serve.cjs`）
-- 開くURL：<http://localhost:8080/kitte-kaitori/>（8080が使用中なら 8081… に自動でずれます。表示されたURLを使う）
-- 止めるとき：起動した画面で `Ctrl + C`
+- **`standalone/index.html`**：CSS・JS・画像をすべて1ファイルに埋め込んだ単体版。このファイルだけで表示でき、同じフォルダの `uriel.html` `buysell.html` `fukuchan.html` `methodology.html` などへリンクで移動できます。メール添付や共有にも使えます（生成物：`node tools/build-standalone.cjs`）
+- **`kitte-kaitori/index.html`**：本番と同じ構成のファイル。ダブルクリックで開いても、全ページ間を移動できます（リンクは `uriel/index.html` のようにファイル名まで指定）
 
-`index.html` をダブルクリックで直接開く（file://）と、ページ間リンクが `uriel/` などのフォルダ指定のため個別ページへ移動できません。必ず上の方法で開いてください。
+### B. ローカルサーバーで見る（本番に近い確認）
+
+Node.js（v16以上）があれば追加インストール不要。
+
+- **Windows**：`start-local.bat` をダブルクリック → ブラウザで比較TOPが開く
+- **Mac / Linux**：`./start-local.sh`（または `npm start`）
+- URL：<http://localhost:8080/kitte-kaitori/>（使用中なら 8081… に自動でずれる）。止めるときは `Ctrl + C`
 
 ## ファイル
 
@@ -50,6 +54,8 @@ tools/build-preview.cjs   … 台帳 → 画像一覧md＋image-1プレビュー
 tools/audit.cjs           … 静的監査（29パーツ・禁止語・alt/width/height・リンク・プレースホルダ）
 tools/check.cjs           … ブラウザ動作チェック（Playwright）
 tools/serve.cjs           … ローカル確認サーバー（依存なし）
+tools/build-standalone.cjs … 単体HTML版（standalone/）の生成
+standalone/               … 生成物：埋め込み済みの単体HTML 7ページ
 start-local.bat / start-local.sh / package.json … 起動用
 ```
 
@@ -71,4 +77,5 @@ HTML 内の文字列を一括置換する。未置換の間は `kitte.js` がボ
 node tools/audit.cjs            # 静的監査（エラー0で終了コード0）
 node tools/check.cjs [出力先]   # 375/390/1280px の動作チェック（引数でスクショ保存）
 node tools/build-preview.cjs    # 画像台帳を更新したら再生成
+node tools/build-standalone.cjs # ページを直したら単体HTML版を再生成
 ```

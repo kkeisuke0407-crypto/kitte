@@ -57,9 +57,9 @@
   var REMOTE_ISLAND_NOTE = '離島は出張対象外です（バイセル公式）。';
 
   var SVC = {
-    uriel: { name: 'ウリエル', logo: 'assets/img/logo/uriel.svg', detail: 'uriel/', aff: '__URIEL_AFF_LINK__', pendingLabel: 'ウリエルの詳細を見る' },
-    buysell: { name: 'バイセル', logo: 'assets/img/logo/buysell.svg', detail: 'buysell/', aff: '__BUYSELL_AFF_LINK__', pendingLabel: 'バイセルの詳細を見る' },
-    fukuchan: { name: '福ちゃん', logo: 'assets/img/logo/fukuchan.svg', detail: 'fukuchan/', aff: null }
+    uriel: { name: 'ウリエル', logo: 'assets/img/logo/uriel.svg', detail: 'uriel/index.html', aff: '__URIEL_AFF_LINK__', pendingLabel: 'ウリエルの詳細を見る' },
+    buysell: { name: 'バイセル', logo: 'assets/img/logo/buysell.svg', detail: 'buysell/index.html', aff: '__BUYSELL_AFF_LINK__', pendingLabel: 'バイセルの詳細を見る' },
+    fukuchan: { name: '福ちゃん', logo: 'assets/img/logo/fukuchan.svg', detail: 'fukuchan/index.html', aff: null }
   };
 
   function el(tag, attrs, html) {

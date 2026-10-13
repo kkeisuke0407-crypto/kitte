@@ -6,6 +6,7 @@
     "start": "node tools/serve.cjs",
     "audit": "node tools/audit.cjs",
     "check": "node tools/check.cjs",
-    "build:preview": "node tools/build-preview.cjs"
+    "build:preview": "node tools/build-preview.cjs",
+    "build:standalone": "node tools/build-standalone.cjs"
   }
 }

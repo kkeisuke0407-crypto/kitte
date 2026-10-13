@@ -136,6 +136,27 @@ const ok = (cond, msg) => { console.log(`  ${cond ? 'OK' : 'NG'} ${msg}`); if (!
   ok(sent, '診断：ページ遷移・外部送信なし（ブラウザー内で表示）');
   await page.close();
 
+  console.log('■ HTMLファイルを直接開く（file://）');
+  const fp = await browser.newPage({ viewport: { width: 375, height: 800 } });
+  const ferrs = [];
+  fp.on('pageerror', e => ferrs.push(e.message)); fp.on('requestfailed', r => { if (!/ERR_ABORTED/.test((r.failure() || {}).errorText || '')) ferrs.push('requestfailed ' + r.url() + ' ' + (r.failure() || {}).errorText); }); // ページ移動で中断された遅延読み込みは除外
+  const fileUrl = rel => 'file://' + path.join(root, rel);
+  await fp.goto(fileUrl('kitte-kaitori/index.html'));
+  ok(await fp.locator('.yk-radar svg').count() === 3, 'file://：比較TOPのJS（レーダー）が動く');
+  for (const [sel, title] of [['.yk-btnpair a[href="uriel/index.html"]', 'ウリエル'], ['.yk-btnpair a[href="buysell/index.html"]', 'バイセル'], ['.yk-btnpair a[href="fukuchan/index.html"]', '福ちゃん'], ['.yk-footer a[href="methodology/index.html"]', 'ランキング調査概要']]) {
+    await fp.goto(fileUrl('kitte-kaitori/index.html'));
+    await fp.locator(sel).first().click();
+    await fp.waitForLoadState('load');
+    const t = await fp.title();
+    const imgsOk = await fp.evaluate(async () => { await Promise.all([...document.images].map(i => i.decode().catch(() => {}))); return [...document.images].filter(i => i.offsetParent).every(i => i.naturalWidth > 0); });
+    ok(t.includes(title) && imgsOk, `file://：比較TOP → ${title} に移動、CSS・画像表示`);
+    await fp.locator('.yk-crumb a').first().click();
+    await fp.waitForLoadState('load');
+    ok(fp.url().endsWith('/kitte-kaitori/index.html'), `file://：${title} のパンくずから比較TOPに戻る`);
+  }
+  ok(ferrs.length === 0, 'file://：読み込みエラーなし ' + ferrs.join(' | '));
+  await fp.close();
+
   await browser.close();
   server.close();
   console.log(fails ? `\n✖ NG ${fails} 件` : '\n✔ すべてOK');
