@@ -1,6 +1,9 @@
 # 切手買取 比較LP（kitte-kaitori）
 
-切手買取3社（1位ウリエル・2位バイセル・3位福ちゃん／順位はユーザー指定の掲載順）の比較LP。静的HTML／CSS／JS。
+切手買取6社（1位ウリエル・2位バイセル・3位福ちゃん・4位日晃堂・5位買取大吉・6位なんぼや）の出張買取比較LP。静的HTML／CSS／JS。
+
+- 順位・編集部評価は `tools/data/companies.json` の6項目採点（◎5・○4・△3、公式サイトの記載が根拠）から生成。基準は調査概要ページで公開
+- 配信地域を絞る前提のため、ウリエルの出張エリア制限を強調する表現は使わない（2026-10-13 ユーザー指示）
 
 - 台本：hozon `案件_切手買取/03_LP全29パーツ台本_v3_20261013.md`
 - パーツ原本：hozon `LPパーツ集_薬剤師比較ランキング型/`（`parts.css` は原本そのまま。sha256 `42b4a915…f257d`、hozon commit `d895052`）
@@ -11,7 +14,7 @@
 
 | パス | 内容 |
 |---|---|
-| `/kitte-kaitori/` | 比較TOP |
+| `/kitte-kaitori/` | 比較TOP（6社） |
 | `/kitte-kaitori/uriel/` | ウリエル詳細 |
 | `/kitte-kaitori/buysell/` | バイセル詳細 |
 | `/kitte-kaitori/fukuchan/` | 福ちゃん詳細 |
@@ -49,6 +52,8 @@ kitte-kaitori/
 _production/kitte-kaitori/imgslot-preview.html … 生成物（tools/build-preview.cjs）
 docs/画像素材一覧.md      … 生成物（tools/assets.json が正本）
 docs/パーツ使用表.md
+tools/data/companies.json … 6社の評価・根拠・実績・文言（比較TOPの生成元）
+tools/build-top.cjs       … companies.json → 比較TOP（BEST3・実績・比較表・早見表・ランキング）と調査概要の採点表を差し込み
 tools/assets.json         … 画像台帳
 tools/build-preview.cjs   … 台帳 → 画像一覧md＋image-1プレビュー
 tools/audit.cjs           … 静的監査（29パーツ・禁止語・alt/width/height・リンク・プレースホルダ）
@@ -65,15 +70,17 @@ HTML 内の文字列を一括置換する。未置換の間は `kitte.js` がボ
 
 | 置換文字列 | 対象 | 箇所 |
 |---|---|---|
-| `__URIEL_AFF_LINK__` | ウリエル（プロモーションID 10713） | 比較TOP 5（BEST3・2社併用・ランキングタブ・2ボタン・迷ったら）・uriel/ 4・kitte.js 1（診断結果） |
-| `__BUYSELL_AFF_LINK__` | バイセル（プロモーションID 10523） | 比較TOP 5（同上）・buysell/ 4・kitte.js 1（診断結果） |
-| `__FUKUCHAN_AFF_LINK__` | 福ちゃん（ASP未取得） | コメントのみ。成果リンクのボタンは置いていない。取得後に該当コメント位置のボタンを `<a class="yk-btn" href="…" data-aff="fukuchan" …>` に変更 |
+| `__URIEL_AFF_LINK__` | ウリエル（プロモーションID 10713） | 比較TOP 14（BEST3・実績カード6・比較表・2社併用・ランキング2・結論・迷ったら・FAQ下）・uriel/ 5・kitte.js 1（診断結果） |
+| `__BUYSELL_AFF_LINK__` | バイセル（プロモーションID 10523） | 比較TOP 6・buysell/ 4・kitte.js 1（診断結果） |
+| `__FUKUCHAN_AFF_LINK__` | 福ちゃん（ASP未取得） | コメントのみ。成果リンクのボタンは置いていない。取得したら `companies.json` の `aff` と `cta` を設定して `node tools/build-top.cjs`、詳細ページはコメント位置のボタンを差し替え |
+| （日晃堂・買取大吉・なんぼや） | ASP提携なし | 公式サイトへの通常リンク（外部・広告リンクではない旨を表示）のみ |
 
 ボタン上のひとこと（`yk-catch`）はASPの対象条件が未取得のため、公式サイトで確認できた事実（「出張は対象エリアのみ」など）にしている。ASP条件を取得したら合わせて見直す。
 
 ## 確認コマンド
 
 ```
+node tools/build-top.cjs        # companies.json を直したら比較TOP・調査概要を再生成
 node tools/audit.cjs            # 静的監査（エラー0で終了コード0）
 node tools/check.cjs [出力先]   # 375/390/1280px の動作チェック（引数でスクショ保存）
 node tools/build-preview.cjs    # 画像台帳を更新したら再生成

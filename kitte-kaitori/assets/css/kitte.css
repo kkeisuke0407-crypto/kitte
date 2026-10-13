@@ -184,3 +184,91 @@ body { margin: 0; background: #f4f4f4; }
 /* C-2 早見表：縦書きの軸ラベルが長いと Chromium で縮んで切れるため、1文字ずつ折り返す横書きで縦に並べる */
 .yk-matrix__ax--l, .yk-matrix__ax--r { top: 0; bottom: 0; height: max-content; margin: auto 0; transform: none; writing-mode: horizontal-tb; width: 22px; padding: .6em 5px; white-space: normal; word-break: break-all; line-height: 1.2; text-align: center; }
 .yk-matrix__ax--l { left: -20px; } .yk-matrix__ax--r { right: -20px; }
+
+/* ============================================================
+   2026-10-13 改訂：6社比較・編集部評価・実績写真・選び方カード
+   ============================================================ */
+/* 編集部評価の星（--p＝塗りの割合）と点数 */
+.kt-stars { position: relative; display: inline-block; color: #d9dde3; font-size: 14px; letter-spacing: .04em; line-height: 1.2; white-space: nowrap; vertical-align: middle; }
+.kt-stars::before { content: "★★★★★"; position: absolute; left: 0; top: 0; width: var(--p); overflow: hidden; color: #f5a623; }
+.kt-score { display: inline-block; margin-left: .3em; color: var(--yk-red); font-size: 18px; font-weight: 900; line-height: 1.1; vertical-align: middle; }
+.kt-score small { display: block; color: var(--yk-sub); font-size: 9.5px; font-weight: 700; }
+.yk-cmp .kt-stars { display: block; margin: 0 auto; font-size: 11px; }
+.yk-cmp .kt-score { display: block; margin: .15em 0 0; font-size: 20px; }
+.kt-best3__score { margin: 0 4px 4px !important; text-align: center; line-height: 1.1 !important; }
+.kt-best3__score .kt-stars { display: block; font-size: 11px; }
+.kt-best3__score .kt-score { margin: 0; font-size: 17px; }
+.kt-best3__score .kt-score small { display: inline; margin-right: .2em; }
+.yk-best3__note.kt-note-pos { color: var(--yk-blue-d); }
+.kt-best3__foot { margin: .6em 4px 0 !important; font-size: 10px !important; line-height: 1.5 !important; color: var(--yk-sub); }
+.yk-rankhead { flex-wrap: wrap; }
+.kt-rankscore { margin-left: auto; font-size: 14px; }
+.kt-rankscore .kt-score small { display: inline; margin-right: .2em; }
+
+/* ◎○△ の色 */
+.kt-m5 { color: var(--yk-red) !important; } .kt-m4 { color: #e08a00 !important; } .kt-m3 { color: #8a94a3 !important; }
+
+/* レーダー＋評価の内訳 */
+.kt-radarbox { margin: .4em 0 1em; padding: 10px; border: 2px solid var(--yk-blue-bg); border-radius: 8px; background: #fff; }
+.kt-radarbox__ttl { margin: 0 !important; text-align: center; font-size: 14px; font-weight: 900; }
+.kt-radarbox .yk-radar { margin: .2em auto 0; }
+.kt-radarlist { margin: 0 0 .4em; padding: 0; list-style: none; font-size: 12.5px; line-height: 1.5; }
+.kt-radarlist li { display: grid; grid-template-columns: 6.6em 1.6em 1fr; gap: .4em; align-items: center; padding: .35em 0; border-bottom: 1px dashed var(--yk-rule); }
+.kt-radarlist li > span { font-weight: 700; }
+.kt-radarlist li > b { font-size: 17px; text-align: center; }
+.kt-radarlist small { color: var(--yk-sub); font-size: 11px; }
+
+/* 実績写真 */
+.kt-recphoto { display: block; width: calc(100% - 20px); height: auto; aspect-ratio: 4 / 3; margin: 10px; object-fit: contain; border-radius: 4px; background: #f6f6f4; }
+.kt-price { color: var(--yk-green-d); font-size: 16px; }
+
+/* ランキング 3〜6位の「もっと見る」・コンパクト表示 */
+.kt-rankfold { margin: 0 -12px; }
+.kt-rankfold > .yk-fold__body { max-height: 560px; padding: 0 12px; }
+.kt-rankfold > .yk-fold__body::after { height: 160px; background: linear-gradient(rgba(255,255,255,0), #fff 75%); }
+.kt-rankfold > .yk-fold__btn { width: 80%; margin-top: -40px; border: 2px solid var(--yk-blue); color: var(--yk-blue-d); font-weight: 900; }
+.kt-rankfold__lead { margin: 1em 0 0 !important; text-align: center; font-size: 13px !important; font-weight: 900; color: var(--yk-sub); }
+.kt-rankarea--compact .kt-svclogo { margin: 0 auto .6em; }
+.kt-offlink { display: block; margin: .6em 0 0; font-size: 13.5px; text-align: center; }
+.kt-offlink small { display: block; font-size: 10.5px; font-weight: 400; color: var(--yk-sub); }
+
+/* 額面だけで判断しない：4要素の写真タイル */
+.kt-grid4 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 0 0 .4em; }
+.kt-grid4 figure { margin: 0; border: 2px solid var(--yk-blue-bg); border-radius: 8px; background: #fff; overflow: hidden; }
+.kt-grid4 img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: contain; background: #f6f6f4; }
+.kt-grid4 figcaption { padding: .4em .6em .5em; font-size: 12px; line-height: 1.5; }
+.kt-grid4 figcaption b { display: block; color: var(--yk-blue-d); font-size: 14px; }
+
+/* 出張買取と持ち込みの比較表 */
+.kt-vs { width: 100%; min-width: 0; border-collapse: collapse; margin: .6em 0; font-size: 13px; line-height: 1.55; }
+.kt-vs th, .kt-vs td { padding: .55em .5em; border: 1px solid var(--yk-rule); text-align: center; }
+.kt-vs tr:first-child th { background: #7d8794; color: #fff; }
+.kt-vs tr:first-child th.is-pick { background: var(--yk-orange); }
+.kt-vs tr:first-child th:first-child { background: #fff; border-color: #fff var(--yk-rule) var(--yk-rule) #fff; }
+.kt-vs tr > th:first-child { width: 5.5em; background: var(--yk-blue-bg); color: var(--yk-blue-d); }
+.kt-vs td.is-pick { background: #fff8e6; }
+.kt-vs td.is-pick b { color: var(--yk-red); }
+
+/* 選び方の3ポイント（番号カード） */
+.kt-points { margin: .6em 0 1.2em; padding: 0; list-style: none; }
+.kt-points li { display: grid; grid-template-columns: 4.4em 1fr; gap: .8em; align-items: start; margin: 0 0 10px; padding: 12px 12px 10px; border-radius: 8px; background: var(--yk-cream); box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+.kt-points__no { display: grid; place-items: center; aspect-ratio: 1 / 1; border-radius: 50%; background: var(--yk-blue); color: #fff; font-size: 10px; font-weight: 700; line-height: 1.1; text-align: center; }
+.kt-points__no b { display: block; font-size: 22px; }
+.kt-points h3 { margin: 0 0 .25em; font-size: 15.5px; line-height: 1.45; color: var(--yk-blue-d); }
+.kt-points p { margin: 0 !important; font-size: 13.5px; line-height: 1.7; }
+.kt-points small { display: inline-block; margin-top: .3em; padding: .05em .6em; border-radius: 99px; background: #fff; color: var(--yk-green-d); font-size: 11px; font-weight: 700; }
+
+/* 迷ったら：バナーを枠に合わせる */
+.kt-pickup__img { width: calc(100% - 16px); height: auto; aspect-ratio: auto; object-fit: contain; }
+.yk-matrix__item.kt-has-cap { width: 25%; }
+
+/* ウリエル詳細：数字で見る・品目チップ */
+.kt-nums { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin: .6em 0; padding: 0; list-style: none; }
+.kt-nums li { position: relative; display: grid; place-items: center; align-content: center; aspect-ratio: 1 / 1; border-radius: 50%; background: radial-gradient(#fffdf0, #ffeeb5); border: 3px solid #f2c94c; text-align: center; line-height: 1.2; }
+.kt-nums small { font-size: 10.5px; font-weight: 700; color: #7a5200; }
+.kt-nums b { display: block; color: var(--yk-blue-d); font-size: 24px; font-weight: 900; }
+.kt-nums i { font-style: normal; font-size: 11px; }
+.kt-nums span { position: absolute; right: 12%; bottom: 14%; font-size: 9px; color: var(--yk-sub); }
+.kt-chiplist { display: flex; flex-wrap: wrap; gap: 5px; padding: .3em 0 .2em !important; }
+.kt-chiplist li { padding: .15em .7em !important; border-radius: 99px; background: #fff; border: 1px solid #9cc3e8; font-size: 12.5px !important; }
+.kt-chiplist li::before { display: none; }
