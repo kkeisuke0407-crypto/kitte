@@ -137,6 +137,7 @@ ${c.features.map(f => `          <li><span>${f}</span>${n <= 3 ? '<small>※公�
       <div>
         ${tab1img}
         ${tab1btn}
+        ${c.campaign ? `<div class="kt-campaign kt-campaign--mini" data-campaign-end="${c.campaign.end}"><img src="${c.campaign.img}" alt="${c.campaign.alt}" width="${c.campaign.w}" height="${c.campaign.h}" loading="lazy"><p class="kt-campaign__terms">${c.campaign.terms}<a href="${c.campaign.src}" rel="nofollow noopener" target="_blank">公式のキャンペーン詳細</a></p></div>` : ''}
         ${features}
         ${c.featureNote ? `<p class="yk-small">${c.featureNote}</p>` : ''}
       </div>

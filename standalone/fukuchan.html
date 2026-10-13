@@ -601,6 +601,27 @@ body { margin: 0; background: #f4f4f4; }
 .kt-chiplist li { padding: .15em .7em !important; border-radius: 99px; background: #fff; border: 1px solid #9cc3e8; font-size: 12.5px !important; }
 .kt-chiplist li::before { display: none; }
 
+/* A-2 ロゴの横流し：縦長ロゴが枠からはみ出して切れないよう、枠と画像の高さを固定して収める */
+.yk-logos { padding: 8px 0; }
+.yk-logos__track { gap: 8px; }
+.yk-logos__track li { flex: 0 0 112px; height: 40px; padding: 4px 6px; display: flex; align-items: center; justify-content: center; }
+.yk-logos__track li img { display: block; width: 100%; height: 32px; max-height: 32px; object-fit: contain; }
+
+/* A-1 FV：ヒーロー画像（ユーザー支給）を全幅で表示。見出しは読み上げ・検索用に残す */
+.yk-hero.kt-hero--banner { display: block; padding: 0; background: none; }
+.kt-hero__banner { display: block; width: 100%; height: auto; }
+.kt-sr { position: absolute !important; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* ウリエルのキャンペーン枠 */
+.kt-campaign { margin: 1em 0 1.4em; }
+.kt-campaign[hidden] { display: none; }
+.kt-campaign img { display: block; width: 100%; height: auto; border-radius: 6px; }
+.kt-campaign__link { display: block; }
+.kt-campaign__terms { margin: .4em 0 0 !important; padding: .5em .7em; border-radius: 6px; background: #fff7ea; font-size: 11.5px !important; line-height: 1.65 !important; color: #5a3b12; }
+.kt-campaign__terms b { color: var(--yk-red); }
+.kt-campaign__terms a { color: var(--yk-blue); margin-left: .3em; }
+.kt-campaign--mini { margin: .8em 0; }
+
 </style>
 </head>
 <body>
@@ -763,6 +784,12 @@ body { margin: 0; background: #f4f4f4; }
     });
   }
   settleAffLinks(document);
+
+  /* キャンペーン枠：data-campaign-end（日本時間のその日の終わり）を過ぎたら非表示にする */
+  var today = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
+  document.querySelectorAll('[data-campaign-end]').forEach(function (el) {
+    if (today > el.dataset.campaignEnd) el.hidden = true;
+  });
 
   /* ------------------------------------------------------------
      2. 「もっと見る」（yk-fold）の中にある要素へのリンクは、先に開いてから移動する

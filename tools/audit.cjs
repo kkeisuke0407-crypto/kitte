@@ -22,7 +22,7 @@ const err = m => { errors++; console.log('  NG ' + m); };
 
 // 1. パーツ → 判定（原本 index.html の各パーツの class）
 const PARTS = {
-  'fv-1': /class="yk-hero"/, 'fv-2': /class="yk-logos"/, 'fv-3': /class="yk-pr"/,
+  'fv-1': /class="yk-hero[" ]/, 'fv-2': /class="yk-logos"/, 'fv-3': /class="yk-pr"/,
   'top-1': /class="yk-best3"/, 'top-2': /class="yk-jobcard"/,
   'compare-1': /name="cmp1"[\s\S]*class="yk-fold"[\s\S]*class="yk-cmp"/, 'compare-2': /class="yk-matrix"/, 'compare-3': /class="yk-combo"/,
   'rank-1': /class="yk-rankhead"[\s\S]*class="yk-rankcatch"/, 'rank-2': /class="yk-rankarea"[\s\S]*?name="rk\d"/, 'rank-3': /class="yk-features"/,

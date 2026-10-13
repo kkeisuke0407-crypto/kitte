@@ -2,22 +2,91 @@
   "_note": "比較TOPのBEST3・比較表・早見表・ランキング・レーダー・調査概要の採点表はこのファイルから tools/build-top.cjs で生成する。marks は ◎=5 / ○=4 / △=3。根拠（ev）は各社公式サイト（2026-10-13確認）。",
   "updated": "2026年10月13日",
   "axes": [
-    { "key": "uketsuke", "short": "24時間受付", "radar": "24時間受付", "full": "申し込みやすさ（受付時間）", "c5": "電話・WEBとも24時間受付と公式に明記", "c4": "電話の受付時間が決まっている（WEB申込は随時など）", "c3": "受付時間の明記なし" },
-    { "key": "hiyou", "short": "費用0円", "radar": "費用0円", "full": "費用の安心（出張料・査定料・キャンセル料）", "c5": "出張料（訪問料）・査定料・キャンセル料がすべて無料と明記", "c4": "一部の費用のみ無料と明記", "c3": "費用の明記なし" },
-    { "key": "joutai", "short": "状態不良OK", "radar": "状態不良OK", "full": "状態の悪い切手への対応", "c5": "汚れ・破損などがあっても「買取」できる旨を具体的に明記（他店で断られた品・買取保証など）", "c4": "状態の悪い切手も査定・相談できると明記（状態により買取不可の注記あり）", "c3": "明記なし" },
-    { "key": "tairyou", "short": "大量・アルバム", "radar": "大量OK", "full": "大量・アルバムのままの相談", "c5": "バラ・台紙貼り・アルバムを仕分けずそのまま査定できると明記", "c4": "大量・アルバム・バラのいずれかの対応を明記", "c3": "明記なし" },
-    { "key": "houmon", "short": "訪問の早さ", "radar": "訪問の早さ", "full": "出張の早さ・その場での現金化", "c5": "最短の訪問日の目安と、出張でその場で現金払いの両方を明記", "c4": "どちらか一方を明記", "c3": "明記なし" },
-    { "key": "jisseki", "short": "実績公開", "radar": "実績公開", "full": "実績・信頼の公開", "c5": "写真つき買取実績（日付・地域）・利用者の声・数値実績（調査条件の注記つき）をすべて公開", "c4": "上記のうち2つを公開", "c3": "1つ以下" }
+    {
+      "key": "uketsuke",
+      "short": "24時間受付",
+      "radar": "24時間受付",
+      "full": "申し込みやすさ（受付時間）",
+      "c5": "電話・WEBとも24時間受付と公式に明記",
+      "c4": "電話の受付時間が決まっている（WEB申込は随時など）",
+      "c3": "受付時間の明記なし"
+    },
+    {
+      "key": "hiyou",
+      "short": "費用0円",
+      "radar": "費用0円",
+      "full": "費用の安心（出張料・査定料・キャンセル料）",
+      "c5": "出張料（訪問料）・査定料・キャンセル料がすべて無料と明記",
+      "c4": "一部の費用のみ無料と明記",
+      "c3": "費用の明記なし"
+    },
+    {
+      "key": "joutai",
+      "short": "状態不良OK",
+      "radar": "状態不良OK",
+      "full": "状態の悪い切手への対応",
+      "c5": "汚れ・破損などがあっても「買取」できる旨を具体的に明記（他店で断られた品・買取保証など）",
+      "c4": "状態の悪い切手も査定・相談できると明記（状態により買取不可の注記あり）",
+      "c3": "明記なし"
+    },
+    {
+      "key": "tairyou",
+      "short": "大量・アルバム",
+      "radar": "大量OK",
+      "full": "大量・アルバムのままの相談",
+      "c5": "バラ・台紙貼り・アルバムを仕分けずそのまま査定できると明記",
+      "c4": "大量・アルバム・バラのいずれかの対応を明記",
+      "c3": "明記なし"
+    },
+    {
+      "key": "houmon",
+      "short": "訪問の早さ",
+      "radar": "訪問の早さ",
+      "full": "出張の早さ・その場での現金化",
+      "c5": "最短の訪問日の目安と、出張でその場で現金払いの両方を明記",
+      "c4": "どちらか一方を明記",
+      "c3": "明記なし"
+    },
+    {
+      "key": "jisseki",
+      "short": "実績公開",
+      "radar": "実績公開",
+      "full": "実績・信頼の公開",
+      "c5": "写真つき買取実績（日付・地域）・利用者の声・数値実績（調査条件の注記つき）をすべて公開",
+      "c4": "上記のうち2つを公開",
+      "c3": "1つ以下"
+    }
   ],
   "companies": [
     {
-      "id": "uriel", "rank": 1, "name": "ウリエル",
-      "logo": { "src": "assets/img/logo/uriel.svg", "w": 157, "h": 53 },
-      "aff": "__URIEL_AFF_LINK__", "detail": "uriel/index.html", "official": "https://www.uriel-cuore.co.jp/stamp/",
+      "id": "uriel",
+      "rank": 1,
+      "name": "ウリエル",
+      "logo": {
+        "src": "assets/img/logo/uriel.svg",
+        "w": 157,
+        "h": 53
+      },
+      "aff": "__URIEL_AFF_LINK__",
+      "detail": "uriel/index.html",
+      "official": "https://www.uriel-cuore.co.jp/stamp/",
       "tagline": "状態不良・大量のバラ・切手アルバムもそのまま",
-      "best3": { "red": "そのまま出張査定", "mark": "最短翌日", "text": "に自宅で査定。手数料・キャンセル料0円。", "note": "査定員対応満足度93.29%※1", "catch": "24時間受付" },
+      "best3": {
+        "red": "そのまま出張査定",
+        "mark": "最短翌日",
+        "text": "に自宅で査定。手数料・キャンセル料0円。",
+        "note": "査定員対応満足度93.29%※1",
+        "catch": "24時間受付"
+      },
       "rankcatch": "価値が分からない・汚れた切手もアルバムのまま！<br>最短翌日に自宅で査定、その場で現金払い",
-      "marks": { "uketsuke": 5, "hiyou": 5, "joutai": 5, "tairyou": 5, "houmon": 5, "jisseki": 5 },
+      "marks": {
+        "uketsuke": 5,
+        "hiyou": 5,
+        "joutai": 5,
+        "tairyou": 5,
+        "houmon": 5,
+        "jisseki": 5
+      },
       "ev": {
         "uketsuke": "24時間受付（年末年始除く）",
         "hiyou": "出張料・査定料・キャンセル料0円",
@@ -34,28 +103,143 @@
       ],
       "featureNote": "※1 自社調べ。2025年7月〜2026年6月に実施した出張査定ご利用のお客様アンケート（有効回答283件）で、5段階評価のうち「大変満足」「やや満足」と回答した方の割合",
       "editor": "ウリエルは<span class=\"yk-mark\">遺品整理・生前整理の大手・株式会社クオーレが運営</span>する出張買取の専門店です。公式LPでは記念・特殊・中国・戦前切手など19品目を案内し、バラバラ・価値が分からない・汚れや破損・台紙貼りの切手も<span class=\"yk-red\">「査定大歓迎」</span>としています。実家で切手アルバムがまとめて見つかり、仕分けずにそのまま見てほしい人に最初に相談してほしい1社です。",
-      "info": [["買取対象", "記念・特殊・中国・戦前切手、月に雁・見返り美人など19品目（公式LP）"], ["出張エリア", "関東・東海・関西ほか（訪問先は申込時に案内）"], ["買取方法", "出張・店舗・催事"], ["費用", "出張料・査定料・キャンセル料 0円"], ["受付時間", "24時間（年末年始除く）"], ["支払い", "その場で現金"]],
-      "voice": { "who": "50代女性", "where": "東京都板橋区", "face": "assets/img/illust/avatar-woman.svg", "text": "実家から大量の切手が出てきて、どうすればいいか分からなかったところ、出張買取で丁寧に対応してもらえた——という趣旨の声が公式サイトに掲載されています。", "src": "https://www.uriel-cuore.co.jp/stamp/definitivestamp/", "srcName": "ウリエル公式 普通切手買取ページ" },
-      "records": [
-        { "img": "assets/img/records/uriel-mao.webp", "title": "毛沢東関連切手などのコレクション", "price": "200,000", "date": "2021/09/11", "area": "神奈川県川崎市", "tag": "中国切手" },
-        { "img": "assets/img/records/uriel-akazaru.webp", "title": "赤猿切手を含む中国切手コレクション", "price": "150,000", "date": "2021/12/15", "area": "東京都世田谷区", "tag": "中国切手" },
-        { "img": "assets/img/records/uriel-tsukinikari.webp", "title": "月に雁切手などの切手シート複数点", "price": "120,000", "date": "2024/05/06", "area": "神奈川県海老名市", "tag": "切手趣味週間" },
-        { "img": "assets/img/records/uriel-sakura.webp", "title": "桜切手などの普通切手まとめて（切手アルバム）", "price": "100,000", "date": "2021/12/26", "area": "東京都西東京市", "tag": "切手アルバム", "note": "キャンペーン期間中の買取例" },
-        { "img": "assets/img/records/uriel-ryumon.webp", "title": "竜文切手を含む切手コレクション", "price": "65,000", "date": "2023/09/26", "area": "東京都千代田区", "tag": "戦前切手" },
-        { "img": "assets/img/records/uriel-rittaishi.webp", "title": "立太子礼記念切手などのコレクション", "price": "50,000", "date": "2024/05/19", "area": "東京都葛飾区", "tag": "記念切手" }
+      "info": [
+        [
+          "買取対象",
+          "記念・特殊・中国・戦前切手、月に雁・見返り美人など19品目（公式LP）"
+        ],
+        [
+          "出張エリア",
+          "関東・東海・関西ほか（訪問先は申込時に案内）"
+        ],
+        [
+          "買取方法",
+          "出張・店舗・催事"
+        ],
+        [
+          "費用",
+          "出張料・査定料・キャンセル料 0円"
+        ],
+        [
+          "受付時間",
+          "24時間（年末年始除く）"
+        ],
+        [
+          "支払い",
+          "その場で現金"
+        ]
       ],
-      "recordSrc": "https://www.uriel-cuore.co.jp/stamp/", "recordSrcName": "ウリエル公式 切手買取ページ",
-      "banner": { "src": "assets/img/banner/uriel-stamp-banner.webp", "w": 750, "h": 300, "alt": "ウリエル 切手買取の広告バナー" },
-      "cta": { "catch": "手数料・キャンセル料0円", "label": "ウリエルの公式サイトで<br>無料査定を申し込む", "pending": "ウリエルの詳細を見る" }
+      "voice": {
+        "who": "50代女性",
+        "where": "東京都板橋区",
+        "face": "assets/img/illust/avatar-woman.svg",
+        "text": "実家から大量の切手が出てきて、どうすればいいか分からなかったところ、出張買取で丁寧に対応してもらえた——という趣旨の声が公式サイトに掲載されています。",
+        "src": "https://www.uriel-cuore.co.jp/stamp/definitivestamp/",
+        "srcName": "ウリエル公式 普通切手買取ページ"
+      },
+      "records": [
+        {
+          "img": "assets/img/records/uriel-mao.webp",
+          "title": "毛沢東関連切手などのコレクション",
+          "price": "200,000",
+          "date": "2021/09/11",
+          "area": "神奈川県川崎市",
+          "tag": "中国切手"
+        },
+        {
+          "img": "assets/img/records/uriel-akazaru.webp",
+          "title": "赤猿切手を含む中国切手コレクション",
+          "price": "150,000",
+          "date": "2021/12/15",
+          "area": "東京都世田谷区",
+          "tag": "中国切手"
+        },
+        {
+          "img": "assets/img/records/uriel-tsukinikari.webp",
+          "title": "月に雁切手などの切手シート複数点",
+          "price": "120,000",
+          "date": "2024/05/06",
+          "area": "神奈川県海老名市",
+          "tag": "切手趣味週間"
+        },
+        {
+          "img": "assets/img/records/uriel-sakura.webp",
+          "title": "桜切手などの普通切手まとめて（切手アルバム）",
+          "price": "100,000",
+          "date": "2021/12/26",
+          "area": "東京都西東京市",
+          "tag": "切手アルバム",
+          "note": "キャンペーン期間中の買取例"
+        },
+        {
+          "img": "assets/img/records/uriel-ryumon.webp",
+          "title": "竜文切手を含む切手コレクション",
+          "price": "65,000",
+          "date": "2023/09/26",
+          "area": "東京都千代田区",
+          "tag": "戦前切手"
+        },
+        {
+          "img": "assets/img/records/uriel-rittaishi.webp",
+          "title": "立太子礼記念切手などのコレクション",
+          "price": "50,000",
+          "date": "2024/05/19",
+          "area": "東京都葛飾区",
+          "tag": "記念切手"
+        }
+      ],
+      "recordSrc": "https://www.uriel-cuore.co.jp/stamp/",
+      "recordSrcName": "ウリエル公式 切手買取ページ",
+      "banner": {
+        "src": "assets/img/banner/uriel-stamp-banner.webp",
+        "w": 750,
+        "h": 300,
+        "alt": "ウリエル 切手買取の広告バナー"
+      },
+      "cta": {
+        "catch": "手数料・キャンセル料0円",
+        "label": "ウリエルの公式サイトで<br>無料査定を申し込む",
+        "pending": "ウリエルの詳細を見る"
+      },
+      "campaign": {
+        "img": "assets/img/banner/uriel-campaign-202610.webp",
+        "w": 800,
+        "h": 160,
+        "alt": "ウリエル 抽選で買取金額MAX7倍 キャンペーン対象期間：2026年10月1日〜10月31日",
+        "end": "2026-10-31",
+        "terms": "出張買取1回の成約金額5,000円以上の方から抽選で2名に、買取金額を含めて7倍の金額を還元（上限10万円・クーリング・オフした場合は対象外）。",
+        "src": "https://www.uriel-cuore.co.jp/campaign/"
+      }
     },
     {
-      "id": "buysell", "rank": 2, "name": "バイセル",
-      "logo": { "src": "assets/img/logo/buysell.svg", "w": 95, "h": 21 },
-      "aff": "__BUYSELL_AFF_LINK__", "detail": "buysell/index.html", "official": "https://buysell-kaitori.com/stamp/",
+      "id": "buysell",
+      "rank": 2,
+      "name": "バイセル",
+      "logo": {
+        "src": "assets/img/logo/buysell.svg",
+        "w": 95,
+        "h": 21
+      },
+      "aff": "__BUYSELL_AFF_LINK__",
+      "detail": "buysell/index.html",
+      "official": "https://buysell-kaitori.com/stamp/",
       "tagline": "東証上場企業が運営・出張/店頭/宅配から選べる",
-      "best3": { "red": "東証上場企業が運営", "mark": "仕分け不要", "text": "でそのまま査定。24時間365日受付。", "note": "累計買取4,800万点以上※2", "catch": "24時間365日受付" },
+      "best3": {
+        "red": "東証上場企業が運営",
+        "mark": "仕分け不要",
+        "text": "でそのまま査定。24時間365日受付。",
+        "note": "累計買取4,800万点以上※2",
+        "catch": "24時間365日受付"
+      },
       "rankcatch": "東証上場企業が運営する大手の安心感！<br>汚れ・台紙貼りの切手も出張・店頭なら買取保証",
-      "marks": { "uketsuke": 5, "hiyou": 5, "joutai": 5, "tairyou": 5, "houmon": 4, "jisseki": 5 },
+      "marks": {
+        "uketsuke": 5,
+        "hiyou": 5,
+        "joutai": 5,
+        "tairyou": 5,
+        "houmon": 4,
+        "jisseki": 5
+      },
       "ev": {
         "uketsuke": "24時間365日受付（電話）",
         "hiyou": "査定料・キャンセル料など各種無料",
@@ -72,24 +256,101 @@
       ],
       "featureNote": "※2 2015〜2025年の合計買取数（バイセル調べ）",
       "editor": "バイセルは<span class=\"yk-mark\">東証上場企業が運営</span>する大手の買取サービスで、出張・店頭・宅配の3つから方法を選べます。整理されていない切手や台紙貼り・バラ切手もそのまま査定でき、シミや汚れなど状態の悪い切手も出張・店頭なら<span class=\"yk-red\">買取保証の対象</span>です。ウリエルと並べて<span class=\"yk-mark\">2社で見積りを比べたい人</span>に向いています。",
-      "info": [["買取対象", "普通・記念・特殊・中国切手、はがき"], ["出張エリア", "全国（離島を除く）"], ["買取方法", "出張・店頭・宅配"], ["費用", "査定料・キャンセル料など各種無料"], ["受付時間", "24時間365日（電話）"], ["支払い", "その場で現金化"]],
-      "voice": { "who": "60代女性", "where": "東京都世田谷区", "face": "assets/img/illust/avatar-senior.svg", "text": "出張買取を利用し、切手について色々質問したところ説明が分かりやすかった——という趣旨の声が公式サイトに掲載されています。", "src": "https://buysell-kaitori.com/stamp/", "srcName": "バイセル公式 切手買取ページ" },
-      "records": [
-        { "img": "assets/img/records/buysell-maejima.webp", "title": "前島密（1円普通切手）／オオムラサキ（75円普通切手）など", "price": "22,000", "date": "2025/08/01", "area": "大阪府貝塚市", "tag": "普通切手" },
-        { "img": "assets/img/records/buysell-oshidori.webp", "title": "普通切手「オシドリ」／普通切手「キジバト」など", "price": "15,300", "date": "2025/05/23", "area": "大阪府堺市", "tag": "普通切手" }
+      "info": [
+        [
+          "買取対象",
+          "普通・記念・特殊・中国切手、はがき"
+        ],
+        [
+          "出張エリア",
+          "全国（離島を除く）"
+        ],
+        [
+          "買取方法",
+          "出張・店頭・宅配"
+        ],
+        [
+          "費用",
+          "査定料・キャンセル料など各種無料"
+        ],
+        [
+          "受付時間",
+          "24時間365日（電話）"
+        ],
+        [
+          "支払い",
+          "その場で現金化"
+        ]
       ],
-      "recordSrc": "https://buysell-kaitori.com/stamp/", "recordSrcName": "バイセル公式 切手買取ページ",
-      "banner": { "src": "assets/img/banner/buysell-stamp-banner.webp", "w": 750, "h": 254, "alt": "バイセル 切手買取の広告バナー" },
-      "cta": { "catch": "24時間365日受付", "label": "バイセルの公式サイトで<br>無料査定を申し込む", "pending": "バイセルの詳細を見る" }
+      "voice": {
+        "who": "60代女性",
+        "where": "東京都世田谷区",
+        "face": "assets/img/illust/avatar-senior.svg",
+        "text": "出張買取を利用し、切手について色々質問したところ説明が分かりやすかった——という趣旨の声が公式サイトに掲載されています。",
+        "src": "https://buysell-kaitori.com/stamp/",
+        "srcName": "バイセル公式 切手買取ページ"
+      },
+      "records": [
+        {
+          "img": "assets/img/records/buysell-maejima.webp",
+          "title": "前島密（1円普通切手）／オオムラサキ（75円普通切手）など",
+          "price": "22,000",
+          "date": "2025/08/01",
+          "area": "大阪府貝塚市",
+          "tag": "普通切手"
+        },
+        {
+          "img": "assets/img/records/buysell-oshidori.webp",
+          "title": "普通切手「オシドリ」／普通切手「キジバト」など",
+          "price": "15,300",
+          "date": "2025/05/23",
+          "area": "大阪府堺市",
+          "tag": "普通切手"
+        }
+      ],
+      "recordSrc": "https://buysell-kaitori.com/stamp/",
+      "recordSrcName": "バイセル公式 切手買取ページ",
+      "banner": {
+        "src": "assets/img/banner/buysell-stamp-banner.webp",
+        "w": 750,
+        "h": 254,
+        "alt": "バイセル 切手買取の広告バナー"
+      },
+      "cta": {
+        "catch": "24時間365日受付",
+        "label": "バイセルの公式サイトで<br>無料査定を申し込む",
+        "pending": "バイセルの詳細を見る"
+      }
     },
     {
-      "id": "fukuchan", "rank": 3, "name": "福ちゃん",
-      "logo": { "src": "assets/img/logo/fukuchan.svg", "w": 112, "h": 32 },
-      "aff": null, "detail": "fukuchan/index.html", "official": "https://www.fuku-chan.info/kitte/",
+      "id": "fukuchan",
+      "rank": 3,
+      "name": "福ちゃん",
+      "logo": {
+        "src": "assets/img/logo/fukuchan.svg",
+        "w": 112,
+        "h": 32
+      },
+      "aff": null,
+      "detail": "fukuchan/index.html",
+      "official": "https://www.fuku-chan.info/kitte/",
       "tagline": "記念・中国切手の実例が豊富・即日出張",
-      "best3": { "red": "記念・中国切手の実例", "mark": "仕分け不要", "text": "。対応地域なら即日出張も。", "note": "手数料・キャンセル料0円", "catch": "1点から相談OK" },
+      "best3": {
+        "red": "記念・中国切手の実例",
+        "mark": "仕分け不要",
+        "text": "。対応地域なら即日出張も。",
+        "note": "手数料・キャンセル料0円",
+        "catch": "1点から相談OK"
+      },
       "rankcatch": "記念・特殊・中国切手が混ざっていても相談！<br>対応地域なら即日出張、その場で現金払い",
-      "marks": { "uketsuke": 4, "hiyou": 5, "joutai": 4, "tairyou": 5, "houmon": 5, "jisseki": 4 },
+      "marks": {
+        "uketsuke": 4,
+        "hiyou": 5,
+        "joutai": 4,
+        "tairyou": 5,
+        "houmon": 5,
+        "jisseki": 4
+      },
       "ev": {
         "uketsuke": "電話8:00〜20:00（申込は24時間）",
         "hiyou": "訪問料・査定料・送料・振込手数料無料、キャンセル料なし",
@@ -106,23 +367,85 @@
       ],
       "featureNote": "",
       "editor": "福ちゃんは公式サイトで<span class=\"yk-mark\">記念切手・中国切手などの買取実例</span>を写真・日付つきで公開しています。アルバムの中にいろいろな種類が混ざっているコレクションの比較候補です。",
-      "info": [["買取対象", "普通・記念・特殊・中国切手など"], ["出張エリア", "申込時に案内（即日出張は対応地域）"], ["買取方法", "出張・宅配・店舗"], ["費用", "訪問料・査定料・送料・振込手数料 無料"], ["受付時間", "電話8:00〜20:00（年末年始除く）"], ["支払い", "出張・店頭はその場で現金"]],
-      "voice": { "who": "40代", "where": "大阪府大阪市", "face": "assets/img/illust/avatar-man.svg", "text": "遺品整理で出てきた記念切手を、専門の買取店を探して出張買取してもらった——という趣旨の声が公式サイトに掲載されています。", "src": "https://www.fuku-chan.info/kitte/area/osaka/", "srcName": "福ちゃん公式 大阪府の切手買取ページ" },
-      "records": [
-        { "img": "assets/img/records/fukuchan-tsukinikari.webp", "title": "切手趣味週間 月に雁／見返り美人 5面シート（計27点）", "price": "131,000", "date": "2026/05/21", "area": "兵庫県", "tag": "切手趣味週間" },
-        { "img": "assets/img/records/fukuchan-tsubaki.webp", "title": "中国切手 中華人民共和国切手展・雲南のツバキ 小型シート2点", "price": "47,000", "date": "2026/07/13", "area": "愛知県", "tag": "中国切手" }
+      "info": [
+        [
+          "買取対象",
+          "普通・記念・特殊・中国切手など"
+        ],
+        [
+          "出張エリア",
+          "申込時に案内（即日出張は対応地域）"
+        ],
+        [
+          "買取方法",
+          "出張・宅配・店舗"
+        ],
+        [
+          "費用",
+          "訪問料・査定料・送料・振込手数料 無料"
+        ],
+        [
+          "受付時間",
+          "電話8:00〜20:00（年末年始除く）"
+        ],
+        [
+          "支払い",
+          "出張・店頭はその場で現金"
+        ]
       ],
-      "recordSrc": "https://www.fuku-chan.info/kitte/", "recordSrcName": "福ちゃん公式 切手買取ページ",
+      "voice": {
+        "who": "40代",
+        "where": "大阪府大阪市",
+        "face": "assets/img/illust/avatar-man.svg",
+        "text": "遺品整理で出てきた記念切手を、専門の買取店を探して出張買取してもらった——という趣旨の声が公式サイトに掲載されています。",
+        "src": "https://www.fuku-chan.info/kitte/area/osaka/",
+        "srcName": "福ちゃん公式 大阪府の切手買取ページ"
+      },
+      "records": [
+        {
+          "img": "assets/img/records/fukuchan-tsukinikari.webp",
+          "title": "切手趣味週間 月に雁／見返り美人 5面シート（計27点）",
+          "price": "131,000",
+          "date": "2026/05/21",
+          "area": "兵庫県",
+          "tag": "切手趣味週間"
+        },
+        {
+          "img": "assets/img/records/fukuchan-tsubaki.webp",
+          "title": "中国切手 中華人民共和国切手展・雲南のツバキ 小型シート2点",
+          "price": "47,000",
+          "date": "2026/07/13",
+          "area": "愛知県",
+          "tag": "中国切手"
+        }
+      ],
+      "recordSrc": "https://www.fuku-chan.info/kitte/",
+      "recordSrcName": "福ちゃん公式 切手買取ページ",
       "banner": null,
       "cta": null
     },
     {
-      "id": "nikkoudou", "rank": 4, "name": "日晃堂",
-      "logo": { "src": "assets/img/logo/nikkoudou.svg", "w": 250, "h": 127 },
-      "aff": null, "detail": null, "official": "https://nikkoudou-kottou.com/kitte/",
+      "id": "nikkoudou",
+      "rank": 4,
+      "name": "日晃堂",
+      "logo": {
+        "src": "assets/img/logo/nikkoudou.svg",
+        "w": 250,
+        "h": 127
+      },
+      "aff": null,
+      "detail": null,
+      "official": "https://nikkoudou-kottou.com/kitte/",
       "tagline": "骨董・美術品の買取店・状態の悪い切手も相談",
       "rankcatch": "破れ・汚れ・シミのある切手も査定！<br>出張買取はその場で現金お手渡し",
-      "marks": { "uketsuke": 4, "hiyou": 5, "joutai": 5, "tairyou": 4, "houmon": 4, "jisseki": 4 },
+      "marks": {
+        "uketsuke": 4,
+        "hiyou": 5,
+        "joutai": 5,
+        "tairyou": 4,
+        "houmon": 4,
+        "jisseki": 4
+      },
       "ev": {
         "uketsuke": "8:00〜20:00（年中無休・年末年始除く）",
         "hiyou": "出張料・査定料などの手数料は全て無料、キャンセル料なし",
@@ -131,16 +454,45 @@
         "houmon": "その場で現金お手渡し（最短訪問日の記載なし）",
         "jisseki": "買取実績（日付・地域）を公開"
       },
-      "features": ["中国・普通・記念・特殊切手など幅広く査定", "破れ・汚れ・シミのある切手も相談", "出張料・査定料などの手数料は全て無料", "出張買取はその場で現金お手渡し"],
-      "info": [["買取方法", "出張・店頭・宅配"], ["受付時間", "8:00〜20:00（年中無休）"]]
+      "features": [
+        "中国・普通・記念・特殊切手など幅広く査定",
+        "破れ・汚れ・シミのある切手も相談",
+        "出張料・査定料などの手数料は全て無料",
+        "出張買取はその場で現金お手渡し"
+      ],
+      "info": [
+        [
+          "買取方法",
+          "出張・店頭・宅配"
+        ],
+        [
+          "受付時間",
+          "8:00〜20:00（年中無休）"
+        ]
+      ]
     },
     {
-      "id": "daikichi", "rank": 5, "name": "買取大吉",
-      "logo": { "src": "assets/img/logo/daikichi.webp", "w": 250, "h": 60 },
-      "aff": null, "detail": null, "official": "https://www.kaitori-daikichi.jp/list/stamp/",
+      "id": "daikichi",
+      "rank": 5,
+      "name": "買取大吉",
+      "logo": {
+        "src": "assets/img/logo/daikichi.webp",
+        "w": 250,
+        "h": 60
+      },
+      "aff": null,
+      "detail": null,
+      "official": "https://www.kaitori-daikichi.jp/list/stamp/",
       "tagline": "全国に店舗網・24時間総合受付",
       "rankcatch": "全国の店舗と出張で相談できる！<br>査定料・出張料・キャンセル料すべて無料",
-      "marks": { "uketsuke": 5, "hiyou": 5, "joutai": 4, "tairyou": 4, "houmon": 4, "jisseki": 4 },
+      "marks": {
+        "uketsuke": 5,
+        "hiyou": 5,
+        "joutai": 4,
+        "tairyou": 4,
+        "houmon": 4,
+        "jisseki": 4
+      },
       "ev": {
         "uketsuke": "総合受付24時間・年中無休（年末年始除く）",
         "hiyou": "査定料・出張料・買取手数料・キャンセル料すべて無料",
@@ -149,16 +501,45 @@
         "houmon": "その場で即現金払い（最短訪問日の記載なし）",
         "jisseki": "買取参考価格を写真つきで公開"
       },
-      "features": ["全国に店舗を展開、出張買取にも対応", "査定料・出張料・買取手数料・キャンセル料すべて無料", "総合受付は24時間・年中無休", "その場で査定、即現金払い"],
-      "info": [["買取方法", "店舗・出張"], ["受付時間", "総合受付24時間"]]
+      "features": [
+        "全国に店舗を展開、出張買取にも対応",
+        "査定料・出張料・買取手数料・キャンセル料すべて無料",
+        "総合受付は24時間・年中無休",
+        "その場で査定、即現金払い"
+      ],
+      "info": [
+        [
+          "買取方法",
+          "店舗・出張"
+        ],
+        [
+          "受付時間",
+          "総合受付24時間"
+        ]
+      ]
     },
     {
-      "id": "nanboya", "rank": 6, "name": "なんぼや",
-      "logo": { "src": "assets/img/logo/nanboya.webp", "w": 300, "h": 140 },
-      "aff": null, "detail": null, "official": "https://nanboya.com/kitte-kaitori/",
+      "id": "nanboya",
+      "rank": 6,
+      "name": "なんぼや",
+      "logo": {
+        "src": "assets/img/logo/nanboya.webp",
+        "w": 300,
+        "h": 140
+      },
+      "aff": null,
+      "detail": null,
+      "official": "https://nanboya.com/kitte-kaitori/",
       "tagline": "店舗＋出張・最短当日訪問",
       "rankcatch": "最短当日訪問・玄関先で大量査定！<br>汚れ・シミのある訳あり品も買い取り",
-      "marks": { "uketsuke": 4, "hiyou": 4, "joutai": 5, "tairyou": 4, "houmon": 5, "jisseki": 4 },
+      "marks": {
+        "uketsuke": 4,
+        "hiyou": 4,
+        "joutai": 5,
+        "tairyou": 4,
+        "houmon": 5,
+        "jisseki": 4
+      },
       "ev": {
         "uketsuke": "電話10:00〜21:00",
         "hiyou": "査定料・キャンセル料無料（出張料の明記は今回確認できず）",
@@ -167,8 +548,22 @@
         "houmon": "最短当日訪問・即現金買取",
         "jisseki": "買取実績・利用者の声"
       },
-      "features": ["全国140店舗以上と出張・宅配で相談", "出張は最短当日訪問、玄関先で大量査定", "汚れ・キズ・シミのある訳あり品も買い取り", "査定料・キャンセル料は無料"],
-      "info": [["買取方法", "店頭・宅配・出張"], ["受付時間", "電話10:00〜21:00"]]
+      "features": [
+        "全国140店舗以上と出張・宅配で相談",
+        "出張は最短当日訪問、玄関先で大量査定",
+        "汚れ・キズ・シミのある訳あり品も買い取り",
+        "査定料・キャンセル料は無料"
+      ],
+      "info": [
+        [
+          "買取方法",
+          "店頭・宅配・出張"
+        ],
+        [
+          "受付時間",
+          "電話10:00〜21:00"
+        ]
+      ]
     }
   ]
 }

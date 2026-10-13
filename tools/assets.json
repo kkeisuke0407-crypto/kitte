@@ -2,6 +2,36 @@
   "_note": "画像素材台帳。tools/build-preview.cjs が docs/画像素材一覧.md と _production/kitte-kaitori/imgslot-preview.html（image-1 の制作用プレビュー）を生成する。取得元はすべて 2026-10-13 取得。",
   "items": [
     {
+      "id": "IMG01",
+      "kind": "have",
+      "label": "ユーザー支給画像",
+      "role": "FVヒーロー画像（おすすめ買取店TOP3）",
+      "ratio": "1200x675（16:9）",
+      "files": [
+        "photo/hero-top3.webp"
+      ],
+      "orig": "ユーザー支給（2026-10-13 チャット添付）",
+      "alt": "切手を高く売りたい方へ！おすすめ買取店TOP3",
+      "text": "切手を高く売りたい方へ！ おすすめ買取店 TOP3",
+      "where": "比較TOP fv-1",
+      "rights": "ユーザー支給素材"
+    },
+    {
+      "id": "CAMP",
+      "kind": "ad",
+      "label": "公式キャンペーンバナー（取得）",
+      "role": "ウリエル 買取金額7倍キャンペーン（2026年10月）",
+      "ratio": "800x160",
+      "files": [
+        "banner/uriel-campaign-202610.webp"
+      ],
+      "orig": "https://www.uriel-cuore.co.jp/wp-content/uploads/2026/10/bannar202610.png（公式 切手買取ページ掲載）",
+      "alt": "ウリエル 抽選で買取金額MAX7倍 キャンペーン対象期間：2026年10月1日〜10月31日",
+      "text": "抽選で買取金額MAX7倍／キャンペーン対象期間 2026年10月1日〜10月31日",
+      "where": "比較TOP BEST3の下・ウリエルのイチオシタブ／ウリエル詳細 冒頭",
+      "rights": "【要確認】広告主の公式バナー。期間終了（2026-10-31）後は kitte.js が自動で非表示。毎月、画像・期間・条件を差し替える"
+    },
+    {
       "id": "IMG05c",
       "kind": "ad",
       "label": "公式LP画像（取得・切り出し）",
@@ -15,21 +45,6 @@
       "text": "ウリエルの買取の流れ 01〜04",
       "where": "比較TOP #flow STEP1／ウリエル詳細 確認3",
       "rights": "【要確認】広告主の公式LP画像。出典を明記。ASPで素材利用条件を確認"
-    },
-    {
-      "id": "IMG01",
-      "kind": "have",
-      "label": "既存素材（取得）",
-      "role": "FV・切手アルバムの査定場面",
-      "ratio": "480:568（元1200x800を縦クロップ）",
-      "files": [
-        "photo/stamp-album-appraisal-fv.webp"
-      ],
-      "orig": "https://ranknetplus.com/kitte/assets/images/stamp-appraisal-home.webp",
-      "alt": "自宅で切手アルバムを査定してもらっている様子（イメージ）",
-      "text": "なし（コピーはHTML）",
-      "where": "比較TOP fv-1",
-      "rights": "ユーザー許可（ranknetplus素材）。写真風イメージのため「※写真はイメージです」を併記"
     },
     {
       "id": "IMG01b",
@@ -212,10 +227,6 @@
       "why": "「2026年9月1日以降のウリエル出張査定対応エリア」の地図。中国・四国・九州まで含み、ウリエル公式の切手買取ページ（2026-10-13確認）の17都府県と一致しないため不使用"
     },
     {
-      "file": "campaign.webp",
-      "why": "「抽選で買取金額最大7倍」キャンペーン。条件の確認ができず、言い過ぎ表現になり得るため不使用"
-    },
-    {
       "file": "fukuchan-stamp-fv.jpg",
       "why": "福ちゃんの広告バナー（タレント肖像入り）。福ちゃんはASP未取得のため不使用"
     },
@@ -234,6 +245,10 @@
     {
       "file": "日晃堂・買取大吉・なんぼやの実績写真",
       "why": "日晃堂は写真が遅延読み込みで取得不可、買取大吉は店頭の買取参考価格、なんぼやは金額つき実績なし。4〜6位はロゴ・特徴・評価のみ表示"
+    },
+    {
+      "file": "campaign.webp（ranknetplus・緑の7倍バナー）",
+      "why": "期間の記載がないため、期間入りのウリエル公式10月バナーを使用"
     }
   ]
 }
