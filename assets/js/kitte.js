@@ -29,6 +29,12 @@
   }
   settleAffLinks(document);
 
+  /* キャンペーン枠：data-campaign-end（日本時間のその日の終わり）を過ぎたら非表示にする */
+  var today = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
+  document.querySelectorAll('[data-campaign-end]').forEach(function (el) {
+    if (today > el.dataset.campaignEnd) el.hidden = true;
+  });
+
   /* ------------------------------------------------------------
      2. 「もっと見る」（yk-fold）の中にある要素へのリンクは、先に開いてから移動する
      ------------------------------------------------------------ */
