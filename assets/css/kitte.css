@@ -193,10 +193,10 @@ body { margin: 0; background: #f4f4f4; }
 .kt-stars::before { content: "★★★★★"; position: absolute; left: 0; top: 0; width: var(--p); overflow: hidden; color: #f5a623; }
 .kt-score { display: inline-block; margin-left: .3em; color: var(--yk-red); font-size: 18px; font-weight: 900; line-height: 1.1; vertical-align: middle; }
 .kt-score small { display: block; color: var(--yk-sub); font-size: 9.5px; font-weight: 700; }
-.yk-cmp .kt-stars { display: block; margin: 0 auto; font-size: 11px; }
+.yk-cmp .kt-stars { display: table; margin: 0 auto; font-size: 11px; }
 .yk-cmp .kt-score { display: block; margin: .15em 0 0; font-size: 20px; }
 .kt-best3__score { margin: 0 4px 4px !important; text-align: center; line-height: 1.1 !important; }
-.kt-best3__score .kt-stars { display: block; font-size: 11px; }
+.kt-best3__score .kt-stars { display: table; margin: 0 auto; font-size: 11px; }
 .kt-best3__score .kt-score { margin: 0; font-size: 17px; }
 .kt-best3__score .kt-score small { display: inline; margin-right: .2em; }
 .yk-best3__note.kt-note-pos { color: var(--yk-blue-d); }
@@ -340,3 +340,20 @@ body { margin: 0; background: #f4f4f4; }
 .kt-lastpush ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin: 0; padding: 0; list-style: none; }
 .kt-lastpush li { padding: .3em .8em; border-radius: 99px; background: #fff; border: 1px solid #f2c94c; font-size: 13px; }
 .kt-lastpush li b { color: var(--yk-red); }
+
+/* スマホで最後の行が1〜2文字だけにならないようにする（対応ブラウザー：Chrome・Edge・Safari 26以降。非対応でも表示は崩れない）
+   本文は text-wrap: pretty、見出しや短いラベルは balance ＋ 文節単位の改行（auto-phrase） */
+.yk-body, .kt-site, .yk-footer { text-wrap: pretty; }
+.yk-body :is(small, .yk-small, .kt-src, .yk-combo__points li, .yk-features li, .yk-btn, .kt-campaign__terms) { word-break: auto-phrase; }
+.yk-body :is(h1, h2, h3, h4, th, dt, summary, figcaption, .yk-sec-ttl, .yk-svchead__catch, .kt-lead--c, .yk-best3__text, .yk-best3__note, .yk-pickup__name, .yk-pickup__text, .yk-rankcatch, .yk-combo__head, .yk-combo__points b, .yk-catch, .kt-lastpush__q, .yk-features li, .yk-order a, .yk-voice__who b, .yk-kv td, .yk-cmp td, .yk-cmp small, .kt-radarlist span, .kt-vs td, .yk-matrix__item li, .kt-table td, .kt-table th, .yk-info td, .kt-radarlist small, .yk-listbox li) { text-wrap: balance; word-break: auto-phrase; }
+.yk-voice__who b { word-break: keep-all; }
+.yk-body .kt-table--marks th, .yk-body .kt-table--marks td { white-space: nowrap; }
+.kt-nw { white-space: nowrap; }
+/* BEST3の3列カードは中央ぞろえで読みやすく */
+.yk-best3__text { text-align: center; }
+.yk-pickup__name small { font-size: 12px; font-weight: 700; }
+.yk-body .yk-cmp td.is-left { text-wrap: pretty; }
+.kt-x .kt-table--fit { min-width: 0; }
+.kt-table--fit td:first-child { white-space: nowrap; }
+.yk-listbox li a { white-space: nowrap; }
+.kt-table--fit a { word-break: break-all; }
