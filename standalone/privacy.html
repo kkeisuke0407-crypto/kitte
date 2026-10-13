@@ -629,7 +629,14 @@ body { margin: 0; background: #f4f4f4; }
 .yk-finder__submit::after { z-index: -1; }
 .kt-campaign__link::after { z-index: 1; }
 .kt-campaign__link { border-radius: 6px; }
-@media (prefers-reduced-motion: reduce) { .yk-body .yk-btn::after, .yk-body .yk-btn.is-pending::after, .yk-body .yk-btn--sub::after, .yk-body .yk-finder__submit::after, .yk-body .kt-campaign__link::after { animation: none; display: none; } }
+
+/* CTAの光（ユーザー指示：端末の「動きを減らす」設定でも常に光らせる）。光の帯を少し太く・明るく */
+.yk-body .yk-btn::after, .yk-body .yk-btn.is-pending::after, .yk-body .yk-finder__submit::after, .yk-body .kt-campaign__link::after { display: block; width: 55%; background: linear-gradient(100deg, rgba(255,255,255,0), rgba(255,255,255,.75), rgba(255,255,255,0)); animation: kt-shine 1.8s ease-in-out infinite; }
+.yk-body .yk-btn--sub::after { display: block; width: 55%; background: linear-gradient(100deg, rgba(47,103,184,0), rgba(47,103,184,.28), rgba(47,103,184,0)); animation: kt-shine 1.8s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .yk-body .yk-btn::after, .yk-body .yk-btn.is-pending::after, .yk-body .yk-btn--sub::after, .yk-body .yk-finder__submit::after, .yk-body .kt-campaign__link::after { display: block; animation: kt-shine 1.8s ease-in-out infinite; }
+}
+@keyframes kt-shine { 0% { left: -80%; } 75%, 100% { left: 130%; } }
 
 </style>
 </head>
