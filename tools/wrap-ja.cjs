@@ -25,7 +25,7 @@ const splitLong = ph => {
   return s.split('\u0000').filter(Boolean);
 };
 
-const KEEP = ['見返り美人', '月に雁', '持ち運び', '持ち込', '持ち帰', '申し込', '申込み', '問い合わせ', '問合せ', '買い取', '取り扱', '受け取', '書き損じ', '見積り', '見積もり', 'という', '仕分け', '片付け', '台紙貼り', '切手趣味週間', '立太子礼', '赤猿', '竜文切手', '毛沢東', '日焼け', '貼った', '貼って', '出張買取', '店頭買取', '宅配買取', '催事買取', 'クーリング・オフ', 'キャンセル料', '年末年始', '最短翌日', '玄関先'];
+const KEEP = ['見返り美人', '月に雁', '持ち運び', '持ち込', '持ち帰', '申し込', '申込み', '問い合わせ', '問合せ', '買い取', '取り扱', '受け取', '書き損じ', '見積り', '見積もり', 'という', '仕分け', '片付け', '台紙貼り', '切手趣味週間', '立太子礼', '赤猿', '竜文切手', '毛沢東', '日焼け', '貼った', '貼って', '出張買取', '店頭買取', '宅配買取', '催事買取', 'クーリング・オフ', 'キャンセル料', '年末年始', '最短翌日', '玄関先', 'その場で', 'そのまま'];
 
 // 文字列（太字・色付きなどのタグをまたいだ1続きの文）の中で、改行してよい位置（文字数）を返す
 function breakPoints(full) {
@@ -57,7 +57,7 @@ for (const f of files) {
   const bodyAt = src.indexOf('<body');
   const head = src.slice(0, bodyAt);
   // 文節分割をやり直すため、<wbr> をいったん外す（手で区切りたい所は kt-nw などで指定する）
-  const tokens = src.slice(bodyAt).replace(/<wbr>|\u2060/g, '').split(/(<!--[\s\S]*?-->|<[^>]+>)/);
+  const tokens = src.slice(bodyAt).replace(/<wbr>|\u2060/g, '').replace(/<span class="kt-wd">([^<]*)<\/span>/g, '$1').split(/(<!--[\s\S]*?-->|<[^>]+>)/);
   let skip = null, run = [], n = 0;
   const flush = () => {
     const texts = run.filter(k => !tokens[k].startsWith('<'));
@@ -79,6 +79,23 @@ for (const f of files) {
       tokens[k] = o;
       start = end;
     });
+    // 段落の最後の行が1〜3文字だけにならないよう、最後の4文字を改行しないようにつなぐ（16文字以上の文だけ）
+    const visible = full.replace(/\s/g, '').length;
+    const lk = texts[texts.length - 1];
+    if (visible >= 16) {
+      const t = tokens[lk], m = t.match(/^([\s\S]*?)(\s*)$/), body = m[1];
+      let cnt = 0, cut = body.length;
+      while (cut > 0 && cnt < 4) {
+        if (body.endsWith('<wbr>', cut)) { cut -= 5; continue; }
+        cut--; if (body[cut] !== '\u2060' && !/\s/.test(body[cut])) cnt++;
+      }
+      const tail = body.slice(cut).replace(/<wbr>/g, '');
+      // つないだ結果、改行できない塊が長くなる（狭い表のセルで無理に折れる）場合はつながない
+      const prevBreak = Math.max(body.lastIndexOf('<wbr>', cut - 1) + 5, body.lastIndexOf(' ', cut - 1) + 1, 0);
+      const chunk = body.slice(prevBreak).replace(/<wbr>|\u2060/g, '').replace(/\s/g, '');
+      // 要素を増やすと見出しの飾り（.yk-numh span など）に影響するため、見えない WORD JOINER（U+2060）で文字をつなぐ
+      if (cnt === 4 && cut > 0 && !/\s/.test(tail) && (chunk.length <= 7 || visible >= 40)) tokens[lk] = body.slice(0, cut) + [...tail.replace(/\u2060/g, '')].join('\u2060') + m[2];
+    }
   };
   let keep = null, depth = 0;
   tokens.forEach((tok, k) => {

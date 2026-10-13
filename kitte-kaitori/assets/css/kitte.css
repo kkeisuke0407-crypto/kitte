@@ -341,22 +341,26 @@ body { margin: 0; background: #f4f4f4; }
 .kt-lastpush li { padding: .3em .8em; border-radius: 99px; background: #fff; border: 1px solid #f2c94c; font-size: 13px; }
 .kt-lastpush li b { color: var(--yk-red); }
 
-/* 改行は文節単位（tools/wrap-ja.cjs が文節の切れ目に <wbr> を入れ、keep-all で言葉の途中では改行しない。Safari・Chrome 共通）。
-   収まらない長い語だけ overflow-wrap: anywhere で折る。本文は text-wrap: pretty、見出しや短いラベルは balance で行の長さをそろえる */
-.yk-body, .kt-site, .yk-footer { text-wrap: pretty; word-break: keep-all; overflow-wrap: anywhere; }
-.yk-body :is(h1, h2, h3, h4, th, dt, summary, figcaption, .yk-sec-ttl, .yk-svchead__catch, .kt-lead--c, .yk-best3__text, .yk-best3__note, .yk-pickup__name, .yk-pickup__text, .yk-rankcatch, .yk-combo__head, .yk-combo__points b, .yk-catch, .kt-lastpush__q, .yk-features li, .yk-order a, .yk-voice__who b, .yk-kv td, .yk-cmp td, .yk-cmp small, .kt-radarlist span, .kt-vs td, .yk-matrix__item li, .kt-table td, .kt-table th, .yk-info td, .kt-radarlist small, .yk-listbox li) { text-wrap: balance; }
-.yk-voice__who b { word-break: keep-all; }
+/* 日本語の改行（Safari・Chrome 共通で同じ結果になるよう、ブラウザー任せの機能 auto-phrase / text-wrap: pretty は使わない）
+   ・本文：通常の日本語の改行（行末までしっかり詰める）＋禁則（line-break: strict）。最後の行が短くなりすぎないよう、
+     tools/wrap-ja.cjs が段落の最後の4文字を見えない WORD JOINER（U+2060）でつなぐ
+   ・それ以外（見出し・表・ボタン・短いラベル・注記）：文節単位の改行（wrap-ja.cjs が文節の切れ目に <wbr> を入れ、keep-all で語の途中では改行しない） */
+.yk-body, .kt-site, .yk-footer { line-break: strict; word-break: keep-all; overflow-wrap: anywhere; }
+/* 長い本文（横幅いっぱいの段落）だけは通常の改行で行末まで詰める */
+.yk-body :is(.kt-wrap > p:not(.yk-small, .kt-src, .yk-catch, .yk-svchead__catch, .kt-lead), .mt-faq__a, .yk-voice li p, .yk-editor__body p, .kt-flow p, .kt-points p, .kt-campaign__terms, .kt-best3__foot, .kt-caution, .kt-rankfold__lead) { word-break: normal; overflow-wrap: break-word; }
+/* 見出しは行の長さをそろえる（Safari 17.5 以降・Chrome。非対応でも文節単位で改行される） */
+.yk-body :is(h2, h3, h4, th, summary, .yk-sec-ttl, .yk-svchead__catch, .yk-rankcatch, .yk-combo__head, .kt-lastpush__q, .yk-best3__text, .yk-pickup__name) { text-wrap: balance; }
 .yk-body .kt-table--marks th, .yk-body .kt-table--marks td { white-space: nowrap; }
 .kt-nw { white-space: nowrap; }
 /* BEST3の3列カードは中央ぞろえで読みやすく */
 .yk-best3__text { text-align: center; }
 .yk-pickup__name small { font-size: 12px; font-weight: 700; }
-.yk-body .yk-cmp td.is-left { text-wrap: pretty; }
 .kt-x .kt-table--fit { min-width: 0; }
 .kt-table--fit td:first-child { white-space: nowrap; }
 .yk-listbox li a { white-space: nowrap; }
 .kt-table--fit a { word-break: break-all; }
-.kt-x .kt-table td, .kt-x .kt-table th { min-width: 5em; }
 .kt-stars { text-wrap-mode: nowrap; }
 .yk-cmp .yk-catch { font-size: 10px; }
 .yk-cmp .yk-catch::before, .yk-cmp .yk-catch::after { content: none; }
+.kt-table--crit th:first-child { width: 22%; }
+.kt-table--crit th:not(:first-child) { width: 26%; }

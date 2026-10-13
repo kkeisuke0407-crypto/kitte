@@ -184,7 +184,7 @@ ${C.slice(2).map(rankBlock).join('\n\n')}
 
 // ---------- 調査概要の採点表 ----------
 function scores() {
-  return `<div class="kt-x"><table class="kt-table">
+  return `<div class="kt-x"><table class="kt-table kt-table--crit">
   <tr><th>項目</th><th>◎（5点）</th><th>○（4点）</th><th>△（3点）</th></tr>
 ${axes.map(a => `  <tr><td><b>${a.short}</b><br><small>${a.full}</small></td><td>${a.c5}</td><td>${a.c4}</td><td>${a.c3}</td></tr>`).join('\n')}
 </table></div>

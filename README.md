@@ -81,6 +81,10 @@ HTML 内の文字列を一括置換する。未置換の間は `kitte.js` がボ
 
 スマホ（特にSafari）で言葉の途中で改行しないよう、`tools/wrap-ja.cjs` が BudouX で文節の切れ目に `<wbr>` を入れ、CSS の `word-break: keep-all` と組み合わせている。HTMLやデータを直したら `npm run build`（または `node tools/wrap-ja.cjs`）を実行する。複合語や切手の名前（見返り美人・月に雁など）は `tools/wrap-ja.cjs` の `KEEP` に入れると途中で改行しない。改行させたくない語は `<span class="kt-nw">` で囲む。
 
+### Safari（WebKit）での確認
+
+Chrome と Safari は改行の仕組みが違う（Chrome だけの auto-phrase、Safari 26 の text-wrap: pretty は段落全体の行の長さを変える など）ため、改行は `tools/check-wrap-webkit.py` で WebKit（Safari と同じエンジン）を動かして確認する。準備と使い方はファイル先頭に記載。
+
 ## CTAの場所別計測
 
 すべての申込ボタン・詳細ボタンに `data-place`（ボタンの場所）を付けている。例：`best3-uriel`（BEST3）、`campaign`、`records-1`〜`6`、`compare-uriel`、`fit-check`（こんな方は、まずウリエルへ）、`combo-uriel` / `combo-buysell`、`rank-uriel-top` / `-bottom`、`summary`（結論）、`pickup-uriel`、`finder-uriel`（診断結果）、個別ページは `uriel-u-2` など。
