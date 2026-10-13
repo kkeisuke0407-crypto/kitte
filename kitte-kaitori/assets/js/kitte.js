@@ -29,6 +29,13 @@
   }
   settleAffLinks(document);
 
+  /* ヘッダーの日付：毎日、日本時間の今日の日付を表示する（JSが動かない場合はHTMLに書いた日付のまま） */
+  var jst = new Date(Date.now() + 9 * 3600 * 1000);
+  document.querySelectorAll('[data-today]').forEach(function (t) {
+    t.textContent = jst.getUTCFullYear() + '年' + (jst.getUTCMonth() + 1) + '月' + jst.getUTCDate() + '日';
+    t.setAttribute('datetime', jst.toISOString().slice(0, 10));
+  });
+
   /* キャンペーン枠：data-campaign-end（日本時間のその日の終わり）を過ぎたら非表示にする */
   var today = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
   document.querySelectorAll('[data-campaign-end]').forEach(function (el) {

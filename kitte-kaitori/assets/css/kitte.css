@@ -310,3 +310,8 @@ body { margin: 0; background: #f4f4f4; }
   .yk-body .yk-btn::after, .yk-body .yk-btn.is-pending::after, .yk-body .yk-btn--sub::after, .yk-body .yk-finder__submit::after, .yk-body .kt-campaign__link::after { display: block; animation: kt-shine 1.8s ease-in-out infinite; }
 }
 @keyframes kt-shine { 0% { left: -80%; } 75%, 100% { left: 130%; } }
+
+/* ヘッダー：今日の日付【最新】だけを大きく表示（日付は kitte.js が毎日自動更新） */
+.yk-body .kt-site { display: block; padding: .55em 12px; background: linear-gradient(90deg, var(--yk-blue-d), var(--yk-blue)); text-align: center; }
+.kt-update { margin: 0 !important; color: #fff; font-size: 17px; font-weight: 900; line-height: 1.3 !important; letter-spacing: .03em; }
+.kt-update span { margin-left: .15em; color: #ffe066; }

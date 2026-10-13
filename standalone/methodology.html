@@ -639,13 +639,18 @@ body { margin: 0; background: #f4f4f4; }
 }
 @keyframes kt-shine { 0% { left: -80%; } 75%, 100% { left: 130%; } }
 
+/* ヘッダー：今日の日付【最新】だけを大きく表示（日付は kitte.js が毎日自動更新） */
+.yk-body .kt-site { display: block; padding: .55em 12px; background: linear-gradient(90deg, var(--yk-blue-d), var(--yk-blue)); text-align: center; }
+.kt-update { margin: 0 !important; color: #fff; font-size: 17px; font-weight: 900; line-height: 1.3 !important; letter-spacing: .03em; }
+.kt-update span { margin-left: .15em; color: #ffe066; }
+
 </style>
 </head>
 <body>
 <!-- ランキング調査概要（/kitte-kaitori/methodology/）：close-3 から必ずリンクする。採点表（@scores）は tools/build-top.cjs が生成 -->
 <div class="kt-wrap yk-body">
 
-<div class="kt-site"><a href="index.html">切手買取 比較ガイド</a><small>2026年10月13日更新</small></div>
+<div class="kt-site"><p class="kt-update"><time data-today datetime="2026-10-13">2026年10月13日</time><span>【最新】</span></p></div>
 <nav class="yk-crumb" aria-label="パンくずリスト"><a href="index.html">切手買取6社比較</a><span>ランキング調査概要</span></nav>
 
 <h1 class="yk-svchead__name">ランキング調査概要</h1>
@@ -736,5 +741,171 @@ body { margin: 0; background: #f4f4f4; }
 </footer>
 
 </div>
+<script>
+/* ============================================================
+   切手買取 比較LP 共通スクリプト（ページ末尾で1回だけ読み込む）
+   1. ASPリンク未設定ボタンの内部導線切替
+   2. 「もっと見る」の中へのアンカーリンクで、自動的に開く
+   3. レーダーチャート描画（パーツ集 rank-7 の描画スクリプトを踏襲。点数を軸名の下に表示）
+   4. 診断フォーム（close-2）…ブラウザー内だけで判定し、外部送信しない
+   ============================================================ */
+(function () {
+  'use strict';
+
+  /* ------------------------------------------------------------
+     1. ASPリンク
+     HTMLの href に直接 ASP のクリックURLを書く運用（置換対象の文字列は下記）。
+       ウリエル   : __URIEL_AFF_LINK__
+       バイセル   : __BUYSELL_AFF_LINK__
+       福ちゃん   : ASP条件未取得のため、成果リンクのボタン自体を置いていない（__FUKUCHAN_AFF_LINK__ はコメントのみ）
+     置換されていない（"__" で始まる）ボタンは、data-pending-href / data-pending-label の内部導線に切り替える。
+     ------------------------------------------------------------ */
+  function settleAffLinks(root) {
+    (root || document).querySelectorAll('a[data-aff]').forEach(function (a) {
+      var href = a.getAttribute('href') || '';
+      if (href.indexOf('__') !== 0) return;
+      a.classList.add('is-pending');
+      a.setAttribute('href', a.dataset.pendingHref || '#ranking');
+      a.removeAttribute('target');
+      a.setAttribute('rel', 'nofollow');
+      if (a.dataset.pendingLabel) a.innerHTML = a.dataset.pendingLabel;
+    });
+  }
+  settleAffLinks(document);
+
+  /* ヘッダーの日付：毎日、日本時間の今日の日付を表示する（JSが動かない場合はHTMLに書いた日付のまま） */
+  var jst = new Date(Date.now() + 9 * 3600 * 1000);
+  document.querySelectorAll('[data-today]').forEach(function (t) {
+    t.textContent = jst.getUTCFullYear() + '年' + (jst.getUTCMonth() + 1) + '月' + jst.getUTCDate() + '日';
+    t.setAttribute('datetime', jst.toISOString().slice(0, 10));
+  });
+
+  /* キャンペーン枠：data-campaign-end（日本時間のその日の終わり）を過ぎたら非表示にする */
+  var today = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
+  document.querySelectorAll('[data-campaign-end]').forEach(function (el) {
+    if (today > el.dataset.campaignEnd) el.hidden = true;
+  });
+
+  /* ------------------------------------------------------------
+     2. 「もっと見る」（yk-fold）の中にある要素へのリンクは、先に開いてから移動する
+     ------------------------------------------------------------ */
+  function openFoldFor(id) {
+    var el = id && document.getElementById(id);
+    var body = el && el.closest('.yk-fold__body');
+    if (!body) return;
+    var box = body.parentNode.querySelector('input[type="checkbox"]');
+    if (box && !box.checked) box.checked = true;
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="#"]');
+    if (a) openFoldFor(decodeURIComponent(a.getAttribute('href').slice(1)));
+  });
+  if (location.hash) openFoldFor(decodeURIComponent(location.hash.slice(1)));
+
+  /* ------------------------------------------------------------
+     3. yk-radar：data-labels（カンマ区切り）と data-scores（同じ数）からレーダーチャートを描く
+     data-min（既定0）＝中心の点数、data-max（既定5）＝外周の点数。軸名の下に点数を表示する
+     ------------------------------------------------------------ */
+  document.querySelectorAll('.yk-radar[data-labels]').forEach(function (el) {
+    var L = el.dataset.labels.split(','), S = el.dataset.scores.split(',').map(Number), M = +(el.dataset.max || 5), m = +(el.dataset.min || 0), n = L.length, cx = 160, cy = 155, R = 90;
+    function p(i, r) { var a = -Math.PI / 2 + i * 2 * Math.PI / n; return [+(cx + r * Math.cos(a)).toFixed(1), +(cy + r * Math.sin(a)).toFixed(1)]; }
+    function rr(v) { return R * Math.max(0, v - m) / (M - m); }
+    var s = '<svg viewBox="0 0 320 310" role="img" aria-label="' + (el.dataset.name || '') + 'の編集部評価：' + L.map(function (l, i) { return l + ' ' + S[i] + '点'; }).join('、') + '">';
+    for (var k = m + 1; k <= M; k++) s += '<polygon points="' + L.map(function (_, i) { return p(i, rr(k)).join(','); }).join(' ') + '" fill="' + (k === M ? '#f4f7fc' : 'none') + '" stroke="#c9d3e3"/>';
+    L.forEach(function (l, i) {
+      var a = p(i, R), b = p(i, R + 30);
+      s += '<line x1="' + cx + '" y1="' + cy + '" x2="' + a[0] + '" y2="' + a[1] + '" stroke="#c9d3e3"/>';
+      s += '<text x="' + b[0] + '" y="' + (b[1] - 6) + '" text-anchor="middle" font-size="12" font-weight="700" fill="#444">' + l + '</text>';
+      s += '<text x="' + b[0] + '" y="' + (b[1] + 10) + '" text-anchor="middle" font-size="13" font-weight="900" fill="' + (S[i] >= M ? '#d6282b' : '#2f67b8') + '">' + S[i] + '点</text>';
+    });
+    s += '<polygon points="' + S.map(function (v, i) { return p(i, rr(v)).join(','); }).join(' ') + '" fill="rgba(255,90,31,.2)" stroke="#ff5a1f" stroke-width="2.5"/>';
+    S.forEach(function (v, i) { var q = p(i, rr(v)); s += '<circle cx="' + q[0] + '" cy="' + q[1] + '" r="3.5" fill="#ff5a1f"/>'; });
+    el.innerHTML = s + '</svg>';
+  });
+
+  /* ------------------------------------------------------------
+     4. 診断フォーム
+     判定に使うのは各社公式サイトで確認できた条件だけ（2026-10-13確認・出典は調査概要）。
+     ------------------------------------------------------------ */
+  var form = document.getElementById('kt-finder');
+  if (!form) return;
+  var out = document.getElementById('kt-finder-result');
+
+  var SVC = {
+    uriel: { name: 'ウリエル', logo: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTU3IiBoZWlnaHQ9IjUzIiB2aWV3Qm94PSIwIDAgMTU3IDUzIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cGF0aCBkPSJNODYuODU0MyA3LjE2MTgyQzg4Ljg1NTIgNy4xNjE4MiA5MC40NzcyIDUuNTU4NTkgOTAuNDc3MiAzLjU4MDkxQzkwLjQ3NzIgMS42MDMyMyA4OC44NTUyIDAgODYuODU0MyAwQzg0Ljg1MzQgMCA4My4yMzE0IDEuNjAzMjMgODMuMjMxNCAzLjU4MDkxQzgzLjIzMTQgNS41NTg1OSA4NC44NTM0IDcuMTYxODIgODYuODU0MyA3LjE2MTgyWiIgZmlsbD0iI0UxOTQzRCIvPgo8cGF0aCBkPSJNMTIwLjE3MSA3LjE2MTgyQzEyMi4xNzIgNy4xNjE4MiAxMjMuNzk0IDUuNTU4NTkgMTIzLjc5NCAzLjU4MDkxQzEyMy43OTQgMS42MDMyMyAxMjIuMTcyIDAgMTIwLjE3MSAwQzExOC4xNyAwIDExNi41NDggMS42MDMyMyAxMTYuNTQ4IDMuNTgwOTFDMTE2LjU0OCA1LjU1ODU5IDExOC4xNyA3LjE2MTgyIDEyMC4xNzEgNy4xNjE4MloiIGZpbGw9IiNFMTk0M0QiLz4KPHBhdGggZD0iTTQ2LjM2MTYgNy40MDM5MkgzOC4wNDNWMjcuODgxNEg0Ni4zNjE2VjcuNDAzOTJaIiBmaWxsPSJibGFjayIvPgo8cGF0aCBkPSJNNjMuOTcwMyAwLjI3MjU4OUg1NS41MTY0VjIzLjMyNTRDNTUuNDM4NiAyOC4zOTQ4IDUxLjc0NDYgMzUuMDI5MyAzOC4wNDMgMzYuMzQ2M1Y0NC40NzgzTDQ0LjIyNTYgNDMuNjU5OUM2Mi40NjE1IDQwLjI5MjQgNjMuOTcwMyAzMC42NDc5IDYzLjk3MDMgMjAuMjEzMlYwLjI3MjU4OVoiIGZpbGw9IiMxMTBEMDMiLz4KPHBhdGggZD0iTTExOC4wNDcgMTAuNjk3M0gxMTAuMDQ5VjQyLjM5OTZIMTE4LjA0N1YxMC42OTczWiIgZmlsbD0iIzExMEQwMyIvPgo8cGF0aCBkPSJNMTkuNjg0IDEyLjUyNThWNi4yOTc1SDExLjMyMDJWMTIuNTI1OEgwLjA2Njk2MVYyOC45Mzc3TDguMTA5ODYgMjguODgwOUw4LjE1NTM0IDE5LjIyNDJIMjIuNzA0OEMyMi4xNDM5IDMxLjk3NzkgMTIuNDUzNSA0MS40NDk4IDAgNDQuNzgyMlY1Mi42MDAxQzIxLjk0NTUgNDUuOTcxNiAyOS45MzAzIDM0LjU0MDQgMzEuMjA4OSAxMy41NjM1VjEyLjUyNThIMTkuNjg0WiIgZmlsbD0iIzExMEQwMyIvPgo8cGF0aCBkPSJNMTQ3LjcyNCAxMC41MzY1QzEzOS43NjIgMjMuODc3MSAxMzAuMjcyIDI5LjE1NTMgMTMwLjM5MSAyOC42Mjk2QzEzMC40NzIgMjEuNDgxIDEzMC41NDYgMTEuNDk0OSAxMzAuNTQ2IDExLjQ5NDlMMTMwLjU1IDEwLjUzNjVIMTIyLjI5NFY0Mi4yMTI4QzE0Mi44NzggMzEuODkzNiAxNTIuNzk5IDE4Ljg5NDUgMTU2LjQ4NSAxMC41MzY1SDE0Ny43MjRaIiBmaWxsPSIjMTEwRDAzIi8+CjxwYXRoIGQ9Ik05MS4wODEzIDE3LjUwNjNMMTAyLjI4NiAxNy41NDY4VjEwLjUzNjNINzEuNzY0VjE3LjU0NjhMODIuMzk3OCAxNy41MDYzVjMzLjE1NjNMNjkuNjM1MSAzMy4xMTU3VjQwLjI3NjFMMTA0LjA3NCA0MC4yMzU2VjMzLjExNTdMOTEuMDgxMyAzMy4xNTYzVjE3LjUwNjNaIiBmaWxsPSIjMTEwRDAzIi8+Cjwvc3ZnPgo=', detail: 'uriel.html', aff: '__URIEL_AFF_LINK__', pendingLabel: 'ウリエルの詳細を見る' },
+    buysell: { name: 'バイセル', logo: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTUiIGhlaWdodD0iMjEiIHZpZXdCb3g9IjAgMCA5NSAyMSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXAwXzY0NV80NDA0KSI+CjxwYXRoIGQ9Ik0yNi43MTk5IDQuOTdIMjguNTgzOUMyOC45Mjc5IDQuOTcgMjkuMjA1OSA0LjY5MiAyOS4yMDU5IDQuMzQ4VjAuNjIyQzI5LjIwNTkgMC4yNzggMjguOTI3OSAwIDI4LjU4MzkgMEgyNi43MTk5QzI2LjM3NTkgMCAyNi4wOTc5IDAuMjc4IDI2LjA5NzkgMC42MjJWNC4zNDhDMjYuMDk3OSA0LjY5MiAyNi4zNzU5IDQuOTcgMjYuNzE5OSA0Ljk3Wk0xOS43OTE5IDAuNjI4QzE5Ljc5MzkgMC4yODQgMTkuNTE1OSAwIDE5LjE2OTkgMEgxNC4zODM5QzE0LjAzOTkgMCAxMy43NjE5IDAuMjc4IDEzLjc2MTkgMC42MjJWNS43NDJDMTMuNzYxOSAxMi44MTYgMTUuOTMxOSAxNy44NyAxNi44NDE5IDE5LjY3OEMxNy4wNjc5IDIwLjEyOCAxNy41Mjc5IDIwLjQxIDE4LjAyOTkgMjAuNDFIMjIuOTExOUMyMy4zODk5IDIwLjQxIDIzLjY4NTkgMTkuODkyIDIzLjQ0NzkgMTkuNDc2QzIwLjMxNzkgMTQuMDMgMTkuNzExOSA5LjYzNiAxOS43ODk5IDAuNjI4SDE5Ljc5MTlaTTkuMTQ5OTEgMEg0LjM2MzkxQzQuMDE3OTEgMCAzLjczOTkxIDAuMjg0IDMuNzQzOTEgMC42MjhDMy44MjE5MSA5LjYzNiAzLjIxNTkxIDE0LjAzIDAuMDg1OTEwNCAxOS40NzZDLTAuMTUyMDkgMTkuODkgMC4xNDM5MSAyMC40MSAwLjYyMTkxIDIwLjQxSDUuNTAzOTFDNi4wMDc5MSAyMC40MSA2LjQ2NTkxIDIwLjEyOCA2LjY5MTkxIDE5LjY3OEM3LjYwMTkxIDE3Ljg3IDkuNzcxOTEgMTIuODE2IDkuNzcxOTEgNS43NDJWMC42MjJDOS43NzE5MSAwLjI3OCA5LjQ5MzkxIDAgOS4xNDk5MSAwWk0yNC4yMzU5IDBIMjIuMzcxOUMyMi4wMjc5IDAgMjEuNzQ5OSAwLjI3OCAyMS43NDk5IDAuNjIyVjQuMzQ4QzIxLjc0OTkgNC42OTIgMjIuMDI3OSA0Ljk3IDIyLjM3MTkgNC45N0gyNC4yMzU5QzI0LjU3OTkgNC45NyAyNC44NTc5IDQuNjkyIDI0Ljg1NzkgNC4zNDhWMC42MjJDMjQuODU3OSAwLjI3OCAyNC41Nzk5IDAgMjQuMjM1OSAwWk03OS42NDE5IDBINzQuODU1OUM3NC41MDk5IDAgNzQuMjMxOSAwLjI4NCA3NC4yMzU5IDAuNjNDNzQuMzEzOSA5LjYzOCA3My43MDc5IDE0LjAzMiA3MC41Nzc5IDE5LjQ3OEM3MC4zMzk5IDE5Ljg5MiA3MC42MzM5IDIwLjQxMiA3MS4xMTE5IDIwLjQxMkM3Mi40Nzc5IDIwLjQxMiA3NC43ODU5IDIwLjQxMiA3NS45OTU5IDIwLjQxMkM3Ni40OTk5IDIwLjQxMiA3Ni45NTc5IDIwLjEzIDc3LjE4MzkgMTkuNjhDNzguMDkzOSAxNy44NzIgODAuMjYzOSAxMi44MTggODAuMjYzOSA1Ljc0NFYwLjYyMkM4MC4yNjM5IDAuMjc4IDc5Ljk4NTkgMCA3OS42NDE5IDBaTTkzLjc5OTkgMTAuODk0QzkxLjkxOTkgMTIuNDc4IDkwLjAzMzkgMTMuNDIgODkuMTYzOSAxMy44MUM4OC45Mjk5IDEzLjkxNCA4OC42NjU5IDEzLjc0MiA4OC42NjU5IDEzLjQ4NlYwLjYyMkM4OC42NjU5IDAuMjc4IDg4LjM4NzkgMCA4OC4wNDM5IDBIODMuMjU3OUM4Mi45MTM5IDAgODIuNjM1OSAwLjI3OCA4Mi42MzU5IDAuNjIyVjE5LjUyMkM4Mi42MzU5IDIwLjAyNiA4My4wNTE5IDIwLjQyOCA4My41NTU5IDIwLjQxQzg1LjQxMTkgMjAuMzQ0IDg5LjgxMzkgMTkuNzk2IDk0LjMxNzkgMTYuMzc2Qzk0LjY3MzkgMTYuMTA2IDk0Ljg4NzkgMTUuNjg0IDk0Ljg4NzkgMTUuMjM4VjExLjQxQzk0Ljg4NzkgMTAuODQ4IDk0LjIyNzkgMTAuNTMyIDkzLjc5NzkgMTAuODk2TDkzLjc5OTkgMTAuODk0Wk02OC42MjM5IDMuMjM4SDU2LjkyMTlDNTYuNzI1OSAzLjIzOCA1Ni41Njc5IDMuMDggNTYuNTY3OSAyLjg4NFYwLjYyMkM1Ni41Njc5IDAuMjc4IDU2LjI4OTkgMCA1NS45NDU5IDBINTEuNTk3OUM1MS4yNTM5IDAgNTAuOTc1OSAwLjI3OCA1MC45NzU5IDAuNjIyVjIuODg0QzUwLjk3NTkgMy4wOCA1MC44MTc5IDMuMjM4IDUwLjYyMTkgMy4yMzhINDcuNjYzOUM0Ny4zMTk5IDMuMjM4IDQ3LjA0MTkgMy41MTYgNDcuMDQxOSAzLjg2VjcuNDFDNDcuMDQxOSA3Ljc1NCA0Ny4zMTk5IDguMDMyIDQ3LjY2MzkgOC4wMzJINTAuNjIxOUM1MC44MTc5IDguMDMyIDUwLjk3NTkgOC4xOSA1MC45NzU5IDguMzg2VjE0LjJDNTAuOTc1OSAxNy42MyA1My43NTc5IDIwLjQxMiA1Ny4xODc5IDIwLjQxMkg2Ny41Njk5QzY3LjkxMzkgMjAuNDEyIDY4LjE5MTkgMjAuMTM0IDY4LjE5MTkgMTkuNzlWMTYuMjRDNjguMTkxOSAxNS44OTYgNjcuOTEzOSAxNS42MTggNjcuNTY5OSAxNS42MThINTguNzg1OUM1Ny41NTk5IDE1LjYxOCA1Ni41Njc5IDE0LjYyNCA1Ni41Njc5IDEzLjRWOC4zODRDNTYuNTY3OSA4LjE4OCA1Ni43MjU5IDguMDMgNTYuOTIxOSA4LjAzSDYyLjY5OTlDNjIuOTQ1OSA4LjAzIDYzLjA1NzkgOC4zMzYgNjIuODczOSA4LjQ5OEM2Mi4zNzc5IDguOTM2IDYxLjg4NzkgOS4yNjQgNjEuNTUzOSA5LjQ2NkM2MS4yODc5IDkuNjI4IDYxLjEyNTkgOS45MTQgNjEuMTI1OSAxMC4yMjZWMTIuODY4QzYxLjEyNTkgMTMuNTIyIDYxLjgxMzkgMTMuOTU0IDYyLjQwMTkgMTMuNjY2QzY1Ljg5OTkgMTEuOTU0IDY3Ljc4NTkgMTAuMTU4IDY5LjIwMTkgOC40MDhDNjkuMzkzOSA4LjE3IDY5LjUwMTkgNy44NzYgNjkuNTAxOSA3LjU3TDY5LjUxMTkgNC4xM0M2OS41MTE5IDMuNjM4IDY5LjExNTkgMy4yNCA2OC42MjM5IDMuMjRWMy4yMzhaTTQ1Ljc5MTkgMEg0MC44NTU5QzQwLjQ3NTkgMCA0MC4xMTU5IDAuMTg2IDM5LjkwMzkgMC41MDJDMzguOTA3OSAxLjk4IDM1LjI4OTkgNi40MDQgMjYuMTIzOSA5LjI5MkMyNS44NDU5IDkuMzggMjUuNjUzOSA5LjYzNiAyNS42NTM5IDkuOTI2VjEzLjg5MkMyNS42NTM5IDE0LjMwNCAyNi4wNDU5IDE0LjYgMjYuNDQzOSAxNC40OUMyOS4zMTk5IDEzLjcgMzEuNzc3OSAxMi43OTggMzMuOTExOSAxMS44MDJDMzQuMTc3OSAxMS42NzggMzQuNDgxOSAxMS44NjggMzQuNDgxOSAxMi4xNjJWMTkuNzlDMzQuNDgxOSAyMC4xMzQgMzQuNzU5OSAyMC40MTIgMzUuMTAzOSAyMC40MTJIMzkuODA3OUM0MC4xNTE5IDIwLjQxMiA0MC40Mjk5IDIwLjEzNCA0MC40Mjk5IDE5Ljc5VjguMDY2QzQwLjQyOTkgNy44NTggNDAuNTIzOSA3LjY2IDQwLjY4MTkgNy41MjZDNDIuOTk5OSA1LjU1OCA0NC43Njk5IDMuMzggNDYuMzQ3OSAxLjA0QzQ2LjY0MTkgMC41OTYgNDYuMzI1OSAwIDQ1Ljc5MTkgMFoiIGZpbGw9IiMyMzE4MTUiLz4KPC9nPgo8ZGVmcz4KPGNsaXBQYXRoIGlkPSJjbGlwMF82NDVfNDQwNCI+CjxyZWN0IHdpZHRoPSI5NC44OSIgaGVpZ2h0PSIyMC40MSIgZmlsbD0id2hpdGUiLz4KPC9jbGlwUGF0aD4KPC9kZWZzPgo8L3N2Zz4K', detail: 'buysell.html', aff: '__BUYSELL_AFF_LINK__', pendingLabel: 'バイセルの詳細を見る' },
+    fukuchan: { name: '福ちゃん', logo: 'data:image/svg+xml;base64,PHN2ZyBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCAxMTIgMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAxMTIgMzIiIHdpZHRoPSIxMTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxkZWZzPjxwYXRoIGlkPSJhIiBkPSJtMTQuMjEyIDMxLjEzNGMtLjQwNi4yMzQtMS4wNjguMjM0LTEuNDc1IDBsLTEyLTYuOTI5Yy0uNDA2LS4yMzMtLjczNy0uODA4LS43MzctMS4yNzV2LTEzLjg1OWMwLS40NjguMzMxLTEuMDQyLjczOC0xLjI3N2wxMi02LjkyOGMuNDA2LS4yMzUgMS4wNjktLjIzNSAxLjQ3NSAwbDEyIDYuOTI4Yy40MDYuMjM1LjczNy44MDkuNzM3IDEuMjc3djEzLjg1N2MwIC40NjktLjMzMSAxLjA0My0uNzM3IDEuMjc3eiIvPjxjbGlwUGF0aCBpZD0iYiI+PHVzZSB4bGluazpocmVmPSIjYSIvPjwvY2xpcFBhdGg+PC9kZWZzPjxnIGZpbGw9IiMzMzMiPjxwYXRoIGQ9Im00My4zNDIgMTQuNDNjLjkyOSAwIDEuMTc1LS4yMDUgMS4xNzUtLjIwNSAwIC40MS0uMTIzIDEuMTQ4LS45NTYgMS4xNDhoLTIuODI3djQuODc1cy0xLjE0NyAwLTEuMTQ3LS42ODN2LTkuMDE0aDUuNjEzczAgLjk0My0uNjgzLjk0M2gtMy43ODN2Mi45MzZ6Ii8+PHBhdGggZD0ibTUzLjcyMiAxNy4zOTNjMCAxLjkyNi0xLjc2MiAyLjg4Mi0zLjc3IDIuODgycy0zLjc2OS0uOTU2LTMuNzY5LTIuODgydi02Ljk3OXMxLjE0NyAwIDEuMTQ3LjY4M3Y2LjA5MWMwIDEuMzY2IDEuMDc5IDIuMDc2IDIuNjIyIDIuMDc2czIuNjIzLS43MSAyLjYyMy0yLjA3NnYtNi43NzRzMS4xNDcgMCAxLjE0Ny42ODN6Ii8+PHBhdGggZD0ibTU2LjkxOCAyMC4yNDhzLTEuMTQ4IDAtMS4xNDgtLjY4M3YtOS4xNXMxLjE0OCAwIDEuMTQ4LjY4M3YzLjQ0MmMxLjg4NS0uMTUgMi43NzItMS4yOTcgMy45Mi0zLjM3My4zNTUtLjY1NS44ODgtLjc3OCAxLjI3LS43NzguMjMyIDAgLjM5Ni4wNDEuMzk2LjA0MS0uNzkyIDEuMjAyLTEuNzc1IDQuMDAyLTMuODM4IDQuNDk0IDIuMTg1LjMxNCAzLjQ1NiA0LjA1NiA0LjI0NyA1LjI1OCAwIDAtLjE2My4wNDEtLjM5NS4wNDEtLjM4MiAwLTEuMDM4LS4xMjMtMS4zOTMtLjc3OS0xLjEwNy0yLjA3Ni0xLjg3MS0zLjk4OC00LjIwNi00LjEzOHY0Ljk0MnoiLz48cGF0aCBkPSJtNzEuMzI2IDE3LjM5M2MwIDEuOTI2LTEuNzYyIDIuODgyLTMuNzY5IDIuODgycy0zLjc3LS45NTYtMy43Ny0yLjg4MnYtNi45NzlzMS4xNDggMCAxLjE0OC42ODN2Ni4wOTFjMCAxLjM2NiAxLjA3OSAyLjA3NiAyLjYyMiAyLjA3NnMyLjYyMi0uNzEgMi42MjItMi4wNzZ2LTYuNzc0czEuMTQ3IDAgMS4xNDcuNjgzeiIvPjxwYXRoIGQ9Im03OC4yMTEgMTMuNzMzdjMuMTgyYzAgMS43NzYgMS4yMTUgMi4zNDkgMi43NTkgMi4zNDkgMS40MDYgMCAzLjE2OC0uNDM3IDMuMTY4LTEuNjY2IDEuMTQ3IDIuMTMxLTEuMjk3IDIuNjc3LTMuMTY4IDIuNjc3LTIuMDA4IDAtMy45MDctLjgxOS0zLjkwNy0zLjE1NXYtMy41NzhjMC0yLjMzNiAxLjg5OS0zLjE1NSAzLjkwNy0zLjE1NSAxLjg3MSAwIDQuMzE1LjU0NiAzLjE2OCAyLjY3NyAwLTEuMDkzLTEuNzYyLTEuNjY2LTMuMTY4LTEuNjY2LTEuNTQ0IDAtMi43NTkuNTYtMi43NTkgMi4zMzV6Ii8+PHBhdGggZD0ibTkyLjY0NyAxNS42NDVoLTUuMTQ5djQuNjAycy0xLjE0NyAwLTEuMTQ3LS42ODN2LTkuMTVzMS4xNDcgMCAxLjE0Ny42ODN2My41OTJoNS4xNDl2LTQuMjc1czEuMTQ3IDAgMS4xNDcuNjgzdjkuMTVzLTEuMTQ3IDAtMS4xNDctLjY4M3oiLz48cGF0aCBkPSJtMTAxLjQ1NiAxNC4xNDMgMS4xMDcgMy41NTFjLjM1NSAxLjE2MS42NTUgMi4xMTcuODg4IDIuNDcyIDAgMC0uMTIzLjA0MS0uMzU2LjA0MS0xLjA5MyAwLTEuMzc5LTEuMjI5LTEuNjkzLTIuMjUzbC0uMjczLS44ODhoLTMuOTMybC0uMjYuODg4Yy0uMyAxLjAyNC0uNjAxIDIuMjUzLTEuNjkzIDIuMjUzLS4yMzIgMC0uMzU1LS4wNDEtLjM1NS0uMDQxLjIxOC0uMzU1LjUxOS0xLjMxMS44ODgtMi40NzJsMS4xMDYtMy41NTFjLjkxNS0yLjk1IDIuMzA5LTMuNzk3IDIuMjk1LTMuODEtLjAxNi4wMTMgMS4zNS44NiAyLjI3OCAzLjgxem0tMy45NzQgMS45ODFoMy4zNTlsLS40NzgtMS42MjZjLS41NDYtMS44NTgtMS4yMDItMi42MzYtMS4xODgtMi42MzYgMCAwLS42Ny43NzgtMS4yMTYgMi42MzZ6Ii8+PHBhdGggZD0ibTExMC4zNjEgMTcuNzA4LjYyOCAxLjAzOHMtLjEzNy0uNzEtLjEzNy0xLjEydi03LjA3NXMxLjE0NyAwIDEuMTQ3LjY4M3Y5LjAxNGMtMS40NjIgMC0xLjg1Ny0uODg4LTEuODU3LS44ODhsLTQuNTg5LTcuNDE2cy4xMzcuNjU1LjEzNyAxLjIyOXY3LjA3NXMtMS4xNDcgMC0xLjE0Ny0uNjgzdi05LjAxNGMuNzc4IDAgMS40MiAwIDEuODQzLjY4M3oiLz48L2c+PHVzZSBmaWxsPSIjZDY0ZTY5IiB4bGluazpocmVmPSIjYSIvPjxnIGNsaXAtcGF0aD0idXJsKCNiKSIgZmlsbD0iI2ZmZiI+PHBhdGggZD0ibTEwLjg1NSA1LjU5aDE0LjkzMWMuMjgyLS4wMTQuMzY5LS4xMTEuNDQxLS40MTQtLjA2OC0uMjk5LS4xNjQtLjQwNC0uNDQ2LS40NDFoLTE0LjkxN2MtLjMuMDQxLS40MDcuMTUxLS40MjEuNDQxLjAxNy4yOTYuMTE4LjM5Ni40MTIuNDE0eiIvPjxwYXRoIGQ9Im0xMy41NjUgOC40OTdjLS42MDkgMC0xLjAyNC4xNTEtMS4yOTMuNDI2cy0uNDEzLjcwMS0uNDE0IDEuMzEydjEuOTg1Yy4wMDEuNjEuMTQ0IDEuMDI4LjQxMyAxLjI5NS4yNjcuMjY4LjY4NS40MTIgMS4yOTQuNDEzaDkuNTEzYy42MDktLjAwMSAxLjAzNS0uMTQ1IDEuMzEtLjQxNC4yNzctLjI2OS40MjYtLjY4NS40MjYtMS4yOTR2LTEuOTg1YzAtLjYwOS0uMTUtMS4wMzQtLjQyNy0xLjMxMS0uMjc2LS4yNzYtLjcwMi0uNDI4LTEuMzA5LS40MjhoLTkuNTEzem0xMC4yNzQgMS45NDh2MS41MzVjMCAuMzQxLS4wOTEuNjI2LS4yODkuODE4LS4xOTcuMTkxLS40NzYuMjc2LS44LjI3Ni0uMDAyIDAtLjAwMyAwLS4wMDUgMGgtOC44MmMtLjMzOSAwLS42MjEtLjA4Mi0uODE3LS4yNzctLjE5My0uMTk2LS4yNzYtLjQ3OS0uMjc1LS44MTh2LTEuNTM1Yy0uMDAxLS4zMjUuMDgyLS42MDYuMjc1LS44MDMuMTkyLS4xOTcuNDc2LS4yOS44MTctLjI5aDguODJjLjMyOSAwIC42MS4wOTMuODA1LjI4OS4xOTYuMTk1LjI4OS40NzYuMjg5LjgwNXoiLz48cGF0aCBkPSJtMjQuMzcxIDE2Ljk1NmgtMTIuMjIyYy0uNjA3LjAwMS0xLjAyMy4xNTEtMS4yOTIuNDI2LS4yNy4yNzctLjQxMy43MDMtLjQxNCAxLjMxMXYzLjA5NWMtMS44LTEuODQyLTQuNTMtNC45MjktNS4zMjYtNi4zNThsLS4wNTItLjA5Mi4wNjctLjA4NmMuMTIyLS4xNTEuMjctLjMyOS40MTktLjUzNyAxLjE5Ny0xLjU4NiAyLjE1NC0zLjIwMiAyLjkwMS00Ljg3NS4zMy0uNzQ2LjUwMi0xLjI1OS40OTgtMS41MDMtLjAwMi0uMzYtLjEwNS0uNTk1LS4zLS43NTctLjE5NC0uMTYyLS41MS0uMjU3LS45NTYtLjI1N2gtMi44N3YtMy4zMDZjLS4wNjUtLjMwNy0uMTU5LS40MTgtLjQ0LS40NTYtLjI5My4wNDItLjQuMTUyLS40MTQuNDQxdjMuMzJoLTQuNzAyYy0uMTY5LjAwMi0uMjcxLjA0NC0uMzM0LjEwOC0uMDY0LjA2NC0uMTA3LjE2Ny0uMTA5LjMzNS4wMTguMjkzLjExMi4zOTQuNDQzLjQxM2g3LjgyM2MuMjEyLjAwMS4zODcuMDMuNTI5LjExMy4xNDUuMDguMjM4LjI0LjIzNC40MDktLjAwNi4xNDItLjA3Mi4zLS4xODguNTg1LS4xMi4yNzgtLjI5My42NTUtLjUyMiAxLjE0MS0uODQ4IDEuNjk3LTIuMDMgMy40ODQtMy41NzIgNS40MTktMS4xNzUgMS40MTctMy4yNzIgMy40NjItNC41OTggNC42MzgtLjEyLjE2MS0uMTc3LjI5MS0uMTkzLjM1MS0uMDAyLjAwNi0uMDAzLjAxLS4wMDUuMDEzLjA2My4yNjQuMTU1LjM1OC40NTQuNDIyLjEzOS0uMDA3LjIxLS4wMzUuMzA3LS4xN2wuMDExLS4wMTYuMDE0LS4wMTRjMS4yLTEuMDggMy4xMS0yLjkwNyA0LjEyOS00LjA0NmwuMjc5LS4zMTF2MTIuOTFjLjAxMy4yOC4xMDkuMzY4LjQxNC40MzkuMjktLjA2NS4zNzctLjE1Ny40NDEtLjQ1NHYtMTMuNDc0bC4yOTguNTI0Yy45NjEgMS42ODggNC4wNzUgNS4xMjkgNS4zMiA2LjMzN3Y0LjY0Yy4wMDIuNTk0LjE0NCAxLjAxMi40MTQgMS4yODMuMjY5LjI3NC42ODYuNDI0IDEuMjkzLjQyNWgxMi4yMjJjLjYwOS0uMDAxIDEuMDM1LS4xNTIgMS4zMTEtLjQyNS4yNzYtLjI3NC40MjYtLjY5LjQyNi0xLjI4M3YtOC45NDFjMC0uNjA3LS4xNS0xLjAzMi0uNDI2LTEuMzA4LS4yNzktLjI3OC0uNzAzLS40MjktMS4zMTItLjQyOXptLTYuNjQzIDExLjUzaC00Ljk3N2MtLjQxNSAwLS43NTctLjEwNi0uOTkyLS4zNDEtLjIzNS0uMjM2LS4zNDItLjU3OC0uMzQtLjk5NHYtMy41Nmg2LjE0OS4xNnptMC01Ljkxdi4xNmgtNi4zMDl2LTMuNTkyYy0uMDAyLS40MTYuMTA2LS43NTguMzQtLjk5Mi4yMzUtLjIzNy41NzctLjM0MS45OTItLjM0MWg0Ljk3N3ptNy40MDUgNC41NzZjLjAwMi40MTYtLjEwNS43NTgtLjMzOS45OTQtLjIzNS4yMzUtLjU3Ni4zNDEtLjk5MS4zNDEgMCAwLS4wMDEgMC0uMDAyIDBoLTUuMDk2di00Ljg5NGg2LjQyOXYzLjU1OXptMC00LjQxNmgtNi4yNjktLjE1OXYtNC45MjVoNS4wOTVjLjQxNSAwIC43NTcuMTA1Ljk5My4zNDEuMjM0LjIzNC4zNDEuNTc3LjMzOS45OTJ2My41OTJ6Ii8+PC9nPjwvc3ZnPg==', detail: 'fukuchan.html', aff: null }
+  };
+
+  function el(tag, attrs, html) {
+    var e = document.createElement(tag);
+    Object.keys(attrs || {}).forEach(function (k) { e.setAttribute(k, attrs[k]); });
+    if (html != null) e.innerHTML = html;
+    return e;
+  }
+
+  function card(key, role, reasons) {
+    var s = SVC[key];
+    var c = el('div', { 'class': 'kt-res__card' });
+    c.appendChild(el('p', { 'class': 'kt-res__name' }, '<img src="' + s.logo + '" alt="' + s.name + '" width="90" height="24"><span>' + s.name + '</span><span class="kt-res__tag' + (role === '比較候補' ? ' is-sub' : '') + '">' + role + '</span>'));
+    var ul = el('ul');
+    reasons.forEach(function (r) { ul.appendChild(el('li', null, r)); });
+    c.appendChild(ul);
+    var pair = el('div', { 'class': 'yk-btnpair' });
+    pair.appendChild(el('a', { 'class': 'yk-btn yk-btn--sub', href: s.detail }, '詳細<br>ページへ'));
+    var right = el('div');
+    if (s.aff) {
+      right.appendChild(el('a', { 'class': 'yk-btn yk-btn--sm', href: s.aff, 'data-aff': key, 'data-pending-href': s.detail, 'data-pending-label': s.pendingLabel, rel: 'nofollow sponsored noopener', target: '_blank' }, s.name + 'の公式サイトで<br>無料査定を申し込む'));
+    } else {
+      // 福ちゃん：ASP条件未取得のため成果リンクは置かない
+      right.appendChild(el('a', { 'class': 'yk-btn yk-btn--sm is-pending', href: s.detail }, '福ちゃんの<br>確認ポイントを見る'));
+    }
+    pair.appendChild(right);
+    c.appendChild(pair);
+    return c;
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var f = form.elements;
+    var method = f.method.value, kind = f.kind.value, amount = f.amount.value, soon = f.speed.value === 'soon';
+    var damaged = f.damaged.checked, compare = f.compare.checked;
+    var big = amount === 'many' || amount === 'mid' || kind === 'album';
+    var picks = [], notes = [];
+
+    var uriel = ['アルバムや箱に入ったまま、<b>仕分けずに自宅で査定</b>してもらえます。'];
+    uriel.push(soon ? '<b>最短翌日</b>に査定、その場で現金払い。24時間受付です。' : '出張料・査定料・キャンセル料は<b>0円</b>。その場で現金払いです。');
+    if (big) uriel.push('記念・特殊・中国・戦前切手など<b>19品目</b>を案内。その場での追加もOK。');
+    if (damaged) uriel.push('汚れや破損で<b>他店に断られた切手でも買取できる場合あり</b>と公式に記載。');
+    var buysell = ['<b>東証上場企業</b>が運営。仕分け不要でそのまま査定。'];
+    buysell.push(damaged ? 'シミ・汚れ・台紙貼りも、出張・店頭なら<b>買取保証</b>の対象。' : '24時間365日受付。査定料・キャンセル料など各種無料。');
+
+    if (method === 'tento') {
+      picks.push(['buysell', '優先候補', ['<b>店頭買取</b>に対応。店舗でその場で査定・現金化できます。'].concat(buysell)]);
+      picks.push(['uriel', '比較候補', ['店舗・催事買取も案内。<b>運ぶのが大変な量なら、自宅に来てもらう出張</b>が手軽です。', uriel[0]]]);
+    } else if (method === 'takuhai') {
+      picks.push(['buysell', '優先候補', ['<b>宅配買取</b>に対応。'].concat(buysell)]);
+      picks.push(['uriel', '比較候補', ['箱詰めや発送の手間なく、<b>最短翌日に自宅で</b>見てもらう方法もあります。', uriel[1]]]);
+    } else {
+      picks.push(['uriel', '優先候補', uriel]);
+      picks.push(['buysell', '比較候補', buysell]);
+    }
+    if (kind === 'china' || kind === 'kinen') picks.push(['fukuchan', '比較候補', ['記念切手・中国切手などの<b>買取実例</b>を写真・日付つきで公開しています。']]);
+    if (compare) notes.push('2社に申し込んで見積りを比べるのがおすすめです。どちらも査定後のキャンセルは無料です。');
+
+    out.innerHTML = '';
+    var box = el('div', { 'class': 'kt-res', tabindex: '-1' });
+    box.appendChild(el('p', { 'class': 'kt-res__ttl' }, '診断結果：あなたにおすすめの切手買取'));
+    picks.forEach(function (p) { box.appendChild(card(p[0], p[1], p[2])); });
+    notes.forEach(function (n) { box.appendChild(el('p', { 'class': 'kt-res__note' }, '※' + n)); });
+    box.appendChild(el('p', { 'class': 'kt-res__note' }, '※各社公式サイトの掲載内容（2026年10月13日確認）をもとにした候補で、査定額を保証するものではありません。入力内容はどこにも送信されません。'));
+    out.appendChild(box);
+    settleAffLinks(out);
+    box.focus({ preventScroll: true });
+    box.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+  });
+})();
+
+</script>
 </body>
 </html>

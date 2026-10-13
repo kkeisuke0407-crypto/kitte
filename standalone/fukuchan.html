@@ -639,6 +639,11 @@ body { margin: 0; background: #f4f4f4; }
 }
 @keyframes kt-shine { 0% { left: -80%; } 75%, 100% { left: 130%; } }
 
+/* ヘッダー：今日の日付【最新】だけを大きく表示（日付は kitte.js が毎日自動更新） */
+.yk-body .kt-site { display: block; padding: .55em 12px; background: linear-gradient(90deg, var(--yk-blue-d), var(--yk-blue)); text-align: center; }
+.kt-update { margin: 0 !important; color: #fff; font-size: 17px; font-weight: 900; line-height: 1.3 !important; letter-spacing: .03em; }
+.kt-update span { margin-left: .15em; color: #ffe066; }
+
 </style>
 </head>
 <body>
@@ -651,7 +656,7 @@ body { margin: 0; background: #f4f4f4; }
 -->
 <div class="kt-wrap yk-body">
 
-<div class="kt-site"><a href="index.html">切手買取 比較ガイド</a><small>2026年10月13日更新</small></div>
+<div class="kt-site"><p class="kt-update"><time data-today datetime="2026-10-13">2026年10月13日</time><span>【最新】</span></p></div>
 
 <!-- detail-1 パンくず -->
 <nav class="yk-crumb" aria-label="パンくずリスト"><a href="index.html">切手買取6社比較</a><span>福ちゃん</span></nav>
@@ -801,6 +806,13 @@ body { margin: 0; background: #f4f4f4; }
     });
   }
   settleAffLinks(document);
+
+  /* ヘッダーの日付：毎日、日本時間の今日の日付を表示する（JSが動かない場合はHTMLに書いた日付のまま） */
+  var jst = new Date(Date.now() + 9 * 3600 * 1000);
+  document.querySelectorAll('[data-today]').forEach(function (t) {
+    t.textContent = jst.getUTCFullYear() + '年' + (jst.getUTCMonth() + 1) + '月' + jst.getUTCDate() + '日';
+    t.setAttribute('datetime', jst.toISOString().slice(0, 10));
+  });
 
   /* キャンペーン枠：data-campaign-end（日本時間のその日の終わり）を過ぎたら非表示にする */
   var today = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
