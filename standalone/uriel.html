@@ -521,10 +521,10 @@ body { margin: 0; background: #f4f4f4; }
 .kt-stars::before { content: "★★★★★"; position: absolute; left: 0; top: 0; width: var(--p); overflow: hidden; color: #f5a623; }
 .kt-score { display: inline-block; margin-left: .3em; color: var(--yk-red); font-size: 18px; font-weight: 900; line-height: 1.1; vertical-align: middle; }
 .kt-score small { display: block; color: var(--yk-sub); font-size: 9.5px; font-weight: 700; }
-.yk-cmp .kt-stars { display: block; margin: 0 auto; font-size: 11px; }
+.yk-cmp .kt-stars { display: table; margin: 0 auto; font-size: 11px; }
 .yk-cmp .kt-score { display: block; margin: .15em 0 0; font-size: 20px; }
 .kt-best3__score { margin: 0 4px 4px !important; text-align: center; line-height: 1.1 !important; }
-.kt-best3__score .kt-stars { display: block; font-size: 11px; }
+.kt-best3__score .kt-stars { display: table; margin: 0 auto; font-size: 11px; }
 .kt-best3__score .kt-score { margin: 0; font-size: 17px; }
 .kt-best3__score .kt-score small { display: inline; margin-right: .2em; }
 .yk-best3__note.kt-note-pos { color: var(--yk-blue-d); }
@@ -669,6 +669,23 @@ body { margin: 0; background: #f4f4f4; }
 .kt-lastpush li { padding: .3em .8em; border-radius: 99px; background: #fff; border: 1px solid #f2c94c; font-size: 13px; }
 .kt-lastpush li b { color: var(--yk-red); }
 
+/* スマホで最後の行が1〜2文字だけにならないようにする（対応ブラウザー：Chrome・Edge・Safari 26以降。非対応でも表示は崩れない）
+   本文は text-wrap: pretty、見出しや短いラベルは balance ＋ 文節単位の改行（auto-phrase） */
+.yk-body, .kt-site, .yk-footer { text-wrap: pretty; }
+.yk-body :is(small, .yk-small, .kt-src, .yk-combo__points li, .yk-features li, .yk-btn, .kt-campaign__terms) { word-break: auto-phrase; }
+.yk-body :is(h1, h2, h3, h4, th, dt, summary, figcaption, .yk-sec-ttl, .yk-svchead__catch, .kt-lead--c, .yk-best3__text, .yk-best3__note, .yk-pickup__name, .yk-pickup__text, .yk-rankcatch, .yk-combo__head, .yk-combo__points b, .yk-catch, .kt-lastpush__q, .yk-features li, .yk-order a, .yk-voice__who b, .yk-kv td, .yk-cmp td, .yk-cmp small, .kt-radarlist span, .kt-vs td, .yk-matrix__item li, .kt-table td, .kt-table th, .yk-info td, .kt-radarlist small, .yk-listbox li) { text-wrap: balance; word-break: auto-phrase; }
+.yk-voice__who b { word-break: keep-all; }
+.yk-body .kt-table--marks th, .yk-body .kt-table--marks td { white-space: nowrap; }
+.kt-nw { white-space: nowrap; }
+/* BEST3の3列カードは中央ぞろえで読みやすく */
+.yk-best3__text { text-align: center; }
+.yk-pickup__name small { font-size: 12px; font-weight: 700; }
+.yk-body .yk-cmp td.is-left { text-wrap: pretty; }
+.kt-x .kt-table--fit { min-width: 0; }
+.kt-table--fit td:first-child { white-space: nowrap; }
+.yk-listbox li a { white-space: nowrap; }
+.kt-table--fit a { word-break: break-all; }
+
 </style>
 </head>
 <body>
@@ -701,7 +718,7 @@ body { margin: 0; background: #f4f4f4; }
 </div>
 <p class="yk-small" style="text-align:right">画像：ウリエル（広告素材）</p>
 <p>ウリエルは、遺品整理・生前整理の大手である<b>株式会社クオーレが運営</b>する出張買取の専門店です。バラバラになった切手、価値が分からない切手、汚れや破損がある切手、台紙に貼られた切手アルバムも<span class="yk-mark">「査定大歓迎」</span>。査定士が自宅にうかがい、その場で確認して金額を伝えます。</p>
-<table class="yk-info"><tr><th>買取対象</th><th>出張エリア</th></tr><tr><td class="is-left">記念・特殊・中国・戦前切手、月に雁・見返り美人など19品目</td><td class="is-left">関東・東海・関西ほか<small>※訪問先は申込時に案内</small></td></tr><tr><th>買取方法</th><th>費用</th></tr><tr><td class="is-left">出張・店舗・催事</td><td class="is-left">出張料・査定料・キャンセル料 0円</td></tr><tr><th>受付時間</th><th>支払い</th></tr><tr><td class="is-left">24時間<small>※年末年始除く</small></td><td class="is-left">その場で現金</td></tr></table>
+<table class="yk-info"><tr><th>買取対象</th><th>出張エリア</th></tr><tr><td class="is-left">記念・特殊・中国・戦前切手、月に雁・見返り美人など19品目</td><td class="is-left">関東・東海・関西ほか<small>※訪問先は申込時に案内</small></td></tr><tr><th>買取方法</th><th>費用</th></tr><tr><td class="is-left">出張・店舗・催事</td><td class="is-left">出張料・査定料・キャンセル料 0円</td></tr><tr><th>受付時間</th><th>支払い</th></tr><tr><td class="is-left">24時間<small>※年末年始を除く</small></td><td class="is-left">その場で現金</td></tr></table>
 <p class="kt-src">出典：<a href="https://www.uriel-cuore.co.jp/stamp/" rel="nofollow noopener" target="_blank">ウリエル公式 切手買取ページ</a>・<a href="https://www.uriel-cuore.co.jp/lp/af/stamp/16525/" rel="nofollow noopener" target="_blank">公式 切手買取LP</a>（2026年10月13日確認）</p>
 <!-- detail-7 CTA -->
 <p class="yk-catch">24時間受付・手数料0円</p><a class="yk-btn" href="__URIEL_AFF_LINK__" data-aff="uriel" data-pending-href="#u-1" data-pending-label="ウリエルが選ばれる理由を見る" rel="nofollow sponsored noopener" target="_blank" data-place="uriel-top">ウリエルの公式サイトで<br>無料査定を申し込む</a>
@@ -779,9 +796,9 @@ body { margin: 0; background: #f4f4f4; }
 <!-- detail-5 番号見出し 5（rank-5 の口コミ枠：文面は転載せず要旨と出典） -->
 <h2 class="yk-numh" id="u-5"><span>確認5</span>公式掲載の利用者の声</h2>
 <ul class="yk-voice">
-  <li><div class="yk-voice__who"><span class="yk-voice__face"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iNDkiIGZpbGw9IiNGOUU4REUiLz4KICAgIDxwYXRoIGQ9Ik0xNCAxMDBjNC0yMiAxNy0zNCAzNi0zNHMzMiAxMiAzNiAzNCIgZmlsbD0iI0M4N0M2MyIvPgogICAgPGVsbGlwc2UgY3g9IjUwIiBjeT0iNDYiIHJ4PSIyMiIgcnk9IjI3IiBmaWxsPSIjRjBDN0E0Ii8+CiAgICA8cGF0aCBkPSJNMjcgNDVjMC0yMSA5LTMzIDI0LTMzIDE3IDAgMjUgMTQgMjIgMzctMy0xMS04LTE5LTEzLTIzLTggOC0xNyAxMS0zMSAxMXoiIGZpbGw9IiM1QTM0MjgiLz4KICAgIDxwYXRoIGQ9Ik0yOSAzNGMtNSA4LTQgMjMgMSAzMi05LTctMTAtMzItMS00NCA4LTExIDI5LTE0IDM5IDAtMTItNi0yOC00LTM5IDEyeiIgZmlsbD0iIzZBM0UzMCIvPgogICAgPGNpcmNsZSBjeD0iNDIiIGN5PSI0NyIgcj0iMiIgZmlsbD0iIzQ1MzMyRSIvPjxjaXJjbGUgY3g9IjU4IiBjeT0iNDciIHI9IjIiIGZpbGw9IiM0NTMzMkUiLz4KICAgIDxwYXRoIGQ9Ik00MyA1OGM1IDUgMTAgNSAxNSAwIiBmaWxsPSJub25lIiBzdHJva2U9IiNBMTRGNDciIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9zdmc+Cg==" alt="" width="60" height="60"></span>60代女性<b>埼玉県さいたま市</b></div><p>知人の紹介で切手買取を利用。担当者が話をしっかり聞いてくれ、安心して売却を任せられた——という趣旨の声。</p></li>
-  <li><div class="yk-voice__who"><span class="yk-voice__face"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iNDkiIGZpbGw9IiNGNEVCREQiLz4KICAgIDxwYXRoIGQ9Ik0xNCAxMDBjNC0yMiAxNy0zNCAzNi0zNHMzMiAxMiAzNiAzNCIgZmlsbD0iI0I2ODE1NyIvPgogICAgPGVsbGlwc2UgY3g9IjUwIiBjeT0iNDYiIHJ4PSIyMiIgcnk9IjI3IiBmaWxsPSIjRUJDMDlCIi8+CiAgICA8cGF0aCBkPSJNMjYgNDdjMC0yMiA5LTM1IDI1LTM1IDE4IDAgMjYgMTUgMjIgMzktNC0xMi0xMC0yMS0xNy0yNS03IDgtMTYgMTItMjggMTJ6IiBmaWxsPSIjM0UzMDJCIi8+CiAgICA8cGF0aCBkPSJNMjcgMzhjLTQgMTQtMSAyNyA1IDM1LTEyLTctMTMtMzEtNS00NSA3LTEyIDI2LTE4IDM5LTctMTQtMy0yOSAyLTM5IDE3eiIgZmlsbD0iIzRCMzczMCIvPgogICAgPGNpcmNsZSBjeD0iNDIiIGN5PSI0NyIgcj0iMiIgZmlsbD0iIzQwMzIyRSIvPjxjaXJjbGUgY3g9IjU4IiBjeT0iNDciIHI9IjIiIGZpbGw9IiM0MDMyMkUiLz4KICAgIDxwYXRoIGQ9Ik00MyA1OGM1IDQgMTAgNCAxNSAwIiBmaWxsPSJub25lIiBzdHJva2U9IiM5ODUxNDgiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9zdmc+Cg==" alt="" width="60" height="60"></span>40代男性<b>埼玉県蓮田市</b></div><p>父が長年集めた大量の切手を依頼。珍しい切手があり、思っていたより高く売れて父も喜んだ——という趣旨の声。</p></li>
-  <li><div class="yk-voice__who"><span class="yk-voice__face"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iNDkiIGZpbGw9IiNGN0VCREQiLz4KICAgIDxwYXRoIGQ9Ik0xNSAxMDBjMy0yMiAxNi0zNCAzNS0zNHMzMiAxMiAzNSAzNCIgZmlsbD0iIzZCN0U4OCIvPgogICAgPGVsbGlwc2UgY3g9IjUwIiBjeT0iNDciIHJ4PSIyMiIgcnk9IjI3IiBmaWxsPSIjRTdCRTlBIi8+CiAgICA8cGF0aCBkPSJNMjcgNDdjMC0yMiA5LTM0IDI0LTM0IDE3IDAgMjUgMTMgMjMgMzUtNC03LTctMTQtNy0yMi04IDgtMjAgMTItMzYgMTJ6IiBmaWxsPSIjOUE5QTkyIi8+CiAgICA8cGF0aCBkPSJNMzAgNDNjMS0xNCA3LTIzIDE4LTI3LTEzIDEtMjIgMTItMjIgMjkgMCA3IDIgMTMgNSAxOHoiIGZpbGw9IiM3RTgwN0MiLz4KICAgIDxjaXJjbGUgY3g9IjQyIiBjeT0iNDgiIHI9IjIiIGZpbGw9IiM0NTNEMzgiLz48Y2lyY2xlIGN4PSI1OCIgY3k9IjQ4IiByPSIyIiBmaWxsPSIjNDUzRDM4Ii8+CiAgICA8cGF0aCBkPSJNNDQgNTljNCA0IDkgNCAxMyAwIiBmaWxsPSJub25lIiBzdHJva2U9IiM3QjQ5M0EiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9zdmc+Cg==" alt="" width="60" height="60"></span>70代男性<b>千葉県船橋市</b></div><p>蔵の片付けで出てきた中国切手を、捨てる前に問い合わせたところ高い値段がついた——という趣旨の声。</p></li>
+  <li><div class="yk-voice__who"><span class="yk-voice__face"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iNDkiIGZpbGw9IiNGOUU4REUiLz4KICAgIDxwYXRoIGQ9Ik0xNCAxMDBjNC0yMiAxNy0zNCAzNi0zNHMzMiAxMiAzNiAzNCIgZmlsbD0iI0M4N0M2MyIvPgogICAgPGVsbGlwc2UgY3g9IjUwIiBjeT0iNDYiIHJ4PSIyMiIgcnk9IjI3IiBmaWxsPSIjRjBDN0E0Ii8+CiAgICA8cGF0aCBkPSJNMjcgNDVjMC0yMSA5LTMzIDI0LTMzIDE3IDAgMjUgMTQgMjIgMzctMy0xMS04LTE5LTEzLTIzLTggOC0xNyAxMS0zMSAxMXoiIGZpbGw9IiM1QTM0MjgiLz4KICAgIDxwYXRoIGQ9Ik0yOSAzNGMtNSA4LTQgMjMgMSAzMi05LTctMTAtMzItMS00NCA4LTExIDI5LTE0IDM5IDAtMTItNi0yOC00LTM5IDEyeiIgZmlsbD0iIzZBM0UzMCIvPgogICAgPGNpcmNsZSBjeD0iNDIiIGN5PSI0NyIgcj0iMiIgZmlsbD0iIzQ1MzMyRSIvPjxjaXJjbGUgY3g9IjU4IiBjeT0iNDciIHI9IjIiIGZpbGw9IiM0NTMzMkUiLz4KICAgIDxwYXRoIGQ9Ik00MyA1OGM1IDUgMTAgNSAxNSAwIiBmaWxsPSJub25lIiBzdHJva2U9IiNBMTRGNDciIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9zdmc+Cg==" alt="" width="60" height="60"></span>60代女性<b>埼玉県<wbr>さいたま市</b></div><p>知人の紹介で切手買取を利用。担当者が話をしっかり聞いてくれ、安心して売却を任せられた——という趣旨の声。</p></li>
+  <li><div class="yk-voice__who"><span class="yk-voice__face"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iNDkiIGZpbGw9IiNGNEVCREQiLz4KICAgIDxwYXRoIGQ9Ik0xNCAxMDBjNC0yMiAxNy0zNCAzNi0zNHMzMiAxMiAzNiAzNCIgZmlsbD0iI0I2ODE1NyIvPgogICAgPGVsbGlwc2UgY3g9IjUwIiBjeT0iNDYiIHJ4PSIyMiIgcnk9IjI3IiBmaWxsPSIjRUJDMDlCIi8+CiAgICA8cGF0aCBkPSJNMjYgNDdjMC0yMiA5LTM1IDI1LTM1IDE4IDAgMjYgMTUgMjIgMzktNC0xMi0xMC0yMS0xNy0yNS03IDgtMTYgMTItMjggMTJ6IiBmaWxsPSIjM0UzMDJCIi8+CiAgICA8cGF0aCBkPSJNMjcgMzhjLTQgMTQtMSAyNyA1IDM1LTEyLTctMTMtMzEtNS00NSA3LTEyIDI2LTE4IDM5LTctMTQtMy0yOSAyLTM5IDE3eiIgZmlsbD0iIzRCMzczMCIvPgogICAgPGNpcmNsZSBjeD0iNDIiIGN5PSI0NyIgcj0iMiIgZmlsbD0iIzQwMzIyRSIvPjxjaXJjbGUgY3g9IjU4IiBjeT0iNDciIHI9IjIiIGZpbGw9IiM0MDMyMkUiLz4KICAgIDxwYXRoIGQ9Ik00MyA1OGM1IDQgMTAgNCAxNSAwIiBmaWxsPSJub25lIiBzdHJva2U9IiM5ODUxNDgiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9zdmc+Cg==" alt="" width="60" height="60"></span>40代男性<b>埼玉県<wbr>蓮田市</b></div><p>父が長年集めた大量の切手を依頼。珍しい切手があり、思っていたより高く売れて父も喜んだ——という趣旨の声。</p></li>
+  <li><div class="yk-voice__who"><span class="yk-voice__face"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iNDkiIGZpbGw9IiNGN0VCREQiLz4KICAgIDxwYXRoIGQ9Ik0xNSAxMDBjMy0yMiAxNi0zNCAzNS0zNHMzMiAxMiAzNSAzNCIgZmlsbD0iIzZCN0U4OCIvPgogICAgPGVsbGlwc2UgY3g9IjUwIiBjeT0iNDciIHJ4PSIyMiIgcnk9IjI3IiBmaWxsPSIjRTdCRTlBIi8+CiAgICA8cGF0aCBkPSJNMjcgNDdjMC0yMiA5LTM0IDI0LTM0IDE3IDAgMjUgMTMgMjMgMzUtNC03LTctMTQtNy0yMi04IDgtMjAgMTItMzYgMTJ6IiBmaWxsPSIjOUE5QTkyIi8+CiAgICA8cGF0aCBkPSJNMzAgNDNjMS0xNCA3LTIzIDE4LTI3LTEzIDEtMjIgMTItMjIgMjkgMCA3IDIgMTMgNSAxOHoiIGZpbGw9IiM3RTgwN0MiLz4KICAgIDxjaXJjbGUgY3g9IjQyIiBjeT0iNDgiIHI9IjIiIGZpbGw9IiM0NTNEMzgiLz48Y2lyY2xlIGN4PSI1OCIgY3k9IjQ4IiByPSIyIiBmaWxsPSIjNDUzRDM4Ii8+CiAgICA8cGF0aCBkPSJNNDQgNTljNCA0IDkgNCAxMyAwIiBmaWxsPSJub25lIiBzdHJva2U9IiM3QjQ5M0EiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9zdmc+Cg==" alt="" width="60" height="60"></span>70代男性<b>千葉県<wbr>船橋市</b></div><p>蔵の片付けで出てきた中国切手を、捨てる前に問い合わせたところ高い値段がついた——という趣旨の声。</p></li>
 </ul>
 <p class="yk-small">※ウリエル公式LP掲載の利用者の声を編集部が要旨として紹介（文面の転載はしていません）。個人の感想で、結果を保証するものではありません。出典：<a href="https://www.uriel-cuore.co.jp/lp/af/stamp/16525/" rel="nofollow noopener" target="_blank">ウリエル公式 切手買取LP「お客様の声」</a></p>
 

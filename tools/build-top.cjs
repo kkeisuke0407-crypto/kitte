@@ -11,6 +11,8 @@ const total = c => axes.reduce((s, a) => s + c.marks[a.key], 0);
 const score = c => (Math.round(total(c) / axes.length * 10) / 10).toFixed(1);
 const maru = v => (v >= 5 ? '◎' : v >= 4 ? '○' : '△');
 const stars = c => `<span class="kt-stars" style="--p:${(score(c) / 5 * 100).toFixed(0)}%" aria-hidden="true">★★★★★</span><span class="kt-score"><small>編集部評価</small>${score(c)}</span>`;
+// 地域名は都道府県のあとでだけ改行する（例：東京都／世田谷区）
+const pref = s => s.replace(/^(.{2,3}?[都道府県])/, '$1<wbr>');
 const logo = (c, w, h, alt = c.name) => `<img src="${c.logo.src}" alt="${alt}" width="${w}" height="${h}">`;
 // place：ボタンの場所（計測用。kitte.js がクリック時に dataLayer へ cta_place として送る）
 const aff = (c, cls, label, pendingHref, pendingLabel, place) =>
@@ -40,7 +42,7 @@ ${C.slice(0, 3).map(c => {
 function records() {
   const u = C[0];
   return `<h2 class="yk-sec-ttl" id="records"><em>${u.name}</em>の<br>切手買取実績</h2>
-<p class="kt-lead kt-lead--c">20万円の中国切手から、<span class="yk-mark">1万円台の切手コレクション</span>まで。<br>実家から出てきた切手も、まずはそのまま見てもらえます。</p>
+<p class="kt-lead kt-lead--c">20万円の中国切手から<br><span class="yk-mark">1万円台の切手コレクション</span>まで。<br>実家から出てきた切手も、<br>まずはそのまま見てもらえます。</p>
 <p class="yk-hint">横にスクロールできます</p>
 <div class="yk-hscroll">
 ${u.topRecords.map((r, i) => `  <div class="yk-jobcard"><h3 class="yk-jobcard__ttl">${r.tag}</h3><img class="kt-recphoto" src="${r.img}" alt="${r.title}（${u.name}公式サイト掲載の実績写真）" width="600" height="463" loading="lazy"><p class="yk-jobcard__pay">買取価格<b>${r.price}</b>円${r.note ? `<small>※${r.note}（公式記載）</small>` : ''}</p><table class="yk-kv"><tr><th>品目</th><td>${r.title}</td></tr><tr><th>買取日</th><td>${r.date}</td></tr><tr><th>地域</th><td>${r.area}・出張買取</td></tr></table>
@@ -49,7 +51,7 @@ ${u.topRecords.map((r, i) => `  <div class="yk-jobcard"><h3 class="yk-jobcard__t
 <p class="kt-src">写真・実績：<a href="${u.recordSrc}" rel="nofollow noopener" target="_blank">${u.recordSrcName}</a>（2026年10月13日確認）。複数点をまとめた過去の買取例で、同じ切手でも状態や時期により査定額は変わります。</p>
 <h3 class="yk-voice__ttl">家族の切手を売った方の声</h3>
 <ul class="yk-voice">
-${u.topVoices.map(v => `  <li><div class="yk-voice__who"><span class="yk-voice__face"><img src="${v.face}" alt="" width="60" height="60"></span>${v.who}<b>${v.where}</b></div><p><b>${v.ttl}</b><br>${v.text}</p></li>`).join('\n')}
+${u.topVoices.map(v => `  <li><div class="yk-voice__who"><span class="yk-voice__face"><img src="${v.face}" alt="" width="60" height="60"></span>${v.who}<b>${pref(v.where)}</b></div><p><b>${v.ttl}</b><br>${v.text}</p></li>`).join('\n')}
 </ul>
 <p class="yk-small">※公式LP掲載の利用者の声を編集部が要旨として紹介（文面の転載はしていません）。個人の感想です。出典：<a href="${u.topVoiceSrc}" rel="nofollow noopener" target="_blank">${u.name}公式LP</a></p>`;
 }
@@ -66,7 +68,7 @@ function compare() {
   <div class="yk-tabs__panels">
     <div><div class="yk-fold"><input type="checkbox" id="cmp1-more"><div class="yk-fold__body">
       <table class="yk-cmp"><colgroup><col class="c1"><col class="c2"><col><col class="c4"></colgroup>
-        <tr><th>サービス</th><th>編集部評価</th><th>得意なこと</th><th>公式</th></tr>
+        <tr><th>サービス</th><th>編集部<br>評価</th><th>得意なこと</th><th>公式</th></tr>
 ${C.map(c => '        ' + row(c, `${head(c)}<td>${stars(c)}</td><td class="is-left">${c.tagline}<ul class="yk-chips">${axes.filter(a => c.marks[a.key] >= 5).slice(0, 3).map((a, i) => `<li${i === 0 ? ' class="is-pink"' : ''}>${a.short}</li>`).join('')}</ul></td><td>${btn(c)}</td>`)).join('\n')}
       </table></div><label class="yk-fold__btn" for="cmp1-more">4位〜6位も見る</label></div></div>
     <div><table class="yk-cmp"><colgroup><col class="c1"><col><col></colgroup><tr><th>サービス</th><th>状態の悪い切手</th><th>大量・アルバムのまま</th></tr>
@@ -165,7 +167,7 @@ ${c.records.map((r, i) => `          <div class="yk-jobex"><p class="yk-jobex__t
     <div class="yk-editor__body"><p>${c.editor}</p></div></div>
   <h4 class="yk-voice__ttl">${c.name}の利用者の声（公式掲載）</h4>
   <ul class="yk-voice">
-    <li><div class="yk-voice__who"><span class="yk-voice__face"><img src="${c.voice.face}" alt="" width="60" height="60"></span>${c.voice.who}<b>${c.voice.where}</b></div><p>${c.voice.text}</p></li>
+    <li><div class="yk-voice__who"><span class="yk-voice__face"><img src="${c.voice.face}" alt="" width="60" height="60"></span>${c.voice.who}<b>${pref(c.voice.where)}</b></div><p>${c.voice.text}</p></li>
   </ul>
   <p class="yk-small">※公式サイト掲載の利用者の声を編集部が要旨として紹介（文面の転載はしていません）。個人の感想です。出典：<a href="${c.voice.src}" rel="nofollow noopener" target="_blank">${c.voice.srcName}</a></p>
   <div class="yk-btnpair"><a class="yk-btn yk-btn--sub" href="${c.detail}" data-place="rank-${c.id}-detail">詳細<br>ページへ</a><div>${right}</div></div>
@@ -186,11 +188,11 @@ function scores() {
   <tr><th>項目</th><th>◎（5点）</th><th>○（4点）</th><th>△（3点）</th></tr>
 ${axes.map(a => `  <tr><td><b>${a.short}</b><br><small>${a.full}</small></td><td>${a.c5}</td><td>${a.c4}</td><td>${a.c3}</td></tr>`).join('\n')}
 </table></div>
-<div class="kt-x"><table class="kt-table">
+<div class="kt-x"><table class="kt-table kt-table--marks">
   <tr><th>順位</th><th>サービス</th>${axes.map(a => `<th>${a.short}</th>`).join('')}<th>編集部評価</th></tr>
-${C.map(c => `  <tr><td class="is-c">${c.rank}</td><td>${c.name}</td>${axes.map(a => `<td class="is-c" title="${c.ev[a.key]}">${maru(c.marks[a.key])}</td>`).join('')}<td class="is-c">${score(c)}</td></tr>`).join('\n')}
+${C.map(c => `  <tr><td class="is-c">${c.rank}</td><td>${c.name}</td>${axes.map(a => `<td class="is-c" title="${c.ev[a.key].replace(/<[^>]+>/g, '')}">${maru(c.marks[a.key])}</td>`).join('')}<td class="is-c">${score(c)}</td></tr>`).join('\n')}
 </table></div>
-<div class="kt-x"><table class="kt-table">
+<div class="kt-x"><table class="kt-table kt-table--fit">
   <tr><th>サービス</th><th>採点の根拠（公式サイトの記載・要約）</th></tr>
 ${C.map(c => `  <tr><td>${c.name}</td><td>${axes.map(a => `<b>${a.short}</b>：${c.ev[a.key]}`).join('<br>')}<br><small>出典：<a href="${c.official}" rel="nofollow noopener" target="_blank">${c.official}</a></small></td></tr>`).join('\n')}
 </table></div>`;

@@ -521,10 +521,10 @@ body { margin: 0; background: #f4f4f4; }
 .kt-stars::before { content: "★★★★★"; position: absolute; left: 0; top: 0; width: var(--p); overflow: hidden; color: #f5a623; }
 .kt-score { display: inline-block; margin-left: .3em; color: var(--yk-red); font-size: 18px; font-weight: 900; line-height: 1.1; vertical-align: middle; }
 .kt-score small { display: block; color: var(--yk-sub); font-size: 9.5px; font-weight: 700; }
-.yk-cmp .kt-stars { display: block; margin: 0 auto; font-size: 11px; }
+.yk-cmp .kt-stars { display: table; margin: 0 auto; font-size: 11px; }
 .yk-cmp .kt-score { display: block; margin: .15em 0 0; font-size: 20px; }
 .kt-best3__score { margin: 0 4px 4px !important; text-align: center; line-height: 1.1 !important; }
-.kt-best3__score .kt-stars { display: block; font-size: 11px; }
+.kt-best3__score .kt-stars { display: table; margin: 0 auto; font-size: 11px; }
 .kt-best3__score .kt-score { margin: 0; font-size: 17px; }
 .kt-best3__score .kt-score small { display: inline; margin-right: .2em; }
 .yk-best3__note.kt-note-pos { color: var(--yk-blue-d); }
@@ -669,6 +669,23 @@ body { margin: 0; background: #f4f4f4; }
 .kt-lastpush li { padding: .3em .8em; border-radius: 99px; background: #fff; border: 1px solid #f2c94c; font-size: 13px; }
 .kt-lastpush li b { color: var(--yk-red); }
 
+/* スマホで最後の行が1〜2文字だけにならないようにする（対応ブラウザー：Chrome・Edge・Safari 26以降。非対応でも表示は崩れない）
+   本文は text-wrap: pretty、見出しや短いラベルは balance ＋ 文節単位の改行（auto-phrase） */
+.yk-body, .kt-site, .yk-footer { text-wrap: pretty; }
+.yk-body :is(small, .yk-small, .kt-src, .yk-combo__points li, .yk-features li, .yk-btn, .kt-campaign__terms) { word-break: auto-phrase; }
+.yk-body :is(h1, h2, h3, h4, th, dt, summary, figcaption, .yk-sec-ttl, .yk-svchead__catch, .kt-lead--c, .yk-best3__text, .yk-best3__note, .yk-pickup__name, .yk-pickup__text, .yk-rankcatch, .yk-combo__head, .yk-combo__points b, .yk-catch, .kt-lastpush__q, .yk-features li, .yk-order a, .yk-voice__who b, .yk-kv td, .yk-cmp td, .yk-cmp small, .kt-radarlist span, .kt-vs td, .yk-matrix__item li, .kt-table td, .kt-table th, .yk-info td, .kt-radarlist small, .yk-listbox li) { text-wrap: balance; word-break: auto-phrase; }
+.yk-voice__who b { word-break: keep-all; }
+.yk-body .kt-table--marks th, .yk-body .kt-table--marks td { white-space: nowrap; }
+.kt-nw { white-space: nowrap; }
+/* BEST3の3列カードは中央ぞろえで読みやすく */
+.yk-best3__text { text-align: center; }
+.yk-pickup__name small { font-size: 12px; font-weight: 700; }
+.yk-body .yk-cmp td.is-left { text-wrap: pretty; }
+.kt-x .kt-table--fit { min-width: 0; }
+.kt-table--fit td:first-child { white-space: nowrap; }
+.yk-listbox li a { white-space: nowrap; }
+.kt-table--fit a { word-break: break-all; }
+
 </style>
 </head>
 <body>
@@ -710,23 +727,23 @@ body { margin: 0; background: #f4f4f4; }
   <tr><td><b>訪問の早さ</b><br><small>出張の早さ・その場での現金化</small></td><td>最短の訪問日の目安と、出張でその場で現金払いの両方を明記</td><td>どちらか一方を明記</td><td>明記なし</td></tr>
   <tr><td><b>実績公開</b><br><small>実績・信頼の公開</small></td><td>写真つき買取実績（日付・地域）・利用者の声・数値実績（調査条件の注記つき）をすべて公開</td><td>上記のうち2つを公開</td><td>1つ以下</td></tr>
 </table></div>
-<div class="kt-x"><table class="kt-table">
+<div class="kt-x"><table class="kt-table kt-table--marks">
   <tr><th>順位</th><th>サービス</th><th>24時間受付</th><th>費用0円</th><th>状態不良OK</th><th>大量・アルバム</th><th>訪問の早さ</th><th>実績公開</th><th>編集部評価</th></tr>
-  <tr><td class="is-c">1</td><td>ウリエル</td><td class="is-c" title="24時間受付（年末年始除く）">◎</td><td class="is-c" title="出張料・査定料・キャンセル料0円">◎</td><td class="is-c" title="汚れ・破損で他店に断られた切手でも買取できる場合あり">◎</td><td class="is-c" title="バラ・台紙貼り（アルバム）・価値不明もそのまま。その場で追加OK">◎</td><td class="is-c" title="最短翌日査定・その場で現金支払い・玄関先査定OK">◎</td><td class="is-c" title="写真つき実績・利用者の声・満足度93.29%（自社調べ）">◎</td><td class="is-c">5.0</td></tr>
+  <tr><td class="is-c">1</td><td>ウリエル</td><td class="is-c" title="24時間受付（年末年始を除く）">◎</td><td class="is-c" title="出張料・査定料・キャンセル料0円">◎</td><td class="is-c" title="汚れ・破損で他店に断られた切手でも買取できる場合あり">◎</td><td class="is-c" title="バラ・台紙貼り（アルバム）・価値不明もそのまま。その場で追加OK">◎</td><td class="is-c" title="最短翌日査定・その場で現金支払い・玄関先査定OK">◎</td><td class="is-c" title="写真つき実績・利用者の声・満足度93.29%（自社調べ）">◎</td><td class="is-c">5.0</td></tr>
   <tr><td class="is-c">2</td><td>バイセル</td><td class="is-c" title="24時間365日受付（電話）">◎</td><td class="is-c" title="査定料・キャンセル料など各種無料">◎</td><td class="is-c" title="シミ・汚れ・台紙貼りなども買取保証（出張・店頭）">◎</td><td class="is-c" title="仕分け不要・台紙貼り・バラもそのまま査定">◎</td><td class="is-c" title="その場で現金化（最短訪問日の記載なし）">○</td><td class="is-c" title="写真つき実績・利用者の声・累計4,800万点（当社調べ）">◎</td><td class="is-c">4.8</td></tr>
-  <tr><td class="is-c">3</td><td>福ちゃん</td><td class="is-c" title="電話8:00〜20:00（申込は24時間）">○</td><td class="is-c" title="訪問料・査定料・送料・振込手数料無料、キャンセル料なし">◎</td><td class="is-c" title="古い・汚れのある切手も査定（状態により買取不可あり）">○</td><td class="is-c" title="仕分け不要、段ボールやアルバムのバラ切手も">◎</td><td class="is-c" title="即日出張買取（対応地域）・出張はその場で現金">◎</td><td class="is-c" title="写真つき実績・利用者の声">○</td><td class="is-c">4.5</td></tr>
-  <tr><td class="is-c">4</td><td>日晃堂</td><td class="is-c" title="8:00〜20:00（年中無休・年末年始除く）">○</td><td class="is-c" title="出張料・査定料などの手数料は全て無料、キャンセル料なし">◎</td><td class="is-c" title="破れ・汚れ・シミ、他店で断られた切手も">◎</td><td class="is-c" title="ボストーク（ストックブック）の買取実績">○</td><td class="is-c" title="その場で現金お手渡し（最短訪問日の記載なし）">○</td><td class="is-c" title="買取実績（日付・地域）を公開">○</td><td class="is-c">4.3</td></tr>
-  <tr><td class="is-c">5</td><td>買取大吉</td><td class="is-c" title="総合受付24時間・年中無休（年末年始除く）">◎</td><td class="is-c" title="査定料・出張料・買取手数料・キャンセル料すべて無料">◎</td><td class="is-c" title="どんな状態の切手でも相談">○</td><td class="is-c" title="台紙に貼った切手も相談">○</td><td class="is-c" title="その場で即現金払い（最短訪問日の記載なし）">○</td><td class="is-c" title="買取参考価格を写真つきで公開">○</td><td class="is-c">4.3</td></tr>
-  <tr><td class="is-c">6</td><td>なんぼや</td><td class="is-c" title="電話10:00〜21:00">○</td><td class="is-c" title="査定料・キャンセル料無料（出張料の明記は今回確認できず）">○</td><td class="is-c" title="汚れ・キズ・シミの訳あり品もしっかり買い取り">◎</td><td class="is-c" title="玄関先で大量査定・バラ1枚から">○</td><td class="is-c" title="最短当日訪問・即現金買取">◎</td><td class="is-c" title="買取実績・利用者の声">○</td><td class="is-c">4.3</td></tr>
+  <tr><td class="is-c">3</td><td>福ちゃん</td><td class="is-c" title="電話8:00〜20:00（申込は24時間）">○</td><td class="is-c" title="訪問料・査定料・送料・振込手数料・キャンセル料が無料">◎</td><td class="is-c" title="古い・汚れのある切手も査定（状態により買取不可あり）">○</td><td class="is-c" title="仕分け不要、段ボールやアルバムのバラ切手も">◎</td><td class="is-c" title="即日出張買取（対応地域）・出張はその場で現金">◎</td><td class="is-c" title="写真つき実績・利用者の声">○</td><td class="is-c">4.5</td></tr>
+  <tr><td class="is-c">4</td><td>日晃堂</td><td class="is-c" title="8:00〜20:00（年中無休・年末年始を除く）">○</td><td class="is-c" title="出張料・査定料などの手数料・キャンセル料が全て無料">◎</td><td class="is-c" title="破れ・汚れ・シミ、他店で断られた切手も">◎</td><td class="is-c" title="ボストーク（ストックブック）の買取実績">○</td><td class="is-c" title="その場で現金お手渡し（最短訪問日の記載なし）">○</td><td class="is-c" title="買取実績（日付・地域）を公開">○</td><td class="is-c">4.3</td></tr>
+  <tr><td class="is-c">5</td><td>買取大吉</td><td class="is-c" title="総合受付24時間・年中無休（年末年始を除く）">◎</td><td class="is-c" title="査定料・出張料・買取手数料・キャンセル料すべて無料">◎</td><td class="is-c" title="どんな状態の切手でも相談">○</td><td class="is-c" title="台紙に貼った切手も相談">○</td><td class="is-c" title="その場で即現金払い（最短訪問日の記載なし）">○</td><td class="is-c" title="買取参考価格を写真つきで公開">○</td><td class="is-c">4.3</td></tr>
+  <tr><td class="is-c">6</td><td>なんぼや</td><td class="is-c" title="電話10:00〜21:00">○</td><td class="is-c" title="査定料・キャンセル料無料（出張料は未確認）">○</td><td class="is-c" title="汚れ・キズ・シミの訳あり品もしっかり買い取り">◎</td><td class="is-c" title="玄関先で大量査定・バラ1枚から">○</td><td class="is-c" title="最短当日訪問・即現金買取">◎</td><td class="is-c" title="買取実績・利用者の声">○</td><td class="is-c">4.3</td></tr>
 </table></div>
-<div class="kt-x"><table class="kt-table">
+<div class="kt-x"><table class="kt-table kt-table--fit">
   <tr><th>サービス</th><th>採点の根拠（公式サイトの記載・要約）</th></tr>
-  <tr><td>ウリエル</td><td><b>24時間受付</b>：24時間受付（年末年始除く）<br><b>費用0円</b>：出張料・査定料・キャンセル料0円<br><b>状態不良OK</b>：汚れ・破損で他店に断られた切手でも買取できる場合あり<br><b>大量・アルバム</b>：バラ・台紙貼り（アルバム）・価値不明もそのまま。その場で追加OK<br><b>訪問の早さ</b>：最短翌日査定・その場で現金支払い・玄関先査定OK<br><b>実績公開</b>：写真つき実績・利用者の声・満足度93.29%（自社調べ）<br><small>出典：<a href="https://www.uriel-cuore.co.jp/stamp/" rel="nofollow noopener" target="_blank">https://www.uriel-cuore.co.jp/stamp/</a></small></td></tr>
-  <tr><td>バイセル</td><td><b>24時間受付</b>：24時間365日受付（電話）<br><b>費用0円</b>：査定料・キャンセル料など各種無料<br><b>状態不良OK</b>：シミ・汚れ・台紙貼りなども買取保証（出張・店頭）<br><b>大量・アルバム</b>：仕分け不要・台紙貼り・バラもそのまま査定<br><b>訪問の早さ</b>：その場で現金化（最短訪問日の記載なし）<br><b>実績公開</b>：写真つき実績・利用者の声・累計4,800万点（当社調べ）<br><small>出典：<a href="https://buysell-kaitori.com/stamp/" rel="nofollow noopener" target="_blank">https://buysell-kaitori.com/stamp/</a></small></td></tr>
-  <tr><td>福ちゃん</td><td><b>24時間受付</b>：電話8:00〜20:00（申込は24時間）<br><b>費用0円</b>：訪問料・査定料・送料・振込手数料無料、キャンセル料なし<br><b>状態不良OK</b>：古い・汚れのある切手も査定（状態により買取不可あり）<br><b>大量・アルバム</b>：仕分け不要、段ボールやアルバムのバラ切手も<br><b>訪問の早さ</b>：即日出張買取（対応地域）・出張はその場で現金<br><b>実績公開</b>：写真つき実績・利用者の声<br><small>出典：<a href="https://www.fuku-chan.info/kitte/" rel="nofollow noopener" target="_blank">https://www.fuku-chan.info/kitte/</a></small></td></tr>
-  <tr><td>日晃堂</td><td><b>24時間受付</b>：8:00〜20:00（年中無休・年末年始除く）<br><b>費用0円</b>：出張料・査定料などの手数料は全て無料、キャンセル料なし<br><b>状態不良OK</b>：破れ・汚れ・シミ、他店で断られた切手も<br><b>大量・アルバム</b>：ボストーク（ストックブック）の買取実績<br><b>訪問の早さ</b>：その場で現金お手渡し（最短訪問日の記載なし）<br><b>実績公開</b>：買取実績（日付・地域）を公開<br><small>出典：<a href="https://nikkoudou-kottou.com/kitte/" rel="nofollow noopener" target="_blank">https://nikkoudou-kottou.com/kitte/</a></small></td></tr>
-  <tr><td>買取大吉</td><td><b>24時間受付</b>：総合受付24時間・年中無休（年末年始除く）<br><b>費用0円</b>：査定料・出張料・買取手数料・キャンセル料すべて無料<br><b>状態不良OK</b>：どんな状態の切手でも相談<br><b>大量・アルバム</b>：台紙に貼った切手も相談<br><b>訪問の早さ</b>：その場で即現金払い（最短訪問日の記載なし）<br><b>実績公開</b>：買取参考価格を写真つきで公開<br><small>出典：<a href="https://www.kaitori-daikichi.jp/list/stamp/" rel="nofollow noopener" target="_blank">https://www.kaitori-daikichi.jp/list/stamp/</a></small></td></tr>
-  <tr><td>なんぼや</td><td><b>24時間受付</b>：電話10:00〜21:00<br><b>費用0円</b>：査定料・キャンセル料無料（出張料の明記は今回確認できず）<br><b>状態不良OK</b>：汚れ・キズ・シミの訳あり品もしっかり買い取り<br><b>大量・アルバム</b>：玄関先で大量査定・バラ1枚から<br><b>訪問の早さ</b>：最短当日訪問・即現金買取<br><b>実績公開</b>：買取実績・利用者の声<br><small>出典：<a href="https://nanboya.com/kitte-kaitori/" rel="nofollow noopener" target="_blank">https://nanboya.com/kitte-kaitori/</a></small></td></tr>
+  <tr><td>ウリエル</td><td><b>24時間受付</b>：24時間受付（年末年始を除く）<br><b>費用0円</b>：出張料・査定料・キャンセル料0円<br><b>状態不良OK</b>：汚れ・破損で他店に断られた切手でも買取できる場合あり<br><b>大量・アルバム</b>：バラ・台紙貼り（アルバム）・価値不明もそのまま。その場で追加OK<br><b>訪問の早さ</b>：最短翌日査定・その場で現金支払い・玄関先査定OK<br><b>実績公開</b>：写真つき実績・利用者の声・満足度93.29%（自社調べ）<br><small>出典：<a href="https://www.uriel-cuore.co.jp/stamp/" rel="nofollow noopener" target="_blank">https://www.uriel-cuore.co.jp/stamp/</a></small></td></tr>
+  <tr><td>バイセル</td><td><b>24時間受付</b>：24時間365日受付（電話）<br><b>費用0円</b>：査定料・キャンセル料など<span class="kt-nw">各種無料</span><br><b>状態不良OK</b>：シミ・汚れ・台紙貼りなども買取保証（出張・店頭）<br><b>大量・アルバム</b>：仕分け不要・台紙貼り・バラもそのまま査定<br><b>訪問の早さ</b>：その場で現金化（最短訪問日の記載なし）<br><b>実績公開</b>：写真つき実績・利用者の声・累計4,800万点（当社調べ）<br><small>出典：<a href="https://buysell-kaitori.com/stamp/" rel="nofollow noopener" target="_blank">https://buysell-kaitori.com/stamp/</a></small></td></tr>
+  <tr><td>福ちゃん</td><td><b>24時間受付</b>：電話8:00〜20:00（申込は24時間）<br><b>費用0円</b>：訪問料・査定料・送料・振込手数料・キャンセル料が無料<br><b>状態不良OK</b>：古い・汚れのある切手も査定（状態により買取不可あり）<br><b>大量・アルバム</b>：仕分け不要、段ボールやアルバムのバラ切手も<br><b>訪問の早さ</b>：即日出張買取（対応地域）・出張はその場で現金<br><b>実績公開</b>：写真つき実績・利用者の声<br><small>出典：<a href="https://www.fuku-chan.info/kitte/" rel="nofollow noopener" target="_blank">https://www.fuku-chan.info/kitte/</a></small></td></tr>
+  <tr><td>日晃堂</td><td><b>24時間受付</b>：8:00〜20:00（年中無休・年末年始を除く）<br><b>費用0円</b>：出張料・査定料などの手数料・キャンセル料が全て無料<br><b>状態不良OK</b>：破れ・汚れ・シミ、他店で断られた切手も<br><b>大量・アルバム</b>：ボストーク（ストックブック）の買取実績<br><b>訪問の早さ</b>：その場で現金お手渡し（最短訪問日の記載なし）<br><b>実績公開</b>：買取実績（日付・地域）を公開<br><small>出典：<a href="https://nikkoudou-kottou.com/kitte/" rel="nofollow noopener" target="_blank">https://nikkoudou-kottou.com/kitte/</a></small></td></tr>
+  <tr><td>買取大吉</td><td><b>24時間受付</b>：総合受付24時間・年中無休（年末年始を除く）<br><b>費用0円</b>：査定料・出張料・買取手数料・キャンセル料すべて無料<br><b>状態不良OK</b>：どんな状態の切手でも相談<br><b>大量・アルバム</b>：台紙に貼った切手も相談<br><b>訪問の早さ</b>：その場で即現金払い（最短訪問日の記載なし）<br><b>実績公開</b>：買取参考価格を写真つきで公開<br><small>出典：<a href="https://www.kaitori-daikichi.jp/list/stamp/" rel="nofollow noopener" target="_blank">https://www.kaitori-daikichi.jp/list/stamp/</a></small></td></tr>
+  <tr><td>なんぼや</td><td><b>24時間受付</b>：電話10:00〜21:00<br><b>費用0円</b>：査定料・キャンセル料無料（出張料は未確認）<br><b>状態不良OK</b>：汚れ・キズ・シミの訳あり品もしっかり買い取り<br><b>大量・アルバム</b>：玄関先で大量査定・バラ1枚から<br><b>訪問の早さ</b>：最短当日訪問・即現金買取<br><b>実績公開</b>：買取実績・利用者の声<br><small>出典：<a href="https://nanboya.com/kitte-kaitori/" rel="nofollow noopener" target="_blank">https://nanboya.com/kitte-kaitori/</a></small></td></tr>
 </table></div>
 <!--@scores:end-->
 <p class="yk-small">※「今回確認できず」は、2026年10月13日時点で公式サイトの記載を確認できなかったという意味で、サービスがないことを示すものではありません。</p>
@@ -740,10 +757,10 @@ body { margin: 0; background: #f4f4f4; }
 
 <h2 class="yk-numh" id="items"><span>項目5</span>比較の対象と出典</h2>
 <p>切手の出張買取に対応し、公式サイトで切手買取の内容を確認できた6社を比較しています。</p>
-<div class="kt-x"><table class="kt-table">
+<div class="kt-x"><table class="kt-table kt-table--fit">
   <tr><th>項目</th><th>定義</th></tr>
   <tr><td>買取実績</td><td>公式サイトに写真つきで掲載された過去の買取例（品目・金額・日付・地域）。複数点をまとめた例を含み、個々の切手や将来の査定額を保証するものではありません。同じ切手を各社で比べた結果でもありません</td></tr>
-  <tr><td>利用者の声</td><td>公式サイトに掲載された利用者の声。広告での文面転載の許諾を確認できていないため、本サイトでは文面を転載せず、要旨と出典リンクのみを掲載しています（個人の感想です）</td></tr>
+  <tr><td><span class="kt-nw">利用者の声</span></td><td>公式サイトに掲載された利用者の声。広告での文面転載の許諾を確認できていないため、本サイトでは文面を転載せず、要旨と出典リンクのみを掲載しています（個人の感想です）</td></tr>
   <tr><td>数値の実績</td><td>査定員対応満足度・年間買取点数・累計買取点数などは、各社が公式サイトで示している数値と調査条件をそのまま記載しています</td></tr>
 </table></div>
 <div class="yk-listbox"><p class="yk-listbox__ttl">出典（2026年10月13日確認）</p><ul>
