@@ -1,6 +1,7 @@
 /* ============================================================
    切手買取 比較LP 共通スクリプト（ページ末尾で1回だけ読み込む）
    1. ASPリンク未設定ボタンの内部導線切替
+   1b. CTAクリックの計測準備（data-place ＝ ボタンの場所）
    2. 「もっと見る」の中へのアンカーリンクで、自動的に開く
    3. レーダーチャート描画（パーツ集 rank-7 の描画スクリプトを踏襲。点数を軸名の下に表示）
    4. 診断フォーム（close-2）…ブラウザー内だけで判定し、外部送信しない
@@ -28,6 +29,17 @@
     });
   }
   settleAffLinks(document);
+
+  /* ------------------------------------------------------------
+     1b. CTAクリック：GA4 / GTM を入れたときに場所別のクリック数を比べられるよう、
+     window.dataLayer があれば { event: 'cta_click', cta_place, cta_company, cta_pending } を送る。
+     計測タグが無いあいだは何もしない（外部送信なし）。
+     ------------------------------------------------------------ */
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[data-place]');
+    if (!a || !window.dataLayer || typeof window.dataLayer.push !== 'function') return;
+    window.dataLayer.push({ event: 'cta_click', cta_place: a.dataset.place, cta_company: a.dataset.aff || '', cta_pending: a.classList.contains('is-pending') });
+  });
 
   /* ヘッダーの日付：毎日、日本時間の今日の日付を表示する（JSが動かない場合はHTMLに書いた日付のまま） */
   var jst = new Date(Date.now() + 9 * 3600 * 1000);
@@ -108,13 +120,13 @@
     reasons.forEach(function (r) { ul.appendChild(el('li', null, r)); });
     c.appendChild(ul);
     var pair = el('div', { 'class': 'yk-btnpair' });
-    pair.appendChild(el('a', { 'class': 'yk-btn yk-btn--sub', href: s.detail }, '詳細<br>ページへ'));
+    pair.appendChild(el('a', { 'class': 'yk-btn yk-btn--sub', href: s.detail, 'data-place': 'finder-' + key + '-detail' }, '詳細<br>ページへ'));
     var right = el('div');
     if (s.aff) {
-      right.appendChild(el('a', { 'class': 'yk-btn yk-btn--sm', href: s.aff, 'data-aff': key, 'data-pending-href': s.detail, 'data-pending-label': s.pendingLabel, rel: 'nofollow sponsored noopener', target: '_blank' }, s.name + 'の公式サイトで<br>無料査定を申し込む'));
+      right.appendChild(el('a', { 'class': 'yk-btn yk-btn--sm', href: s.aff, 'data-aff': key, 'data-place': 'finder-' + key, 'data-pending-href': s.detail, 'data-pending-label': s.pendingLabel, rel: 'nofollow sponsored noopener', target: '_blank' }, s.name + 'の公式サイトで<br>無料査定を申し込む'));
     } else {
       // 福ちゃん：ASP条件未取得のため成果リンクは置かない
-      right.appendChild(el('a', { 'class': 'yk-btn yk-btn--sm is-pending', href: s.detail }, '福ちゃんの<br>確認ポイントを見る'));
+      right.appendChild(el('a', { 'class': 'yk-btn yk-btn--sm is-pending', href: s.detail, 'data-place': 'finder-' + key }, '福ちゃんの<br>確認ポイントを見る'));
     }
     pair.appendChild(right);
     c.appendChild(pair);

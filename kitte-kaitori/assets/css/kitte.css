@@ -315,3 +315,39 @@ body { margin: 0; background: #f4f4f4; }
 .yk-body .kt-site { display: block; padding: .55em 12px; background: linear-gradient(90deg, var(--yk-blue-d), var(--yk-blue)); text-align: center; }
 .kt-update { margin: 0 !important; color: #fff; font-size: 17px; font-weight: 900; line-height: 1.3 !important; letter-spacing: .03em; }
 .kt-update span { margin-left: .15em; color: #ffe066; }
+
+/* BEST3直下：ウリエルを1位に選んだ理由 ＋ 安心の帯 */
+.kt-why1 { margin: 1.4em 0; padding: 14px 12px 12px; border: 3px solid var(--yk-orange); border-radius: 10px; background: #fff; }
+.kt-why1__ttl { margin: 0 0 .7em !important; text-align: center; font-size: 20px; font-weight: 900; line-height: 1.45 !important; color: var(--yk-ink); }
+.kt-why1__ttl small { display: block; font-size: 13px; color: var(--yk-sub); }
+.kt-why1__ttl em { font-style: normal; color: var(--yk-red); }
+.kt-why1 .kt-points { margin-bottom: .8em; }
+.kt-safe { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; margin: 0 0 1em; padding: 0; list-style: none; }
+.kt-safe li { padding: .5em .2em .55em; border-radius: 8px; background: var(--yk-green-bg); border: 1px solid #a8dbb7; text-align: center; font-size: 10.5px; line-height: 1.4; color: #2d4a36; }
+.kt-safe b { display: block; margin-bottom: .15em; font-size: 16px; color: var(--yk-green-d); line-height: 1.2; }
+.kt-why1 .kt-src { margin-top: .8em; }
+
+/* 比較表の下：こんな方は、まずウリエルへ */
+.kt-fit { margin-top: 1.4em; }
+.kt-fit .yk-features__ttl { background: var(--yk-orange); }
+.kt-fit li { font-size: 14px; }
+.kt-fit li b { color: var(--yk-red); }
+
+/* 2社併用：STEP1 ウリエル → STEP2 比べたい方はバイセル */
+.yk-combo__ttl small { display: block; font-size: 14.5px; color: var(--yk-sub); }
+.yk-combo__ttl small em { color: var(--yk-blue-d); }
+.kt-step { display: inline-block; margin-right: .5em; padding: .05em .55em; border-radius: 99px; background: #ffe066; color: var(--yk-ink); font-size: 12px; vertical-align: .1em; }
+.kt-step.is-sub { background: #fff; color: var(--yk-blue-d); }
+.kt-combo__sub .yk-combo__head { background: #7f8ea3; font-size: 14.5px; }
+.kt-combo__sub .yk-btn { margin-bottom: 4px; }
+
+/* 買取実績のリード（中央寄せ） */
+.kt-lead--c { margin: -.2em 0 .6em !important; text-align: center; font-size: 14.5px; line-height: 1.7 !important; }
+
+/* 結論：最後のCTA直前の安心コピー */
+.kt-lastpush { margin: 1em 0 .8em; padding: 14px 12px; border-radius: 10px; background: var(--yk-cream); border: 2px dashed #f2c94c; text-align: center; }
+.kt-lastpush__q { margin: 0 0 .6em !important; font-size: 17px; font-weight: 900; line-height: 1.5 !important; }
+.kt-lastpush__q em { font-style: normal; color: var(--yk-red); background: linear-gradient(transparent 60%, var(--yk-mark) 60%); }
+.kt-lastpush ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.kt-lastpush li { padding: .3em .8em; border-radius: 99px; background: #fff; border: 1px solid #f2c94c; font-size: 13px; }
+.kt-lastpush li b { color: var(--yk-red); }

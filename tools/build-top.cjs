@@ -12,10 +12,11 @@ const score = c => (Math.round(total(c) / axes.length * 10) / 10).toFixed(1);
 const maru = v => (v >= 5 ? '◎' : v >= 4 ? '○' : '△');
 const stars = c => `<span class="kt-stars" style="--p:${(score(c) / 5 * 100).toFixed(0)}%" aria-hidden="true">★★★★★</span><span class="kt-score"><small>編集部評価</small>${score(c)}</span>`;
 const logo = (c, w, h, alt = c.name) => `<img src="${c.logo.src}" alt="${alt}" width="${w}" height="${h}">`;
-const aff = (c, cls, label, pendingHref, pendingLabel) =>
-  `<a class="${cls}" href="${c.aff}" data-aff="${c.id}" data-pending-href="${pendingHref}" data-pending-label="${pendingLabel}" rel="nofollow sponsored noopener" target="_blank">${label}</a>`;
+// place：ボタンの場所（計測用。kitte.js がクリック時に dataLayer へ cta_place として送る）
+const aff = (c, cls, label, pendingHref, pendingLabel, place) =>
+  `<a class="${cls}" href="${c.aff}" data-aff="${c.id}" data-place="${place}" data-pending-href="${pendingHref}" data-pending-label="${pendingLabel}" rel="nofollow sponsored noopener" target="_blank">${label}</a>`;
 const official = (c, label = '公式サイトで条件を確認する') =>
-  `<a class="yk-btn yk-btn--sub kt-offlink" href="${c.official}" rel="nofollow noopener" target="_blank">${label}<small>（外部サイト・広告リンクではありません）</small></a>`;
+  `<a class="yk-btn yk-btn--sub kt-offlink" href="${c.official}" data-place="rank-${c.id}-official" rel="nofollow noopener" target="_blank">${label}<small>（外部サイト・広告リンクではありません）</small></a>`;
 const medal = r => `yk-medal${r === 2 ? ' yk-medal--2' : r === 3 ? ' yk-medal--3' : r > 3 ? ' yk-medal--n' : ''}`;
 const radar = c => `<div class="kt-radarbox"><p class="kt-radarbox__ttl">${c.name}の編集部評価 ${stars(c)}</p>
         <div class="yk-radar" data-name="${c.name}" data-labels="${axes.map(a => a.radar).join(',')}" data-scores="${axes.map(a => c.marks[a.key]).join(',')}" data-min="2"></div>
@@ -27,7 +28,7 @@ function best3() {
   return `<section class="yk-best3" id="best3"><h2 class="yk-best3__ttl"><em>切手買取</em>おすすめ<em>BEST3</em></h2>
 <ol class="yk-best3__list">
 ${C.slice(0, 3).map(c => {
-  const btn = c.aff ? aff(c, 'yk-btn yk-btn--sm', '公式サイト', `#rank-${c.id}`, '詳しく見る') : `<a class="yk-btn yk-btn--sm is-pending" href="#rank-${c.id}">詳しく見る</a>`;
+  const btn = c.aff ? aff(c, 'yk-btn yk-btn--sm', '公式サイト', `#rank-${c.id}`, '詳しく見る', `best3-${c.id}`) : `<a class="yk-btn yk-btn--sm is-pending" href="#rank-${c.id}" data-place="best3-${c.id}">詳しく見る</a>`;
   return `  <li class="yk-best3__item"><span class="yk-best3__crown">${c.rank}</span><span class="yk-best3__logo">${logo(c, 102, 30)}</span><p class="kt-best3__score">${stars(c)}</p><p class="yk-best3__text"><span class="yk-red">${c.best3.red}</span><br><span class="yk-mark">${c.best3.mark}</span>${c.best3.text}</p><p class="yk-best3__note kt-note-pos">${c.best3.note}</p>
     <p class="yk-catch">${c.best3.catch}</p>${btn}</li>`;
 }).join('\n')}
@@ -35,16 +36,22 @@ ${C.slice(0, 3).map(c => {
 <p class="kt-best3__foot">${C.filter(c => c.featureNote).slice(0, 2).map(c => c.featureNote).join('<br>')}</p></section>`;
 }
 
-// ---------- 買取実績（ウリエル） ----------
+// ---------- 買取実績（ウリエル）：高額の例と身近な金額の例を交互に並べ、利用者の声を直下に置く ----------
 function records() {
   const u = C[0];
   return `<h2 class="yk-sec-ttl" id="records"><em>${u.name}</em>の<br>切手買取実績</h2>
+<p class="kt-lead kt-lead--c">20万円の中国切手から、<span class="yk-mark">1万円台の切手コレクション</span>まで。<br>実家から出てきた切手も、まずはそのまま見てもらえます。</p>
 <p class="yk-hint">横にスクロールできます</p>
 <div class="yk-hscroll">
-${u.records.map(r => `  <div class="yk-jobcard"><h3 class="yk-jobcard__ttl">${r.tag}</h3><img class="kt-recphoto" src="${r.img}" alt="${r.title}（${u.name}公式サイト掲載の実績写真）" width="600" height="463" loading="lazy"><p class="yk-jobcard__pay">買取価格<b>${r.price}</b>円${r.note ? `<small>※${r.note}（公式記載）</small>` : ''}</p><table class="yk-kv"><tr><th>品目</th><td>${r.title}</td></tr><tr><th>買取日</th><td>${r.date}</td></tr><tr><th>地域</th><td>${r.area}・出張買取</td></tr></table>
-    <p class="yk-catch">${u.cta.catch}</p>${aff(u, 'yk-btn yk-btn--sm', `${u.name}で無料査定`, u.detail, `${u.name}の詳細を見る`)}</div>`).join('\n')}
+${u.topRecords.map((r, i) => `  <div class="yk-jobcard"><h3 class="yk-jobcard__ttl">${r.tag}</h3><img class="kt-recphoto" src="${r.img}" alt="${r.title}（${u.name}公式サイト掲載の実績写真）" width="600" height="463" loading="lazy"><p class="yk-jobcard__pay">買取価格<b>${r.price}</b>円${r.note ? `<small>※${r.note}（公式記載）</small>` : ''}</p><table class="yk-kv"><tr><th>品目</th><td>${r.title}</td></tr><tr><th>買取日</th><td>${r.date}</td></tr><tr><th>地域</th><td>${r.area}・出張買取</td></tr></table>
+    <p class="yk-catch">${u.cta.catch}</p>${aff(u, 'yk-btn yk-btn--sm', `${u.name}で無料査定`, u.detail, `${u.name}の詳細を見る`, `records-${i + 1}`)}</div>`).join('\n')}
 </div>
-<p class="kt-src">写真・実績：<a href="${u.recordSrc}" rel="nofollow noopener" target="_blank">${u.recordSrcName}</a>（2026年10月13日確認）。複数点をまとめた過去の買取例で、同じ切手でも状態や時期により査定額は変わります。</p>`;
+<p class="kt-src">写真・実績：<a href="${u.recordSrc}" rel="nofollow noopener" target="_blank">${u.recordSrcName}</a>（2026年10月13日確認）。複数点をまとめた過去の買取例で、同じ切手でも状態や時期により査定額は変わります。</p>
+<h3 class="yk-voice__ttl">家族の切手を売った方の声</h3>
+<ul class="yk-voice">
+${u.topVoices.map(v => `  <li><div class="yk-voice__who"><span class="yk-voice__face"><img src="${v.face}" alt="" width="60" height="60"></span>${v.who}<b>${v.where}</b></div><p><b>${v.ttl}</b><br>${v.text}</p></li>`).join('\n')}
+</ul>
+<p class="yk-small">※公式LP掲載の利用者の声を編集部が要旨として紹介（文面の転載はしていません）。個人の感想です。出典：<a href="${u.topVoiceSrc}" rel="nofollow noopener" target="_blank">${u.name}公式LP</a></p>`;
 }
 
 // ---------- 比較表（タブ＋もっと見る） ----------
@@ -52,7 +59,7 @@ function compare() {
   const row = (c, cells) => `<tr${c.rank === 1 ? ' class="is-pick"' : ''}>${cells}</tr>`;
   const head = c => `<td><span class="yk-cmp__rank">${c.rank}</span><span class="yk-cmp__logo">${logo(c, 90, 22)}</span><a class="yk-cmp__name" href="${c.detail || '#rank-' + c.id}">${c.name}</a></td>`;
   const cell = (c, k) => `<td><span class="yk-maru kt-m${c.marks[k]}">${maru(c.marks[k])}</span><small>${c.ev[k]}</small></td>`;
-  const btn = c => c.aff ? `<p class="yk-catch">${c.cta.catch}</p>${aff(c, 'yk-btn yk-btn--sm', '公式', `#rank-${c.id}`, '詳細')}` : `<a class="yk-btn yk-btn--sm is-pending" href="#rank-${c.id}">詳細</a>`;
+  const btn = c => c.aff ? `<p class="yk-catch">${c.cta.catch}</p>${aff(c, 'yk-btn yk-btn--sm', '公式', `#rank-${c.id}`, '詳細', `compare-${c.id}`)}` : `<a class="yk-btn yk-btn--sm is-pending" href="#rank-${c.id}" data-place="compare-${c.id}">詳細</a>`;
   return `<div class="yk-tabs">
   <input type="radio" name="cmp1" id="cmp1-1" checked><input type="radio" name="cmp1" id="cmp1-2"><input type="radio" name="cmp1" id="cmp1-3">
   <div class="yk-tabs__labels"><label for="cmp1-1">総合<br>評価</label><label for="cmp1-2">状態・量の<br>対応</label><label for="cmp1-3">出張の<br>頼みやすさ</label></div>
@@ -123,11 +130,11 @@ ${c.features.map(f => `          <li><span>${f}</span>${n <= 3 ? '<small>※公�
     ? `<img class="kt-banner" src="${c.banner.src}" alt="${c.banner.alt}" width="${c.banner.w}" height="${c.banner.h}" loading="lazy">`
     : `<span class="kt-svclogo">${logo(c, 160, 40)}</span><img class="kt-banner" src="${c.records[0].img}" alt="${c.records[0].title}（${c.name}公式サイト掲載の実績写真）" width="370" height="240" loading="lazy">`;
   const tab1btn = c.aff
-    ? `<p class="yk-catch">${c.cta.catch}</p>${aff(c, 'yk-btn', c.cta.label, c.detail, c.cta.pending)}`
-    : `<!-- __${c.id.toUpperCase()}_AFF_LINK__：ASP条件取得後に公式申込ボタンへ変更 -->\n        <a class="yk-btn is-pending" href="${c.detail}">${c.name}の確認ポイントを見る</a>`;
+    ? `<p class="yk-catch">${c.cta.catch}</p>${aff(c, 'yk-btn', c.cta.label, c.detail, c.cta.pending, `rank-${c.id}-top`)}`
+    : `<!-- __${c.id.toUpperCase()}_AFF_LINK__：ASP条件取得後に公式申込ボタンへ変更 -->\n        <a class="yk-btn is-pending" href="${c.detail}" data-place="rank-${c.id}-top">${c.name}の確認ポイントを見る</a>`;
   const right = c.aff
-    ? `<p class="yk-catch">${c.cta.catch}</p>${aff(c, 'yk-btn', c.cta.label, c.detail, c.cta.pending)}`
-    : `<p class="yk-catch">ほかの会社とも比べる</p><a class="yk-btn is-pending" href="#finder">自分に合う業者を<br>診断で確認する</a>`;
+    ? `<p class="yk-catch">${c.cta.catch}</p>${aff(c, 'yk-btn', c.cta.label, c.detail, c.cta.pending, `rank-${c.id}-bottom`)}`
+    : `<p class="yk-catch">ほかの会社とも比べる</p><a class="yk-btn is-pending" href="#finder" data-place="rank-${c.id}-bottom">自分に合う業者を<br>診断で確認する</a>`;
   return `<div class="yk-rankarea" id="rank-${c.id}">
   ${head}
   <div class="yk-tabs">
@@ -161,7 +168,7 @@ ${c.records.map((r, i) => `          <div class="yk-jobex"><p class="yk-jobex__t
     <li><div class="yk-voice__who"><span class="yk-voice__face"><img src="${c.voice.face}" alt="" width="60" height="60"></span>${c.voice.who}<b>${c.voice.where}</b></div><p>${c.voice.text}</p></li>
   </ul>
   <p class="yk-small">※公式サイト掲載の利用者の声を編集部が要旨として紹介（文面の転載はしていません）。個人の感想です。出典：<a href="${c.voice.src}" rel="nofollow noopener" target="_blank">${c.voice.srcName}</a></p>
-  <div class="yk-btnpair"><a class="yk-btn yk-btn--sub" href="${c.detail}">詳細<br>ページへ</a><div>${right}</div></div>
+  <div class="yk-btnpair"><a class="yk-btn yk-btn--sub" href="${c.detail}" data-place="rank-${c.id}-detail">詳細<br>ページへ</a><div>${right}</div></div>
 </div>`;
 }
 function ranking() {

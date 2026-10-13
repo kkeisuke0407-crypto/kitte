@@ -47,7 +47,7 @@ kitte-kaitori/
   index.html, uriel/ buysell/ fukuchan/ methodology/ about/ privacy/
   assets/css/parts.css   … パーツ原本（編集しない）
   assets/css/kitte.css   … 切手用の調整＋mt-*の移植分
-  assets/js/kitte.js     … ASPリンク未設定時の内部導線切替／レーダー描画／診断フォーム
+  assets/js/kitte.js     … ASPリンク未設定時の内部導線切替／CTAクリック計測の準備／レーダー描画／診断フォーム
   assets/img/            … photo/ logo/ banner/ official/ illust/ favicon.svg
 _production/kitte-kaitori/imgslot-preview.html … 生成物（tools/build-preview.cjs）
 docs/画像素材一覧.md      … 生成物（tools/assets.json が正本）
@@ -76,6 +76,11 @@ HTML 内の文字列を一括置換する。未置換の間は `kitte.js` がボ
 | （日晃堂・買取大吉・なんぼや） | ASP提携なし | 公式サイトへの通常リンク（外部・広告リンクではない旨を表示）のみ |
 
 ボタン上のひとこと（`yk-catch`）はASPの対象条件が未取得のため、公式サイトで確認できた事実（「出張は対象エリアのみ」など）にしている。ASP条件を取得したら合わせて見直す。
+
+## CTAの場所別計測
+
+すべての申込ボタン・詳細ボタンに `data-place`（ボタンの場所）を付けている。例：`best3-uriel`（BEST3）、`why-uriel`（1位の理由）、`campaign`、`records-1`〜`6`、`compare-uriel`、`fit-check`（こんな方は、まずウリエルへ）、`combo-uriel` / `combo-buysell`、`rank-uriel-top` / `-bottom`、`summary`（結論）、`pickup-uriel`、`finder-uriel`（診断結果）、個別ページは `uriel-u-2` など。
+GA4やGTMを入れて `window.dataLayer` があれば、クリック時に `{ event: 'cta_click', cta_place, cta_company, cta_pending }` を送る（kitte.js）。計測タグを入れるまでは何も送信しない。比較TOPの生成部分の場所名は `tools/build-top.cjs` の `aff()` の最後の引数で決める。
 
 ## 確認コマンド
 

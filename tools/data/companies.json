@@ -209,7 +209,75 @@
         "end": "2026-10-31",
         "terms": "出張買取1回の成約金額5,000円以上の方から抽選で2名に、買取金額を含めて7倍の金額を還元（上限10万円・クーリング・オフした場合は対象外）。",
         "src": "https://www.uriel-cuore.co.jp/campaign/"
-      }
+      },
+      "topRecords": [
+        {
+          "img": "assets/img/records/uriel-mao.webp",
+          "title": "毛沢東関連切手などのコレクション",
+          "price": "200,000",
+          "date": "2021/09/11",
+          "area": "神奈川県川崎市",
+          "tag": "中国切手"
+        },
+        {
+          "img": "assets/img/records/uriel-mikaeri.webp",
+          "title": "見返り美人切手など切手コレクション",
+          "price": "30,000",
+          "date": "2024/01/13",
+          "area": "埼玉県ふじみ野市",
+          "tag": "切手趣味週間",
+          "note": "丸まったり曲がったりした切手も買取"
+        },
+        {
+          "img": "assets/img/records/uriel-akazaru.webp",
+          "title": "赤猿切手を含む中国切手コレクション",
+          "price": "150,000",
+          "date": "2021/12/15",
+          "area": "東京都世田谷区",
+          "tag": "中国切手"
+        },
+        {
+          "img": "assets/img/records/uriel-kiku.webp",
+          "title": "菊切手を含む普通切手まとめて",
+          "price": "55,000",
+          "date": "2021/10/30",
+          "area": "東京都稲城市",
+          "tag": "普通切手"
+        },
+        {
+          "img": "assets/img/records/uriel-tsukinikari.webp",
+          "title": "月に雁切手などの切手シート複数点",
+          "price": "120,000",
+          "date": "2024/05/06",
+          "area": "神奈川県海老名市",
+          "tag": "切手趣味週間"
+        },
+        {
+          "img": "assets/img/records/uriel-gunji.webp",
+          "title": "軍事切手を含む切手コレクション",
+          "price": "12,400",
+          "date": "2021/11/06",
+          "area": "千葉県習志野市",
+          "tag": "切手コレクション"
+        }
+      ],
+      "topVoices": [
+        {
+          "who": "40代男性",
+          "where": "埼玉県蓮田市",
+          "face": "assets/img/illust/avatar-man.svg",
+          "ttl": "父に頼まれて売った切手",
+          "text": "父が子どもの頃から集めていた切手を、高齢になった父に頼まれて売ることに。切手には詳しくなかったが、珍しい切手が含まれていて思った以上の値段になり、父も喜んでいた——という趣旨の声です。"
+        },
+        {
+          "who": "70代男性",
+          "where": "千葉県船橋市",
+          "face": "assets/img/illust/avatar-senior.svg",
+          "ttl": "蔵の片付けで出てきた切手",
+          "text": "蔵を片付けていて出てきた中国切手。捨てようかと思ったが、家族にすすめられて問い合わせたところ、思いのほか高い値段で売れた——という趣旨の声です。"
+        }
+      ],
+      "topVoiceSrc": "https://www.uriel-cuore.co.jp/lp/af/stamp/16525/"
     },
     {
       "id": "buysell",
