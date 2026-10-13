@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /_production/
+Disallow: /tools/
+Disallow: /docs/
