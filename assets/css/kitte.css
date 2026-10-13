@@ -24,7 +24,7 @@ body { margin: 0; background: #f4f4f4; }
 /* 注意書き（実績・順位・口コミの注記を常時表示） */
 .kt-caution { margin: .6em 0 1.2em !important; padding: .6em .8em; border: 1px solid #f1c6c6; border-radius: 6px; background: #fff7f7; color: #6b2a2a; font-size: 12.5px; line-height: 1.7 !important; }
 .kt-caution b { color: var(--yk-red); }
-.kt-src { margin: .2em 0 1em !important; font-size: 11px !important; line-height: 1.6 !important; color: var(--yk-sub); word-break: break-all; }
+.kt-src { margin: .2em 0 1em !important; font-size: 11px !important; line-height: 1.6 !important; color: var(--yk-sub); }
 .kt-src a { color: var(--yk-sub); }
 
 /* A-1 FV：画像・サブコピー・注記 */
@@ -341,11 +341,10 @@ body { margin: 0; background: #f4f4f4; }
 .kt-lastpush li { padding: .3em .8em; border-radius: 99px; background: #fff; border: 1px solid #f2c94c; font-size: 13px; }
 .kt-lastpush li b { color: var(--yk-red); }
 
-/* スマホで最後の行が1〜2文字だけにならないようにする（対応ブラウザー：Chrome・Edge・Safari 26以降。非対応でも表示は崩れない）
-   本文は text-wrap: pretty、見出しや短いラベルは balance ＋ 文節単位の改行（auto-phrase） */
-.yk-body, .kt-site, .yk-footer { text-wrap: pretty; }
-.yk-body :is(small, .yk-small, .kt-src, .yk-combo__points li, .yk-features li, .yk-btn, .kt-campaign__terms) { word-break: auto-phrase; }
-.yk-body :is(h1, h2, h3, h4, th, dt, summary, figcaption, .yk-sec-ttl, .yk-svchead__catch, .kt-lead--c, .yk-best3__text, .yk-best3__note, .yk-pickup__name, .yk-pickup__text, .yk-rankcatch, .yk-combo__head, .yk-combo__points b, .yk-catch, .kt-lastpush__q, .yk-features li, .yk-order a, .yk-voice__who b, .yk-kv td, .yk-cmp td, .yk-cmp small, .kt-radarlist span, .kt-vs td, .yk-matrix__item li, .kt-table td, .kt-table th, .yk-info td, .kt-radarlist small, .yk-listbox li) { text-wrap: balance; word-break: auto-phrase; }
+/* 改行は文節単位（tools/wrap-ja.cjs が文節の切れ目に <wbr> を入れ、keep-all で言葉の途中では改行しない。Safari・Chrome 共通）。
+   収まらない長い語だけ overflow-wrap: anywhere で折る。本文は text-wrap: pretty、見出しや短いラベルは balance で行の長さをそろえる */
+.yk-body, .kt-site, .yk-footer { text-wrap: pretty; word-break: keep-all; overflow-wrap: anywhere; }
+.yk-body :is(h1, h2, h3, h4, th, dt, summary, figcaption, .yk-sec-ttl, .yk-svchead__catch, .kt-lead--c, .yk-best3__text, .yk-best3__note, .yk-pickup__name, .yk-pickup__text, .yk-rankcatch, .yk-combo__head, .yk-combo__points b, .yk-catch, .kt-lastpush__q, .yk-features li, .yk-order a, .yk-voice__who b, .yk-kv td, .yk-cmp td, .yk-cmp small, .kt-radarlist span, .kt-vs td, .yk-matrix__item li, .kt-table td, .kt-table th, .yk-info td, .kt-radarlist small, .yk-listbox li) { text-wrap: balance; }
 .yk-voice__who b { word-break: keep-all; }
 .yk-body .kt-table--marks th, .yk-body .kt-table--marks td { white-space: nowrap; }
 .kt-nw { white-space: nowrap; }
@@ -357,3 +356,9 @@ body { margin: 0; background: #f4f4f4; }
 .kt-table--fit td:first-child { white-space: nowrap; }
 .yk-listbox li a { white-space: nowrap; }
 .kt-table--fit a { word-break: break-all; }
+.kt-x .kt-table td, .kt-x .kt-table th { min-width: 5em; }
+.kt-stars { text-wrap-mode: nowrap; }
+/* 長い本文は通常の改行（行末をそろえる）。見出し・表・短い文だけ文節単位で改行する */
+.yk-body :is(.kt-wrap > p:not(.yk-small, .kt-src, .yk-catch, .kt-update, .yk-svchead__catch), .kt-lead:not(.kt-lead--c), .yk-editor__body p, .kt-flow p, .mt-faq p, .kt-campaign__terms, .kt-best3__foot) { word-break: normal; }
+.yk-cmp .yk-catch { font-size: 10px; }
+.yk-cmp .yk-catch::before, .yk-cmp .yk-catch::after { content: none; }
