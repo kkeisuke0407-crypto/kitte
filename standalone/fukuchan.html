@@ -724,7 +724,7 @@ body { margin: 0; background: #f4f4f4; }
     reasons.forEach(function (r) { ul.appendChild(el('li', null, r)); });
     c.appendChild(ul);
     var pair = el('div', { 'class': 'yk-btnpair' });
-    pair.appendChild(el('a', { 'class': 'yk-btn yk-btn--sub', href: s.detail }, '詳細は<br>こちら'));
+    pair.appendChild(el('a', { 'class': 'yk-btn yk-btn--sub', href: s.detail }, '詳細<br>ページへ'));
     var right = el('div');
     if (s.aff) {
       right.appendChild(el('a', { 'class': 'yk-btn yk-btn--sm', href: s.aff, 'data-aff': key, 'data-pending-href': s.detail, 'data-pending-label': s.pendingLabel, rel: 'nofollow sponsored noopener', target: '_blank' }, s.name + 'の公式サイトで<br>無料査定を申し込む'));
