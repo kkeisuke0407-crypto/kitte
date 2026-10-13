@@ -77,6 +77,10 @@ HTML 内の文字列を一括置換する。未置換の間は `kitte.js` がボ
 
 ボタン上のひとこと（`yk-catch`）はASPの対象条件が未取得のため、公式サイトで確認できた事実（「出張は対象エリアのみ」など）にしている。ASP条件を取得したら合わせて見直す。
 
+## 日本語の改行
+
+スマホ（特にSafari）で言葉の途中で改行しないよう、`tools/wrap-ja.cjs` が BudouX で文節の切れ目に `<wbr>` を入れ、CSS の `word-break: keep-all` と組み合わせている。HTMLやデータを直したら `npm run build`（または `node tools/wrap-ja.cjs`）を実行する。長い本文の段落だけは行末がそろうよう通常の改行にしている。改行させたくない語は `<span class="kt-nw">` で囲む。
+
 ## CTAの場所別計測
 
 すべての申込ボタン・詳細ボタンに `data-place`（ボタンの場所）を付けている。例：`best3-uriel`（BEST3）、`campaign`、`records-1`〜`6`、`compare-uriel`、`fit-check`（こんな方は、まずウリエルへ）、`combo-uriel` / `combo-buysell`、`rank-uriel-top` / `-bottom`、`summary`（結論）、`pickup-uriel`、`finder-uriel`（診断結果）、個別ページは `uriel-u-2` など。
@@ -85,7 +89,10 @@ GA4やGTMを入れて `window.dataLayer` があれば、クリック時に `{ ev
 ## 確認コマンド
 
 ```
+npm install                     # 初回のみ（文節分割の BudouX を入れる）
+npm run build                   # 下の生成をまとめて実行（build-top → wrap-ja → build-preview → build-standalone）
 node tools/build-top.cjs        # companies.json を直したら比較TOP・調査概要を再生成
+node tools/wrap-ja.cjs          # 日本語の改行位置を文節単位にそろえる（HTMLを直したら必ず実行）
 node tools/audit.cjs            # 静的監査（エラー0で終了コード0）
 node tools/check.cjs [出力先]   # 375/390/1280px の動作チェック（引数でスクショ保存）
 node tools/build-preview.cjs    # 画像台帳を更新したら再生成

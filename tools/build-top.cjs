@@ -61,7 +61,7 @@ function compare() {
   const row = (c, cells) => `<tr${c.rank === 1 ? ' class="is-pick"' : ''}>${cells}</tr>`;
   const head = c => `<td><span class="yk-cmp__rank">${c.rank}</span><span class="yk-cmp__logo">${logo(c, 90, 22)}</span><a class="yk-cmp__name" href="${c.detail || '#rank-' + c.id}">${c.name}</a></td>`;
   const cell = (c, k) => `<td><span class="yk-maru kt-m${c.marks[k]}">${maru(c.marks[k])}</span><small>${c.ev[k]}</small></td>`;
-  const btn = c => c.aff ? `<p class="yk-catch">${c.cta.catch}</p>${aff(c, 'yk-btn yk-btn--sm', '公式', `#rank-${c.id}`, '詳細', `compare-${c.id}`)}` : `<a class="yk-btn yk-btn--sm is-pending" href="#rank-${c.id}" data-place="compare-${c.id}">詳細</a>`;
+  const btn = c => c.aff ? `<p class="yk-catch">${c.cta.short || c.cta.catch}</p>${aff(c, 'yk-btn yk-btn--sm', '公式', `#rank-${c.id}`, '詳細', `compare-${c.id}`)}` : `<a class="yk-btn yk-btn--sm is-pending" href="#rank-${c.id}" data-place="compare-${c.id}">詳細</a>`;
   return `<div class="yk-tabs">
   <input type="radio" name="cmp1" id="cmp1-1" checked><input type="radio" name="cmp1" id="cmp1-2"><input type="radio" name="cmp1" id="cmp1-3">
   <div class="yk-tabs__labels"><label for="cmp1-1">総合<br>評価</label><label for="cmp1-2">状態・量の<br>対応</label><label for="cmp1-3">出張の<br>頼みやすさ</label></div>

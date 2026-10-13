@@ -351,7 +351,7 @@ body { margin: 0; background: #f4f4f4; }
 /* 注意書き（実績・順位・口コミの注記を常時表示） */
 .kt-caution { margin: .6em 0 1.2em !important; padding: .6em .8em; border: 1px solid #f1c6c6; border-radius: 6px; background: #fff7f7; color: #6b2a2a; font-size: 12.5px; line-height: 1.7 !important; }
 .kt-caution b { color: var(--yk-red); }
-.kt-src { margin: .2em 0 1em !important; font-size: 11px !important; line-height: 1.6 !important; color: var(--yk-sub); word-break: break-all; }
+.kt-src { margin: .2em 0 1em !important; font-size: 11px !important; line-height: 1.6 !important; color: var(--yk-sub); }
 .kt-src a { color: var(--yk-sub); }
 
 /* A-1 FV：画像・サブコピー・注記 */
@@ -668,11 +668,10 @@ body { margin: 0; background: #f4f4f4; }
 .kt-lastpush li { padding: .3em .8em; border-radius: 99px; background: #fff; border: 1px solid #f2c94c; font-size: 13px; }
 .kt-lastpush li b { color: var(--yk-red); }
 
-/* スマホで最後の行が1〜2文字だけにならないようにする（対応ブラウザー：Chrome・Edge・Safari 26以降。非対応でも表示は崩れない）
-   本文は text-wrap: pretty、見出しや短いラベルは balance ＋ 文節単位の改行（auto-phrase） */
-.yk-body, .kt-site, .yk-footer { text-wrap: pretty; }
-.yk-body :is(small, .yk-small, .kt-src, .yk-combo__points li, .yk-features li, .yk-btn, .kt-campaign__terms) { word-break: auto-phrase; }
-.yk-body :is(h1, h2, h3, h4, th, dt, summary, figcaption, .yk-sec-ttl, .yk-svchead__catch, .kt-lead--c, .yk-best3__text, .yk-best3__note, .yk-pickup__name, .yk-pickup__text, .yk-rankcatch, .yk-combo__head, .yk-combo__points b, .yk-catch, .kt-lastpush__q, .yk-features li, .yk-order a, .yk-voice__who b, .yk-kv td, .yk-cmp td, .yk-cmp small, .kt-radarlist span, .kt-vs td, .yk-matrix__item li, .kt-table td, .kt-table th, .yk-info td, .kt-radarlist small, .yk-listbox li) { text-wrap: balance; word-break: auto-phrase; }
+/* 改行は文節単位（tools/wrap-ja.cjs が文節の切れ目に <wbr> を入れ、keep-all で言葉の途中では改行しない。Safari・Chrome 共通）。
+   収まらない長い語だけ overflow-wrap: anywhere で折る。本文は text-wrap: pretty、見出しや短いラベルは balance で行の長さをそろえる */
+.yk-body, .kt-site, .yk-footer { text-wrap: pretty; word-break: keep-all; overflow-wrap: anywhere; }
+.yk-body :is(h1, h2, h3, h4, th, dt, summary, figcaption, .yk-sec-ttl, .yk-svchead__catch, .kt-lead--c, .yk-best3__text, .yk-best3__note, .yk-pickup__name, .yk-pickup__text, .yk-rankcatch, .yk-combo__head, .yk-combo__points b, .yk-catch, .kt-lastpush__q, .yk-features li, .yk-order a, .yk-voice__who b, .yk-kv td, .yk-cmp td, .yk-cmp small, .kt-radarlist span, .kt-vs td, .yk-matrix__item li, .kt-table td, .kt-table th, .yk-info td, .kt-radarlist small, .yk-listbox li) { text-wrap: balance; }
 .yk-voice__who b { word-break: keep-all; }
 .yk-body .kt-table--marks th, .yk-body .kt-table--marks td { white-space: nowrap; }
 .kt-nw { white-space: nowrap; }
@@ -684,6 +683,12 @@ body { margin: 0; background: #f4f4f4; }
 .kt-table--fit td:first-child { white-space: nowrap; }
 .yk-listbox li a { white-space: nowrap; }
 .kt-table--fit a { word-break: break-all; }
+.kt-x .kt-table td, .kt-x .kt-table th { min-width: 5em; }
+.kt-stars { text-wrap-mode: nowrap; }
+/* 長い本文は通常の改行（行末をそろえる）。見出し・表・短い文だけ文節単位で改行する */
+.yk-body :is(.kt-wrap > p:not(.yk-small, .kt-src, .yk-catch, .kt-update, .yk-svchead__catch), .kt-lead:not(.kt-lead--c), .yk-editor__body p, .kt-flow p, .mt-faq p, .kt-campaign__terms, .kt-best3__foot) { word-break: normal; }
+.yk-cmp .yk-catch { font-size: 10px; }
+.yk-cmp .yk-catch::before, .yk-cmp .yk-catch::after { content: none; }
 
 </style>
 </head>
@@ -694,7 +699,7 @@ body { margin: 0; background: #f4f4f4; }
 <div class="kt-wrap yk-body">
 
 <div class="kt-site"><p class="kt-update"><time data-today datetime="2026-10-13">2026年10月13日</time><span>【最新】</span></p></div>
-<nav class="yk-crumb" aria-label="パンくずリスト"><a href="index.html">切手買取6社比較</a><span>運営者情報</span></nav>
+<nav class="yk-crumb" aria-label="パンくずリスト"><a href="index.html">切手買取<wbr>6社比較</a><span>運営者情報</span></nav>
 
 <h1 class="yk-svchead__name">運営者情報</h1>
 <div class="kt-x"><table class="kt-table">
@@ -703,17 +708,17 @@ body { margin: 0; background: #f4f4f4; }
   <tr><th>連絡先</th><td>__OPERATOR_CONTACT__</td></tr>
   <tr><th>運営者サイト</th><td>__OPERATOR_URL__</td></tr>
 </table></div>
-<h2 class="kt-h2">このサイトについて</h2>
-<p>実家などで見つかった切手の売却を考えている方に向けて、切手買取サービスの公開情報（買取対象・買取方法・出張地域・費用・断るときの条件・過去の買取実績）を比較しています。掲載内容は各社公式サイトの掲載内容をもとに編集部がまとめたもので、調査日を各ページに記載しています。</p>
-<h2 class="kt-h2">広告について</h2>
-<p>本サイトは広告・アフィリエイトリンクを含みます。掲載順や評価の考え方は<a href="methodology.html">ランキング調査概要</a>をご覧ください。</p>
+<h2 class="kt-h2">この<wbr>サイトに<wbr>ついて</h2>
+<p>実家などで<wbr>見つかった<wbr>切手の<wbr>売却を<wbr>考えている<wbr>方に<wbr>向けて、<wbr>切手買取<wbr>サービスの<wbr>公開情報<wbr>（買取対象・<wbr>買取方法・<wbr>出張地域・<wbr>費用・<wbr>断る<wbr>ときの<wbr>条件・<wbr>過去の<wbr>買取実績）を<wbr>比較しています。<wbr>掲載内容は<wbr>各社公式サイトの<wbr>掲載内容を<wbr>もとに<wbr>編集部が<wbr>まとめた<wbr>もので、<wbr>調査日を<wbr>各ページに<wbr>記載しています。</p>
+<h2 class="kt-h2">広告に<wbr>ついて</h2>
+<p>本サイトは<wbr>広告・<wbr>アフィリエイトリンクを<wbr>含みます。<wbr>掲載順や<wbr>評価の<wbr>考え方は<wbr><a href="methodology.html">ランキング調査概要</a>を<wbr>ご覧ください。</p>
 
-<div class="kt-related"><a class="yk-btn yk-btn--sub" href="index.html">6社の比較に<br>戻る</a><a class="yk-btn yk-btn--sub" href="methodology.html">ランキング<br>調査概要</a></div>
+<div class="kt-related"><a class="yk-btn yk-btn--sub" href="index.html">6社の<wbr>比較に<br>戻る<wbr></a><a class="yk-btn yk-btn--sub" href="methodology.html">ランキング<br>調査概要</a></div>
 
 <footer class="yk-footer">
   <ul><li><a href="about.html">運営者情報</a></li><li><a href="methodology.html">ランキング調査概要</a></li><li><a href="privacy.html">プライバシーポリシー</a></li></ul>
-  <p>PR：本サイトは広告・アフィリエイトリンクを含みます。</p>
-  <small>最終更新日：2026年10月13日　© 切手買取 比較ガイド</small>
+  <p>PR：本サイトは<wbr>広告・<wbr>アフィリエイトリンクを<wbr>含みます。</p>
+  <small>最終更新日：<wbr>2026年10月13日　© 切手買取 比較ガイド</small>
 </footer>
 
 </div>

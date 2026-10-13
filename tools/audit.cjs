@@ -16,7 +16,8 @@ const pages = walk(pub).filter(f => f.endsWith('.html'));
 const prodPages = fs.existsSync(path.join(root, '_production')) ? walk(path.join(root, '_production')).filter(f => f.endsWith('.html')) : [];
 const rel = f => path.relative(root, f);
 const strip = h => h.replace(/<!--[\s\S]*?-->/g, '');
-const read = f => fs.readFileSync(f, 'utf8');
+// 改行用の <wbr> と WORD JOINER は監査の対象外（tools/wrap-ja.cjs が入れる）
+const read = f => fs.readFileSync(f, 'utf8').replace(/<wbr>|\u2060/g, '');
 let errors = 0;
 const err = m => { errors++; console.log('  NG ' + m); };
 
@@ -46,7 +47,7 @@ console.log('■ 2. 個別ページの detail-1〜7');
   if (miss.length) err(`${s}: ${miss.join(', ')} がない`); else console.log(`  OK ${s}: detail-1〜7 すべてあり`);
   // 目次と番号見出しの文言一致
   const toc = [...h.matchAll(/<li><span>(確認\d)<\/span><a href="#([\w-]+)">([^<]+)<\/a><\/li>/g)];
-  toc.forEach(([, n, id, t]) => { const re = new RegExp(`<h2 class="yk-numh" id="${id}"><span>${n}</span>${t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}</h2>`); if (!re.test(h)) err(`${s}: 目次「${n} ${t}」と見出しが一致しない`); });
+  toc.forEach(([, n, id, t]) => { const re = new RegExp(`<h2 class="yk-numh" id="${id}"><span>${n}</span>${t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}</h2>`); if (!re.test(h.replace(/<br>/g, ""))) err(`${s}: 目次「${n} ${t}」と見出しが一致しない`); });
   if (toc.length) console.log(`  OK ${s}: 目次${toc.length}件と番号見出しが一致`);
 });
 
