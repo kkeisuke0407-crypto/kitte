@@ -18,7 +18,7 @@ fs.mkdirSync(out, { recursive: true });
 Object.entries(PAGES).forEach(([relPage, outName]) => {
   const pageFile = path.join(src, relPage);
   const dir = path.dirname(pageFile);
-  let h = fs.readFileSync(pageFile, 'utf8');
+  let h = fs.readFileSync(pageFile, 'utf8').replace(/(assets\/(?:css|js)\/[\w.-]+\.(?:css|js))\?v=[0-9a-f]+/g, '$1');
   // 画像・favicon
   h = h.replace(/(<img\b[^>]*\ssrc=|<link rel="icon" href=)"([^"]+)"/g, (m, pre, s) => /^(https?:|data:)/.test(s) ? m : `${pre}"${uriOf(path.resolve(dir, s))}"`);
   // ページ間リンク

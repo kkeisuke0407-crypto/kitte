@@ -358,7 +358,5 @@ body { margin: 0; background: #f4f4f4; }
 .kt-table--fit a { word-break: break-all; }
 .kt-x .kt-table td, .kt-x .kt-table th { min-width: 5em; }
 .kt-stars { text-wrap-mode: nowrap; }
-/* 長い本文は通常の改行（行末をそろえる）。見出し・表・短い文だけ文節単位で改行する */
-.yk-body :is(.kt-wrap > p:not(.yk-small, .kt-src, .yk-catch, .kt-update, .yk-svchead__catch), .kt-lead:not(.kt-lead--c), .yk-editor__body p, .kt-flow p, .mt-faq p, .kt-campaign__terms, .kt-best3__foot) { word-break: normal; }
 .yk-cmp .yk-catch { font-size: 10px; }
 .yk-cmp .yk-catch::before, .yk-cmp .yk-catch::after { content: none; }

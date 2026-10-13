@@ -79,7 +79,7 @@ HTML 内の文字列を一括置換する。未置換の間は `kitte.js` がボ
 
 ## 日本語の改行
 
-スマホ（特にSafari）で言葉の途中で改行しないよう、`tools/wrap-ja.cjs` が BudouX で文節の切れ目に `<wbr>` を入れ、CSS の `word-break: keep-all` と組み合わせている。HTMLやデータを直したら `npm run build`（または `node tools/wrap-ja.cjs`）を実行する。長い本文の段落だけは行末がそろうよう通常の改行にしている。改行させたくない語は `<span class="kt-nw">` で囲む。
+スマホ（特にSafari）で言葉の途中で改行しないよう、`tools/wrap-ja.cjs` が BudouX で文節の切れ目に `<wbr>` を入れ、CSS の `word-break: keep-all` と組み合わせている。HTMLやデータを直したら `npm run build`（または `node tools/wrap-ja.cjs`）を実行する。複合語や切手の名前（見返り美人・月に雁など）は `tools/wrap-ja.cjs` の `KEEP` に入れると途中で改行しない。改行させたくない語は `<span class="kt-nw">` で囲む。
 
 ## CTAの場所別計測
 
@@ -90,7 +90,8 @@ GA4やGTMを入れて `window.dataLayer` があれば、クリック時に `{ ev
 
 ```
 npm install                     # 初回のみ（文節分割の BudouX を入れる）
-npm run build                   # 下の生成をまとめて実行（build-top → wrap-ja → build-preview → build-standalone）
+npm run build                   # 下の生成をまとめて実行（build-top → wrap-ja → stamp-assets → build-preview → build-standalone）
+node tools/stamp-assets.cjs     # CSS・JS の読み込みに内容のハッシュ（?v=）を付け、古いCSSが使われ続けるのを防ぐ
 node tools/build-top.cjs        # companies.json を直したら比較TOP・調査概要を再生成
 node tools/wrap-ja.cjs          # 日本語の改行位置を文節単位にそろえる（HTMLを直したら必ず実行）
 node tools/audit.cjs            # 静的監査（エラー0で終了コード0）

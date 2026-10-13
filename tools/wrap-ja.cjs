@@ -25,6 +25,8 @@ const splitLong = ph => {
   return s.split('\u0000').filter(Boolean);
 };
 
+const KEEP = ['見返り美人', '月に雁', '持ち運び', '持ち込', '持ち帰', '申し込', '申込み', '問い合わせ', '問合せ', '買い取', '取り扱', '受け取', '書き損じ', '見積り', '見積もり', 'という', '仕分け', '片付け', '台紙貼り', '切手趣味週間', '立太子礼', '赤猿', '竜文切手', '毛沢東', '日焼け', '貼った', '貼って', '出張買取', '店頭買取', '宅配買取', '催事買取', 'クーリング・オフ', 'キャンセル料', '年末年始', '最短翌日', '玄関先'];
+
 // 文字列（太字・色付きなどのタグをまたいだ1続きの文）の中で、改行してよい位置（文字数）を返す
 function breakPoints(full) {
   const pts = new Set();
@@ -39,6 +41,8 @@ function breakPoints(full) {
   }
   // かっこで始まる部分は、直前（リンクの後など）でも改行できるようにする
   for (let k = 1; k < full.length; k++) if (full[k] === '（' && !/\s/.test(full[k - 1])) pts.add(k);
+  // ひとまとまりの語（切手の名前・複合語）の途中では改行しない
+  for (const w of KEEP) for (let at = full.indexOf(w); at >= 0; at = full.indexOf(w, at + 1)) for (let k = at + 1; k < at + w.length; k++) pts.delete(k);
   // 注記の「※」は前の語から離さない
   for (let k = 1; k < full.length; k++) if (full[k] === '※') pts.delete(k);
   return pts;

@@ -66,7 +66,7 @@ let links = 0;
 const idsOf = f => new Set([...strip(read(f)).matchAll(/\sid="([^"]+)"/g)].map(m => m[1]));
 pages.forEach(f => { const h = strip(read(f)); [...h.matchAll(/\s(?:href|data-pending-href)="([^"]+)"/g)].forEach(([, href]) => {
   if (/^(https?:|mailto:|__)/.test(href)) return; links++;
-  const [p, hash] = href.split('#');
+  const [p0, hash] = href.split('#'); const p = p0.replace(/\?v=[0-9a-f]+$/, '');
   let target = p ? path.resolve(path.dirname(f), p) : f;
   if (p && (p.endsWith('/') || !path.extname(p))) target = path.join(target, 'index.html');
   if (!fs.existsSync(target)) return err(`${rel(f)}: リンク先なし ${href}`);
