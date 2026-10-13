@@ -641,20 +641,9 @@ body { margin: 0; background: #f4f4f4; }
 @keyframes kt-shine { 0% { left: -80%; } 75%, 100% { left: 130%; } }
 
 /* ヘッダー：今日の日付【最新】だけを大きく表示（日付は kitte.js が毎日自動更新） */
-.yk-body .kt-site { display: block; padding: .55em 12px; background: linear-gradient(90deg, var(--yk-blue-d), var(--yk-blue)); text-align: center; }
-.kt-update { margin: 0 !important; color: #fff; font-size: 17px; font-weight: 900; line-height: 1.3 !important; letter-spacing: .03em; }
+.yk-body .kt-site { display: block; padding: .3em 8px; background: linear-gradient(90deg, var(--yk-blue-d), var(--yk-blue)); text-align: center; }
+.kt-update { margin: 0 !important; color: #fff; font-size: 21px; font-weight: 900; line-height: 1.3 !important; letter-spacing: .03em; }
 .kt-update span { margin-left: .15em; color: #ffe066; }
-
-/* BEST3直下：ウリエルを1位に選んだ理由 ＋ 安心の帯 */
-.kt-why1 { margin: 1.4em 0; padding: 14px 12px 12px; border: 3px solid var(--yk-orange); border-radius: 10px; background: #fff; }
-.kt-why1__ttl { margin: 0 0 .7em !important; text-align: center; font-size: 20px; font-weight: 900; line-height: 1.45 !important; color: var(--yk-ink); }
-.kt-why1__ttl small { display: block; font-size: 13px; color: var(--yk-sub); }
-.kt-why1__ttl em { font-style: normal; color: var(--yk-red); }
-.kt-why1 .kt-points { margin-bottom: .8em; }
-.kt-safe { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; margin: 0 0 1em; padding: 0; list-style: none; }
-.kt-safe li { padding: .5em .2em .55em; border-radius: 8px; background: var(--yk-green-bg); border: 1px solid #a8dbb7; text-align: center; font-size: 10.5px; line-height: 1.4; color: #2d4a36; }
-.kt-safe b { display: block; margin-bottom: .15em; font-size: 16px; color: var(--yk-green-d); line-height: 1.2; }
-.kt-why1 .kt-src { margin-top: .8em; }
 
 /* 比較表の下：こんな方は、まずウリエルへ */
 .kt-fit { margin-top: 1.4em; }
@@ -665,7 +654,7 @@ body { margin: 0; background: #f4f4f4; }
 /* 2社併用：STEP1 ウリエル → STEP2 比べたい方はバイセル */
 .yk-combo__ttl small { display: block; font-size: 14.5px; color: var(--yk-sub); }
 .yk-combo__ttl small em { color: var(--yk-blue-d); }
-.kt-step { display: inline-block; margin-right: .5em; padding: .05em .55em; border-radius: 99px; background: #ffe066; color: var(--yk-ink); font-size: 12px; vertical-align: .1em; }
+.kt-step { display: inline-block; margin-right: 1em; padding: .05em .55em; border-radius: 99px; background: #ffe066; color: var(--yk-ink); font-size: 12px; vertical-align: .1em; }
 .kt-step.is-sub { background: #fff; color: var(--yk-blue-d); }
 .kt-combo__sub .yk-combo__head { background: #7f8ea3; font-size: 14.5px; }
 .kt-combo__sub .yk-btn { margin-bottom: 4px; }
@@ -738,24 +727,6 @@ body { margin: 0; background: #f4f4f4; }
 </ol>
 <p class="kt-best3__foot">※1 自社調べ。2025年7月〜2026年6月に実施した出張査定ご利用のお客様アンケート（有効回答283件）で、5段階評価のうち「大変満足」「やや満足」と回答した方の割合<br>※2 2015〜2025年の合計買取数（バイセル調べ）</p></section>
 <!--@best3:end-->
-
-<!-- ===== BEST3直下：ウリエルを1位にした理由（yk-features ＋ 安心の帯）。根拠はすべて公式LP・公式 切手買取ページ（2026-10-13確認） ===== -->
-<section class="kt-why1" id="why-uriel">
-  <h2 class="kt-why1__ttl"><small>編集部が</small><em>ウリエル</em>を<br>1位に選んだ理由</h2>
-  <ol class="kt-points">
-    <li><span class="kt-points__no">理由<b>1</b></span><div><h3>実家の片付けに慣れた会社が運営</h3><p>運営は遺品整理・生前整理の大手、株式会社クオーレ。<span class="yk-mark">年間30,000件以上</span>の作業実績があり、思い出の品を扱う対応に慣れています。</p></div></li>
-    <li><span class="kt-points__no">理由<b>2</b></span><div><h3>仕分けず、アルバムのまま見てもらえる</h3><p>記念・中国・戦前切手など19品目に対応。バラ・台紙貼り・汚れのある切手も「査定大歓迎」。切手以外の品物も<span class="yk-mark">まとめて一括査定</span>できます。</p></div></li>
-    <li><span class="kt-points__no">理由<b>3</b></span><div><h3>エリアを絞った出張専門で、最短翌日</h3><p>対応エリアを絞って手厚く対応する方針で、<span class="yk-mark">最短翌日</span>に自宅で査定、その場で現金。査定員対応満足度は<span class="yk-red">93.29%</span>※です。</p></div></li>
-  </ol>
-  <ul class="kt-safe">
-    <li><b>0円</b>出張料・査定料<br>キャンセル料</li>
-    <li><b>断れる</b>金額に納得<br>できなければ</li>
-    <li><b>玄関先</b>での査定も<br>できる</li>
-    <li><b>8日間</b>成約後の<br>クーリング・オフ</li>
-  </ul>
-  <p class="yk-catch">24時間受付・相談だけでもOK</p><a class="yk-btn" href="__URIEL_AFF_LINK__" data-aff="uriel" data-place="why-uriel" data-pending-href="uriel.html" data-pending-label="ウリエルの詳細を見る" rel="nofollow sponsored noopener" target="_blank">ウリエルの公式サイトで<br>無料査定を申し込む</a>
-  <p class="kt-src">※自社調べ。2025年7月〜2026年6月の出張査定ご利用のお客様アンケート（有効回答283件）で「大変満足」「やや満足」と回答した割合。出典：<a href="https://www.uriel-cuore.co.jp/lp/af/stamp/16525/" rel="nofollow noopener" target="_blank">ウリエル公式LP</a>・<a href="https://www.uriel-cuore.co.jp/stamp/" rel="nofollow noopener" target="_blank">公式 切手買取ページ</a>（2026年10月13日確認）。古物商許可：愛知県公安委員会 第542791100800号</p>
-</section>
 
 <!-- ===== ウリエルのキャンペーン（期間外は kitte.js が自動で非表示。毎月の差し替えは画像・期間・条件をあわせて更新） ===== -->
 <section class="kt-campaign" id="campaign" data-campaign-end="2026-10-31">
