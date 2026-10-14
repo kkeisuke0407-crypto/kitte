@@ -60,7 +60,7 @@ for (const f of files) {
   const head = src.slice(0, bodyAt);
   // 文節分割をやり直すため、<wbr> をいったん外す（手で区切りたい所は kt-nw などで指定する）
   const tokens = src.slice(bodyAt).replace(/<wbr>|\u2060/g, '').replace(/<span class="kt-wd">([^<]*)<\/span>/g, '$1').split(/(<!--[\s\S]*?-->|<[^>]+>)/);
-  let skip = null, run = [], n = 0;
+  let skip = null, run = [], n = 0, cell = 0, runCell = 0;
   const flush = () => {
     const texts = run.filter(k => !tokens[k].startsWith('<'));
     run = [];
@@ -100,7 +100,8 @@ for (const f of files) {
         const after = tail.slice(lastW + 5).replace(/\u2060/g, '');
         const before = body.slice(0, cut), lw = before.lastIndexOf('<wbr>'), ls = before.lastIndexOf(' ');
         const chunk = body.slice(Math.max(lw >= 0 ? lw + 5 : 0, ls >= 0 ? ls + 1 : 0)).replace(/<wbr>|\u2060|\s/g, '');
-        if (!(chunk.length <= 6 || visible >= 40)) {
+        // 区切りより後ろが2文字しかないときは、12文字以内の塊ならまとめてつなぐ（「…が｜必要」のような2文字だけの最終行を防ぐ。幅の狭い表のセルでは言葉の途中で折れるため行わない）
+        if (!(chunk.length <= 6 || visible >= 40 || (!runCell && chunk.length <= 12 && [...after].length <= 2))) {
           if ([...after].length >= 2) { cut += lastW + 5; tail = body.slice(cut); } else cnt = 0; // つながない
         }
       }
@@ -115,6 +116,7 @@ for (const f of files) {
     if (tok.startsWith('<')) {
       if (skip) { if (new RegExp('^</' + skip + '\\b', 'i').test(tok)) skip = null; return; }
       // 改行させない要素（kt-nw など）の中には区切りを入れない（<wbr> は nowrap の中でも改行されるため）
+      if (/^<t[dh]\b/i.test(tok)) cell++; else if (/^<\/t[dh]>/i.test(tok)) cell = Math.max(0, cell - 1);
       if (keep) {
         if (new RegExp('^<' + keep + '\\b', 'i').test(tok)) depth++;
         else if (new RegExp('^</' + keep + '\\b', 'i').test(tok) && --depth === 0) keep = null;
@@ -125,10 +127,11 @@ for (const f of files) {
       const sk = tok.match(SKIP);
       if (sk && !tok.endsWith('/>')) { flush(); skip = sk[1]; return; }
       if (tok.startsWith('<!--') || !INLINE.test(tok)) { flush(); return; }
+      if (!run.length) runCell = cell;
       run.push(k);
       return;
     }
-    if (!skip && !keep) run.push(k);
+    if (!skip && !keep) { if (!run.length) runCell = cell; run.push(k); }
   });
   flush();
   fs.writeFileSync(p, head + tokens.join(''));

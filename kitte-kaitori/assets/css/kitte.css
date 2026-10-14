@@ -358,7 +358,7 @@ body { margin: 0; background: #f4f4f4; }
 .kt-table--fit td:first-child { white-space: nowrap; }
 .yk-listbox li a { white-space: nowrap; }
 .kt-table--fit a { word-break: break-all; }
-.kt-stars { text-wrap-mode: nowrap; }
+.kt-stars, .yk-body .kt-nw { text-wrap-mode: nowrap; }
 .yk-cmp .yk-catch { font-size: 10px; }
 .yk-cmp .yk-catch::before, .yk-cmp .yk-catch::after { content: none; }
 .kt-table--crit th:first-child { width: 22%; }

@@ -132,7 +132,7 @@
       "voice": {
         "who": "50代女性",
         "where": "東京都板橋区",
-        "face": "assets/img/voice/woman50-itabashi.webp",
+        "face": "assets/img/voice/woman60-saitama.webp",
         "text": "実家から大量の切手が出てきてどうすればいいのか分からなかったが、とても丁寧に対応していただきありがとうございました。",
         "src": "https://www.uriel-cuore.co.jp/stamp/definitivestamp/",
         "srcName": "ウリエル公式 普通切手買取ページ",
@@ -470,7 +470,7 @@
       "features": [
         "<span class=\"yk-mark\">普通・記念・特殊・中国切手</span>などを査定",
         "対応地域なら<span class=\"yk-mark\">即日出張</span>、出張・店頭は原則その場で現金",
-        "訪問料・査定料・送料・振込手数料<span class=\"yk-red\">無料</span>",
+        "訪問料・査定料・送料・<span class=\"kt-nw\">振込手数料<span class=\"yk-red\">無料</span></span>",
         "仕分け不要、<span class=\"yk-red\">1点から</span>相談できる"
       ],
       "featureNote": "",
@@ -504,7 +504,7 @@
       "voice": {
         "who": "40代",
         "where": "大阪府大阪市",
-        "face": "assets/img/illust/avatar-woman.svg",
+        "face": "assets/img/voice/woman40-osaka.webp",
         "text": "遺品整理で出てきた切手を買い取ってもらいました。近所のリサイクル店のようなお店では査定は無理で、専門の買取店を探していた所、ネットで福ちゃんを見つけました。予想より高い金額だったし、出張買取で来てもらったので、他に売れそうな物も見ていただき、まとめて買取してもらいました。",
         "src": "https://www.fuku-chan.info/kitte/area/osaka/",
         "srcName": "福ちゃん公式 大阪府の切手買取ページ",
@@ -689,7 +689,7 @@
       },
       "ev": {
         "uketsuke": "電話10:00〜21:00",
-        "hiyou": "出張料・査定料・キャンセル料無料（出張買取ページ）",
+        "hiyou": "出張買取は出張料・査定料・キャンセル料無料",
         "joutai": "キズ・汚れのある訳あり品も買取と案内（全品目共通の案内）",
         "tairyou": "玄関先で大量査定・バラ1枚から",
         "houmon": "最短当日訪問（予約状況による）・出張は原則振込（事前相談で当日現金可）",
