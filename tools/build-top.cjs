@@ -64,14 +64,14 @@ function compare() {
   const btn = c => c.aff ? `<p class="yk-catch">${c.cta.short || c.cta.catch}</p>${aff(c, 'yk-btn yk-btn--sm', '公式', `#rank-${c.id}`, '詳細', `compare-${c.id}`)}` : `<a class="yk-btn yk-btn--sm is-pending" href="#rank-${c.id}" data-place="compare-${c.id}">詳細</a>`;
   return `<div class="yk-tabs">
   <input type="radio" name="cmp1" id="cmp1-1" checked><input type="radio" name="cmp1" id="cmp1-2"><input type="radio" name="cmp1" id="cmp1-3">
-  <div class="yk-tabs__labels"><label for="cmp1-1">総合<br>評価</label><label for="cmp1-2">汚れ・大量<br>の切手</label><label for="cmp1-3">出張の<br>頼みやすさ</label></div>
+  <div class="yk-tabs__labels"><label for="cmp1-1">総合<br>評価</label><label for="cmp1-2">どんな切手も<br>見てもらえる？</label><label for="cmp1-3">出張の<br>頼みやすさ</label></div>
   <div class="yk-tabs__panels">
     <div><div class="yk-fold"><input type="checkbox" id="cmp1-more"><div class="yk-fold__body">
       <table class="yk-cmp"><colgroup><col class="c1"><col class="c2"><col><col class="c4"></colgroup>
         <tr><th>サービス</th><th>編集部<br>評価</th><th>得意なこと</th><th>公式</th></tr>
 ${C.map(c => '        ' + row(c, `${head(c)}<td>${stars(c)}</td><td class="is-left">${c.tagline}<ul class="yk-chips">${axes.filter(a => c.marks[a.key] >= 5).slice(0, 3).map((a, i) => `<li${i === 0 ? ' class="is-pink"' : ''}>${a.short}</li>`).join('')}</ul></td><td>${btn(c)}</td>`)).join('\n')}
       </table></div><label class="yk-fold__btn" for="cmp1-more">4位〜6位も見る</label></div></div>
-    <div><table class="yk-cmp"><colgroup><col class="c1"><col><col></colgroup><tr><th>サービス</th><th>状態の悪い切手</th><th>大量・アルバムのまま</th></tr>
+    <div><table class="yk-cmp"><colgroup><col class="c1"><col><col></colgroup><tr><th>サービス</th><th>汚れ・破れが<br>ある切手</th><th>仕分けていない<br>大量の切手</th></tr>
 ${C.map(c => '      ' + row(c, `${head(c)}${cell(c, 'joutai')}${cell(c, 'tairyou')}`)).join('\n')}
     </table></div>
     <div><table class="yk-cmp"><colgroup><col class="c1"><col><col><col></colgroup><tr><th>サービス</th><th>訪問の早さ・現金</th><th>費用</th><th>受付</th></tr>
@@ -93,11 +93,11 @@ function matrix() {
   };
   const items = C.map(c => {
     const [x, y] = pos(c);
-    if (c.rank === 1) return `  <div class="yk-matrix__item is-pick" style="--x:${x}%;--y:${y}%">${logo(c, 90, 22)}<ul><li class="kt-nw">✔ 汚れ・大量の切手もOK</li><li class="kt-nw">✔ 最短翌日・24時間受付</li></ul></div>`;
+    if (c.rank === 1) return `  <div class="yk-matrix__item is-pick" style="--x:${x}%;--y:${y}%">${logo(c, 90, 22)}<ul><li class="kt-nw">✔ 汚れ・バラ・大量もそのまま</li><li class="kt-nw">✔ 最短翌日・24時間受付</li></ul></div>`;
     return `  <span class="yk-matrix__item kt-has-cap" style="--x:${x}%;--y:${y}%">${logo(c, 90, 20)}<small>${c.rank}位 ${score(c)}</small></span>`;
   });
-  return `<div class="yk-matrix" role="img" aria-label="横軸：汚れた切手や大量の切手も相談しやすい、縦軸：自宅で手軽に頼みやすい。右上ほど両方の評価が高い。${C.map(c => `${c.name}（${X(c)}点・${Y(c)}点）`).join('、')}">
-  <span class="yk-matrix__ax yk-matrix__ax--t">自宅で手軽に頼める</span><span class="yk-matrix__ax yk-matrix__ax--b">条件の確認が必要</span><span class="yk-matrix__ax yk-matrix__ax--l">汚れ・大量は要確認</span><span class="yk-matrix__ax yk-matrix__ax--r">汚れ・大量もOK</span>
+  return `<div class="yk-matrix" role="img" aria-label="横軸：汚れた切手や仕分けていない大量の切手も見てもらいやすい、縦軸：自宅で手軽に頼みやすい。右上ほど両方の評価が高い。${C.map(c => `${c.name}（${X(c)}点・${Y(c)}点）`).join('、')}">
+  <span class="yk-matrix__ax yk-matrix__ax--t">自宅で手軽に頼める</span><span class="yk-matrix__ax yk-matrix__ax--b">条件の確認が必要</span><span class="yk-matrix__ax yk-matrix__ax--l">切手によっては要確認</span><span class="yk-matrix__ax yk-matrix__ax--r">どんな切手も相談OK</span>
 ${items.join('\n')}
 </div>
 <p class="yk-small">※横軸＝「状態の悪い切手」＋「大量・アルバムのまま」、縦軸＝「24時間受付」＋「費用0円」＋「訪問の早さ」の採点合計で配置（見やすいよう、会社ごとに少しずらして表示）。<a href="methodology/index.html#matrix">配置の基準</a></p>`;
