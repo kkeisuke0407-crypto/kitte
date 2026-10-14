@@ -377,3 +377,7 @@ body { margin: 0; background: #f4f4f4; }
 .kt-flow .mt-img img { aspect-ratio: 4 / 3; object-fit: cover; border-radius: 6px; }
 .kt-flow .mt-img__note { margin-top: 2px; font-size: 9.5px; text-align: left; }
 .kt-flow p { grid-area: text; margin: 0 !important; font-size: 13px; line-height: 1.65; }
+/* 買取実績カード：内容の長さが違ってもボタンの位置をそろえる（カードを縦並びのflexにし、ボタン上のひとことから下を一番下に寄せる） */
+.yk-hscroll > .yk-jobcard, .yk-hscroll > .yk-jobex { display: flex; flex-direction: column; }
+.yk-jobcard > .yk-catch { margin-top: auto !important; padding-top: .6em; }
+.yk-jobcard .yk-jobcard__pay small { display: block; min-height: 1.4em; }
