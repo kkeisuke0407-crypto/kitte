@@ -132,7 +132,7 @@
       "voice": {
         "who": "50代女性",
         "where": "東京都板橋区",
-        "face": "assets/img/illust/avatar-woman.svg",
+        "face": "assets/img/voice/woman50-itabashi.webp",
         "text": "実家から大量の切手が出てきて、どうすればいいか分からなかったところ、出張買取で丁寧に対応してもらえた——という趣旨の声が公式サイトに掲載されています。",
         "src": "https://www.uriel-cuore.co.jp/stamp/definitivestamp/",
         "srcName": "ウリエル公式 普通切手買取ページ"
@@ -266,14 +266,14 @@
         {
           "who": "40代男性",
           "where": "埼玉県蓮田市",
-          "face": "assets/img/illust/avatar-man.svg",
+          "face": "assets/img/voice/man40-hasuda.webp",
           "ttl": "父に頼まれて売った切手",
           "text": "父が子どもの頃から集めていた切手を、高齢になった父に頼まれて売ることに。切手には詳しくなかったが、珍しい切手が含まれていて思った以上の値段になり、父も喜んでいた——という趣旨の声です。"
         },
         {
           "who": "70代男性",
           "where": "千葉県船橋市",
-          "face": "assets/img/illust/avatar-senior.svg",
+          "face": "assets/img/voice/man70-funabashi.webp",
           "ttl": "蔵の片付けで出てきた切手",
           "text": "蔵を片付けていて出てきた中国切手。捨てようかと思ったが、家族にすすめられて問い合わせたところ、思いのほか高い値段で売れた——という趣旨の声です。"
         }
@@ -358,7 +358,7 @@
       "voice": {
         "who": "60代女性",
         "where": "東京都世田谷区",
-        "face": "assets/img/illust/avatar-senior.svg",
+        "face": "assets/img/voice/woman60-setagaya.webp",
         "text": "出張買取を利用し、切手について色々質問したところ説明が分かりやすかった——という趣旨の声が公式サイトに掲載されています。",
         "src": "https://buysell-kaitori.com/stamp/",
         "srcName": "バイセル公式 切手買取ページ"
@@ -474,7 +474,7 @@
       "voice": {
         "who": "40代",
         "where": "大阪府大阪市",
-        "face": "assets/img/illust/avatar-man.svg",
+        "face": "assets/img/voice/man40-osaka.webp",
         "text": "遺品整理で出てきた記念切手を、専門の買取店を探して出張買取してもらった——という趣旨の声が公式サイトに掲載されています。",
         "src": "https://www.fuku-chan.info/kitte/area/osaka/",
         "srcName": "福ちゃん公式 大阪府の切手買取ページ"

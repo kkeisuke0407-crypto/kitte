@@ -68,14 +68,12 @@
       "role": "導入会話・口コミのアバター",
       "ratio": "1:1（100x100 SVG）",
       "files": [
-        "illust/avatar-woman.svg",
-        "illust/avatar-senior.svg",
-        "illust/avatar-man.svg"
+        "illust/avatar-woman.svg"
       ],
       "orig": "https://ranknetplus.com/kitte/assets/images/voice-avatars-illust.svg（3人分を1人ずつに分割）",
       "alt": "空（装飾。年代・地域は本文に記載）",
       "text": "なし",
-      "where": "比較TOP mt-talk・rank-5／個別3ページ 確認5",
+      "where": "ウリエル詳細 確認5（60代女性・さいたま市の声）",
       "rights": "ユーザー許可（ranknetplus素材）。実在の利用者の顔ではないイラスト"
     },
     {
@@ -224,6 +222,25 @@
       "text": "",
       "where": "比較TOP 導入会話・ランキング前の一言・編集部のイチオシポイント",
       "rights": "ユーザー支給素材"
+    },
+    {
+      "id": "IMG08",
+      "kind": "have",
+      "label": "ユーザー支給画像",
+      "role": "利用者の声（口コミ）の顔写真",
+      "ratio": "160x160（正方形に切り出し）",
+      "files": [
+        "voice/man40-hasuda.webp",
+        "voice/man70-funabashi.webp",
+        "voice/woman50-itabashi.webp",
+        "voice/woman60-setagaya.webp",
+        "voice/man40-osaka.webp"
+      ],
+      "orig": "ユーザー支給（2026-10-14 チャット添付）",
+      "alt": "空（装飾。年代・地域は本文に記載）",
+      "text": "",
+      "where": "比較TOP 買取実績下の声・ランキングの利用者の声／個別3ページ 確認5",
+      "rights": "ユーザー支給素材（本人写真ではなくイメージ）"
     }
   ],
   "unused": [
