@@ -43,7 +43,7 @@ ${C.slice(0, 3).map(c => {
 // ---------- 買取実績（ウリエル）：高額の例と身近な金額の例を交互に並べ、利用者の声を直下に置く ----------
 function records() {
   const u = C[0];
-  return `<h2 class="yk-sec-ttl" id="records"><em>${u.name}</em>の<br>切手買取実績</h2>
+  return `<h2 class="yk-sec-ttl" id="records"><em>${u.name}</em>の切手買取実績</h2>
 <p class="kt-lead kt-lead--c">20万円の中国切手から<br><span class="yk-mark">1万円台の切手コレクション</span>まで。<br>実家から出てきた切手も、<br>まずはそのまま見てもらえます。</p>
 <p class="yk-hint">横にスクロールできます</p>
 <div class="yk-hscroll">

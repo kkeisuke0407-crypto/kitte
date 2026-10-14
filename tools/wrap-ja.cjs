@@ -122,7 +122,7 @@ for (const f of files) {
         else if (new RegExp('^</' + keep + '\\b', 'i').test(tok) && --depth === 0) keep = null;
         return;
       }
-      const kp = tok.match(/^<(\w+)[^>]*class="[^"]*\b(kt-nw|kt-stars|kt-table--marks|kt-update)\b/);
+      const kp = tok.match(/^<(\w+)[^>]*class="[^"]*\b(kt-nw|kt-1l|kt-stars|kt-table--marks|kt-update)\b/);
       if (kp) { flush(); keep = kp[1]; depth = 1; return; }
       const sk = tok.match(SKIP);
       if (sk && !tok.endsWith('/>')) { flush(); skip = sk[1]; return; }

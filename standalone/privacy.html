@@ -708,6 +708,8 @@ body { margin: 0; background: #f4f4f4; }
 .yk-hscroll > .yk-jobcard, .yk-hscroll > .yk-jobex { display: flex; flex-direction: column; }
 .yk-jobcard > .yk-catch { margin-top: auto !important; padding-top: .6em; }
 .yk-jobcard .yk-jobcard__pay small { display: block; min-height: 1.4em; }
+/* 大見出しを1行に収める：--n＝文字数。狭い画面では文字を少し小さくして改行させない */
+.kt-h2.kt-1l { white-space: nowrap; text-wrap-mode: nowrap; font-size: min(19px, calc((min(100vw, 640px) - 34px) / (var(--n) + 1.4))); }
 
 </style>
 </head>
