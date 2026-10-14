@@ -696,6 +696,15 @@ body { margin: 0; background: #f4f4f4; }
 .yk-matrix__item.is-pick { width: 50%; padding: 5px 6px; }
 .yk-matrix__item.is-pick li { font-size: 10px; letter-spacing: -.01em; }
 @media (max-width: 340px) { .yk-matrix__item.is-pick { padding: 3px 4px; } .yk-matrix__item.is-pick img { height: 16px; } .yk-matrix__item.is-pick li { font-size: 9px; } }
+/* 申し込みから現金化までの流れ：STEP見出しの下に「写真｜説明」を横並び */
+.kt-flow li { display: grid; grid-template-columns: 42% 1fr; grid-template-areas: "head head" "img text"; gap: 6px 10px; align-items: start; padding: 10px; }
+.kt-flow li::before { display: none; }
+.kt-flow h3 { grid-area: head; display: flex; align-items: center; gap: .5em; margin: 0 !important; font-size: 15.5px; }
+.kt-flow h3::before { counter-increment: kt-step; content: "STEP" counter(kt-step); flex: none; padding: .1em .55em; border-radius: 4px; background: var(--yk-blue); color: #fff; font-size: 11px; font-weight: 700; }
+.kt-flow .mt-img { grid-area: img; margin: 0 !important; }
+.kt-flow .mt-img img { aspect-ratio: 4 / 3; object-fit: cover; border-radius: 6px; }
+.kt-flow .mt-img__note { margin-top: 2px; font-size: 9.5px; text-align: left; }
+.kt-flow p { grid-area: text; margin: 0 !important; font-size: 13px; line-height: 1.65; }
 
 </style>
 </head>
