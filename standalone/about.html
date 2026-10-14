@@ -668,14 +668,13 @@ body { margin: 0; background: #f4f4f4; }
 .kt-lastpush li { padding: .3em .8em; border-radius: 99px; background: #fff; border: 1px solid #f2c94c; font-size: 13px; }
 .kt-lastpush li b { color: var(--yk-red); }
 
-/* 日本語の改行（Safari・Chrome 共通で同じ結果になるよう、ブラウザー任せの機能 auto-phrase / text-wrap: pretty は使わない）
-   ・本文：通常の日本語の改行（行末までしっかり詰める）＋禁則（line-break: strict）。最後の行が短くなりすぎないよう、
-     tools/wrap-ja.cjs が段落の最後の4文字を見えない WORD JOINER（U+2060）でつなぐ
-   ・それ以外（見出し・表・ボタン・短いラベル・注記）：文節単位の改行（wrap-ja.cjs が文節の切れ目に <wbr> を入れ、keep-all で語の途中では改行しない） */
-.yk-body, .kt-site, .yk-footer { line-break: strict; word-break: keep-all; overflow-wrap: anywhere; }
-/* 長い本文（横幅いっぱいの段落）だけは通常の改行で行末まで詰める */
-.yk-body :is(.kt-wrap > p:not(.yk-small, .kt-src, .yk-catch, .yk-svchead__catch, .kt-lead), .mt-faq__a, .yk-voice li p, .yk-editor__body p, .kt-flow p, .kt-points p, .kt-campaign__terms, .kt-best3__foot, .kt-caution, .kt-rankfold__lead) { word-break: normal; overflow-wrap: break-word; }
-/* 見出しは行の長さをそろえる（Safari 17.5 以降・Chrome。非対応でも文節単位で改行される） */
+/* 日本語の改行（Safari・Chrome で同じ結果になるよう、ブラウザーごとに動きが違う auto-phrase / text-wrap: pretty は使わない）
+   ・基本（本文・吹き出し・リスト・注記など横幅のある文）：通常の日本語の改行で行末まで詰める＋禁則（line-break: strict）。
+     最後の行が1〜3文字にならないよう、tools/wrap-ja.cjs が文の最後の4文字を見えない WORD JOINER（U+2060）でつなぐ
+   ・見出し・ボタン・ラベル・狭い表のセル：文節単位の改行（wrap-ja.cjs が文節の切れ目に <wbr> を入れ、keep-all で語の途中では改行しない） */
+.yk-body, .kt-site, .yk-footer { line-break: strict; overflow-wrap: break-word; }
+.yk-body :is(h1, h2, h3, h4, th, dt, summary, label, figcaption, .yk-sec-ttl, .yk-svchead__catch, .kt-lead--c, .yk-best3__text, .yk-best3__note, .yk-pickup__name, .yk-rankcatch, .yk-combo__head, .yk-combo__points b, .yk-catch, .yk-btn, .kt-lastpush, .yk-order a, .yk-voice__who, .yk-kv td, .yk-cmp td, .kt-radarlist span, .kt-vs td, .yk-matrix__item, .kt-table--crit td, .yk-chips li, .yk-tags li, .kt-chiplist li, .kt-nums li, .yk-jobcard__ttl, .yk-jobex__ttl, .kt-textshot dt, .yk-features li, .kt-update, .yk-features__ttl, .yk-listbox__ttl, .mt-img__note) { word-break: keep-all; overflow-wrap: anywhere; }
+/* 見出しは行の長さをそろえる（Safari 17.5 以降・Chrome） */
 .yk-body :is(h2, h3, h4, th, summary, .yk-sec-ttl, .yk-svchead__catch, .yk-rankcatch, .yk-combo__head, .kt-lastpush__q, .yk-best3__text, .yk-pickup__name) { text-wrap: balance; }
 .yk-body .kt-table--marks th, .yk-body .kt-table--marks td { white-space: nowrap; }
 .kt-nw { white-space: nowrap; }
@@ -701,26 +700,26 @@ body { margin: 0; background: #f4f4f4; }
 <div class="kt-wrap yk-body">
 
 <div class="kt-site"><p class="kt-update"><time data-today datetime="2026-10-13">2026年10月13日</time><span>【最新】</span></p></div>
-<nav class="yk-crumb" aria-label="パンくずリスト"><a href="index.html">切手買取<wbr>6社比較</a><span>運営者情報</span></nav>
+<nav class="yk-crumb" aria-label="パンくずリスト"><a href="index.html">切手買取<wbr>6⁠社比較</a><span>運営⁠者⁠情⁠報</span></nav>
 
 <h1 class="yk-svchead__name">運営者情報</h1>
 <div class="kt-x"><table class="kt-table">
-  <tr><th>サイト名</th><td>切手買取 比較ガイド</td></tr>
+  <tr><th>サイト名</th><td>切手買取 比較⁠ガ⁠イ⁠ド</td></tr>
   <tr><th>運営者</th><td>__OPERATOR_NAME__</td></tr>
   <tr><th>連絡先</th><td>__OPERATOR_CONTACT__</td></tr>
   <tr><th>運営者サイト</th><td>__OPERATOR_URL__</td></tr>
 </table></div>
-<h2 class="kt-h2">この<wbr>サイトに<wbr>ついて</h2>
+<h2 class="kt-h2">この<wbr>サイトに<wbr>つ⁠い⁠て</h2>
 <p>実家などで<wbr>見つかった<wbr>切手の<wbr>売却を<wbr>考えている<wbr>方に<wbr>向けて、<wbr>切手買取<wbr>サービスの<wbr>公開情報<wbr>（買取対象・<wbr>買取方法・<wbr>出張地域・<wbr>費用・<wbr>断る<wbr>ときの<wbr>条件・<wbr>過去の<wbr>買取実績）を<wbr>比較しています。<wbr>掲載内容は<wbr>各社公式サイトの<wbr>掲載内容を<wbr>もとに<wbr>編集部が<wbr>まとめた<wbr>もので、<wbr>調査日を<wbr>各ページに<wbr>記載してい⁠ま⁠す⁠。</p>
 <h2 class="kt-h2">広告に<wbr>ついて</h2>
 <p>本サイトは<wbr>広告・<wbr>アフィリエイトリンクを<wbr>含みます。<wbr>掲載順や<wbr>評価の<wbr>考え方は<wbr><a href="methodology.html">ランキング調査概要</a>を<wbr>ご覧くだ⁠さ⁠い⁠。</p>
 
-<div class="kt-related"><a class="yk-btn yk-btn--sub" href="index.html">6社の<wbr>比較に<br>戻る<wbr></a><a class="yk-btn yk-btn--sub" href="methodology.html">ランキング<br>調査概要</a></div>
+<div class="kt-related"><a class="yk-btn yk-btn--sub" href="index.html">6⁠社の<wbr>比較に<br>戻る<wbr></a><a class="yk-btn yk-btn--sub" href="methodology.html">ランキング<br>調査概要</a></div>
 
 <footer class="yk-footer">
-  <ul><li><a href="about.html">運営者情報</a></li><li><a href="methodology.html">ランキング調査概要</a></li><li><a href="privacy.html">プライバシーポリシー</a></li></ul>
+  <ul><li><a href="about.html">運営者情報</a></li><li><a href="methodology.html">ランキング調⁠査⁠概⁠要</a></li><li><a href="privacy.html">プライバシーポ⁠リ⁠シ⁠ー</a></li></ul>
   <p>PR：本サイトは<wbr>広告・<wbr>アフィリエイトリンクを<wbr>含み⁠ま⁠す⁠。</p>
-  <small>最終更新日：<wbr>2026年10月13日　© 切手買取 比較ガイド</small>
+  <small>最終更新日：<wbr>2026⁠年10⁠月13⁠日　© 切手買取 比較⁠ガ⁠イ⁠ド</small>
 </footer>
 
 </div>

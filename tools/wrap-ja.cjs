@@ -22,6 +22,7 @@ const splitLong = ph => {
   if (ph.length >= 7) s = s.replace(/(.{2})(?=など|すべて|無料|なし|各種)/g, '$1\u0000');
   if (ph.length >= 8) s = s.replace(/([\u3400-\u9fff]{2})(?=切手)/g, '$1\u0000');
   if (ph.length >= 8) s = s.replace(/([\u3400-\u9fff々]{2})(?=[\u30a1-\u30fa\u30fc]{4})/g, '$1\u0000');
+  if (ph.length >= 8) s = s.replace(/([\u3400-\u9fff\u30a1-\u30fa\u30fc]{2}の)(?=[\u3400-\u9fff]{2})/g, '$1\u0000');
   return s.split('\u0000').filter(Boolean);
 };
 
@@ -49,7 +50,8 @@ function breakPoints(full) {
 }
 
 // 文の途中にあっても文を区切らないタグ（これ以外のタグ・画像・改行で文が区切れる）
-const INLINE = /^<\/?(a|span|b|strong|em|i|small|mark|time|abbr|sup|sub|u|s|q|cite|code)\b/i;
+// <small> はこのサイトでは注記として別の行・別の枠に出すことが多いので、文の区切りとして扱う
+const INLINE = /^<\/?(a|span|b|strong|em|i|mark|time|abbr|sup|sub|u|s|q|cite|code)\b/i;
 
 for (const f of files) {
   const p = path.join(root, f);
@@ -76,25 +78,35 @@ for (const f of files) {
       if (o !== t) n++;
       // 「※」の前は改行させない（見えない WORD JOINER を入れる）
       o = o.replace(/※/g, '\u2060※');
+      // 数字と単位（0円・5点・24時間など）の間でも改行させない
+      o = o.replace(/(\d)(?=[円点件%％万年月日時社名位倍枚種])/g, '$1\u2060');
       tokens[k] = o;
       start = end;
     });
-    // 段落の最後の行が1〜3文字だけにならないよう、最後の4文字を改行しないようにつなぐ（16文字以上の文だけ）
+    // 段落の最後の行が1〜3文字だけにならないよう、最後の4文字を改行しないようにつなぐ（8文字以上の文だけ）
     const visible = full.replace(/\s/g, '').length;
     const lk = texts[texts.length - 1];
-    if (visible >= 16) {
+    if (visible >= 8) {
       const t = tokens[lk], m = t.match(/^([\s\S]*?)(\s*)$/), body = m[1];
       let cnt = 0, cut = body.length;
       while (cut > 0 && cnt < 4) {
         if (body.endsWith('<wbr>', cut)) { cut -= 5; continue; }
         cut--; if (body[cut] !== '\u2060' && !/\s/.test(body[cut])) cnt++;
       }
-      const tail = body.slice(cut).replace(/<wbr>/g, '');
-      // つないだ結果、改行できない塊が長くなる（狭い表のセルで無理に折れる）場合はつながない
-      const prevBreak = Math.max(body.lastIndexOf('<wbr>', cut - 1) + 5, body.lastIndexOf(' ', cut - 1) + 1, 0);
-      const chunk = body.slice(prevBreak).replace(/<wbr>|\u2060/g, '').replace(/\s/g, '');
+      let tail = body.slice(cut);
+      const lastW = tail.lastIndexOf('<wbr>');
+      if (lastW >= 0) {
+        // 文節の区切りをまたぐ場合：区切りより後ろが2文字以上ならそこだけをつなぐ（文節単位の要素で改行できない塊を作らないため）
+        const after = tail.slice(lastW + 5).replace(/\u2060/g, '');
+        const before = body.slice(0, cut), lw = before.lastIndexOf('<wbr>'), ls = before.lastIndexOf(' ');
+        const chunk = body.slice(Math.max(lw >= 0 ? lw + 5 : 0, ls >= 0 ? ls + 1 : 0)).replace(/<wbr>|\u2060|\s/g, '');
+        if (!(chunk.length <= 6 || visible >= 40)) {
+          if ([...after].length >= 2) { cut += lastW + 5; tail = body.slice(cut); } else cnt = 0; // つながない
+        }
+      }
       // 要素を増やすと見出しの飾り（.yk-numh span など）に影響するため、見えない WORD JOINER（U+2060）で文字をつなぐ
-      if (cnt === 4 && cut > 0 && !/\s/.test(tail) && (chunk.length <= 7 || visible >= 40)) tokens[lk] = body.slice(0, cut) + [...tail.replace(/\u2060/g, '')].join('\u2060') + m[2];
+      tail = tail.replace(/<wbr>/g, '');
+      if (cnt === 4 && cut > 0 && !/\s/.test(tail)) tokens[lk] = body.slice(0, cut) + [...tail.replace(/\u2060/g, '')].join('\u2060') + m[2];
     }
   };
   let keep = null, depth = 0;
