@@ -123,7 +123,7 @@
     pair.appendChild(el('a', { 'class': 'yk-btn yk-btn--sub', href: s.detail, 'data-place': 'finder-' + key + '-detail' }, '詳細<br>ページへ'));
     var right = el('div');
     if (s.aff) {
-      right.appendChild(el('a', { 'class': 'yk-btn yk-btn--sm', href: s.aff, 'data-aff': key, 'data-place': 'finder-' + key, 'data-pending-href': s.detail, 'data-pending-label': s.pendingLabel, rel: 'nofollow sponsored noopener', target: '_blank' }, s.name + 'の公式サイトで<br>無料査定を申し込む'));
+      right.appendChild(el('a', { 'class': 'yk-btn yk-btn--sm', href: s.aff, 'data-aff': key, 'data-place': 'finder-' + key, 'data-pending-href': s.detail, 'data-pending-label': s.pendingLabel, rel: 'nofollow sponsored noopener', target: '_blank' }, s.name + 'で無料査定を<br>申し込む（公式）'));
     } else {
       // 福ちゃん：ASP条件未取得のため成果リンクは置かない
       right.appendChild(el('a', { 'class': 'yk-btn yk-btn--sm is-pending', href: s.detail, 'data-place': 'finder-' + key }, '福ちゃんの<br>確認ポイントを見る'));
