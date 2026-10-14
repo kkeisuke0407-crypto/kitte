@@ -53,7 +53,7 @@ ${u.topRecords.map((r, i) => `  <div class="yk-jobcard"><h3 class="yk-jobcard__t
 <ul class="yk-voice">
 ${u.topVoices.map(v => `  <li><div class="yk-voice__who"><span class="yk-voice__face"><img src="${v.face}" alt="" width="60" height="60"></span>${v.who}<b>${pref(v.where)}</b></div><p><b>${v.ttl}</b><br>${v.text}</p></li>`).join('\n')}
 </ul>
-<p class="yk-small">※公式LP掲載の利用者の声を編集部が要旨として紹介（文面の転載はしていません）。個人の感想です。顔写真はイメージで、ご本人ではありません。出典：<a href="${u.topVoiceSrc}" rel="nofollow noopener" target="_blank">${u.name}公式LP</a></p>`;
+<p class="yk-small">※各社の公式サイトに掲載されたお客様の声を、読みやすく一部省略して掲載しています。個人の感想です。顔写真はイメージで、ご本人ではありません。出典：<a href="${u.topVoiceSrc}" rel="nofollow noopener" target="_blank">${u.name}公式LP</a></p>`;
 }
 
 // ---------- 比較表（タブ＋もっと見る） ----------
@@ -164,9 +164,9 @@ ${c.records.map((r, i) => `          <div class="yk-jobex"><p class="yk-jobex__t
     <div class="yk-editor__body"><p>${c.editor}</p></div></div>
   <h4 class="yk-voice__ttl">${c.name}の利用者の声（公式掲載）</h4>
   <ul class="yk-voice">
-    <li><div class="yk-voice__who"><span class="yk-voice__face"><img src="${c.voice.face}" alt="" width="60" height="60"></span>${c.voice.who}<b>${pref(c.voice.where)}</b></div><p>${c.voice.text}</p></li>
+    <li><div class="yk-voice__who"><span class="yk-voice__face"><img src="${c.voice.face}" alt="" width="60" height="60"></span>${c.voice.who}<b>${pref(c.voice.where)}</b></div><p><b>${c.voice.ttl}</b><br>${c.voice.text}</p></li>
   </ul>
-  <p class="yk-small">※公式サイト掲載の利用者の声を編集部が要旨として紹介（文面の転載はしていません）。個人の感想です。顔写真はイメージで、ご本人ではありません。出典：<a href="${c.voice.src}" rel="nofollow noopener" target="_blank">${c.voice.srcName}</a></p>
+  <p class="yk-small">※各社の公式サイトに掲載されたお客様の声を、読みやすく一部省略して掲載しています。個人の感想です。顔写真はイメージで、ご本人ではありません。出典：<a href="${c.voice.src}" rel="nofollow noopener" target="_blank">${c.voice.srcName}</a></p>
   <div class="yk-btnpair"><a class="yk-btn yk-btn--sub" href="${c.detail}" data-place="rank-${c.id}-detail">詳細<br>ページへ</a><div>${right}</div></div>
 </div>`;
 }
