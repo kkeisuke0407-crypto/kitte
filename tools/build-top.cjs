@@ -17,6 +17,8 @@ const logo = (c, w, h, alt = c.name) => `<img src="${c.logo.src}" alt="${alt}" w
 // place：ボタンの場所（計測用。kitte.js がクリック時に dataLayer へ cta_place として送る）
 const aff = (c, cls, label, pendingHref, pendingLabel, place) =>
   `<a class="${cls}" href="${c.aff}" data-aff="${c.id}" data-place="${place}" data-pending-href="${pendingHref}" data-pending-label="${pendingLabel}" rel="nofollow sponsored noopener" target="_blank">${label}</a>`;
+// 出典リンク（companies.json の srcs）
+const srcLinks = c => (c.srcs || [['切手買取ページ', c.official]]).map(([n, u]) => `<a href="${u}" rel="nofollow noopener" target="_blank">${c.name}公式 ${n}</a>`).join('・');
 const official = (c, label = '公式サイトで条件を確認する') =>
   `<a class="yk-btn yk-btn--sub kt-offlink" href="${c.official}" data-place="rank-${c.id}-official" rel="nofollow noopener" target="_blank">${label}<small>（外部サイト・広告リンクではありません）</small></a>`;
 const medal = r => `yk-medal${r === 2 ? ' yk-medal--2' : r === 3 ? ' yk-medal--3' : r > 3 ? ' yk-medal--n' : ''}`;
@@ -35,7 +37,7 @@ ${C.slice(0, 3).map(c => {
     <p class="yk-catch">${c.best3.catch}</p>${btn}</li>`;
 }).join('\n')}
 </ol>
-<p class="kt-best3__foot">${C.filter(c => c.featureNote).slice(0, 2).map(c => c.featureNote).join('<br>')}</p></section>`;
+<p class="kt-best3__foot">${C.filter(c => c.featureNote).slice(0, 2).map(c => c.featureNote).join('<br>')}<br>※順位は公式サイトの記載をもとにした編集部の評価で、買取価格の高さの順ではありません。ウリエルの「最短翌日」は予約状況・訪問先により対応できない場合があります。</p></section>`;
 }
 
 // ---------- 買取実績（ウリエル）：高額の例と身近な金額の例を交互に並べ、利用者の声を直下に置く ----------
@@ -53,7 +55,7 @@ ${u.topRecords.map((r, i) => `  <div class="yk-jobcard"><h3 class="yk-jobcard__t
 <ul class="yk-voice">
 ${u.topVoices.map(v => `  <li><div class="yk-voice__who"><span class="yk-voice__face"><img src="${v.face}" alt="" width="60" height="60"></span>${v.who}<b>${pref(v.where)}</b></div><p><b>${v.ttl}</b><br>${v.text}</p></li>`).join('\n')}
 </ul>
-<p class="yk-small">※各社の公式サイトに掲載されたお客様の声を、読みやすく一部省略して掲載しています。個人の感想です。顔写真はイメージで、ご本人ではありません。出典：<a href="${u.topVoiceSrc}" rel="nofollow noopener" target="_blank">${u.name}公式LP</a></p>`;
+<p class="yk-small">※各社の公式サイトに掲載されたお客様の声を、一部省略して掲載しています。個人の感想で、結果を保証するものではありません。顔写真はイメージで、ご本人ではありません。出典：<a href="${u.topVoiceSrc}" rel="nofollow noopener" target="_blank">${u.name}公式LP</a></p>`;
 }
 
 // ---------- 比較表（タブ＋もっと見る） ----------
@@ -119,7 +121,7 @@ ${c.features.map(f => `          <li><span>${f}</span>${n <= 3 ? '<small>※公�
   ${features}
   ${radar(c)}
   <table class="yk-info"><tr>${c.info.map(i => `<th>${i[0]}</th>`).join('')}</tr><tr>${c.info.map(i => `<td class="is-left">${i[1]}</td>`).join('')}</tr></table>
-  <p class="kt-src">出典：<a href="${c.official}" rel="nofollow noopener" target="_blank">${c.name}公式 切手買取ページ</a>（2026年10月13日確認）</p>
+  <p class="kt-src">出典：${srcLinks(c)}（2026年10月13日確認）</p>
   ${official(c)}
 </div>`;
   }
@@ -150,7 +152,7 @@ ${c.features.map(f => `          <li><span>${f}</span>${n <= 3 ? '<small>※公�
       <div>
         ${radar(c)}
         <table class="yk-info">${infoRows.join('')}</table>
-        <p class="kt-src">出典：<a href="${c.official}" rel="nofollow noopener" target="_blank">${c.name}公式 切手買取ページ</a>${c.id === 'uriel' ? '・<a href="https://www.uriel-cuore.co.jp/lp/af/stamp/16525/" rel="nofollow noopener" target="_blank">公式LP</a>' : ''}（2026年10月13日確認）</p>
+        <p class="kt-src">出典：${srcLinks(c)}（2026年10月13日確認）</p>
       </div>
       <div>
         <p class="yk-hint">横にスクロールできます</p><div class="yk-hscroll">
@@ -166,7 +168,7 @@ ${c.records.map((r, i) => `          <div class="yk-jobex"><p class="yk-jobex__t
   <ul class="yk-voice">
     <li><div class="yk-voice__who"><span class="yk-voice__face"><img src="${c.voice.face}" alt="" width="60" height="60"></span>${c.voice.who}<b>${pref(c.voice.where)}</b></div><p><b>${c.voice.ttl}</b><br>${c.voice.text}</p></li>
   </ul>
-  <p class="yk-small">※各社の公式サイトに掲載されたお客様の声を、読みやすく一部省略して掲載しています。個人の感想です。顔写真はイメージで、ご本人ではありません。出典：<a href="${c.voice.src}" rel="nofollow noopener" target="_blank">${c.voice.srcName}</a></p>
+  <p class="yk-small">※各社の公式サイトに掲載されたお客様の声を、一部省略して掲載しています。個人の感想で、結果を保証するものではありません。顔写真はイメージで、ご本人ではありません。出典：<a href="${c.voice.src}" rel="nofollow noopener" target="_blank">${c.voice.srcName}</a></p>
   <div class="yk-btnpair"><a class="yk-btn yk-btn--sub" href="${c.detail}" data-place="rank-${c.id}-detail">詳細<br>ページへ</a><div>${right}</div></div>
 </div>`;
 }
@@ -191,7 +193,7 @@ ${C.map(c => `  <tr><td class="is-c">${c.rank}</td><td>${c.name}</td>${axes.map(
 </table></div>
 <div class="kt-x"><table class="kt-table kt-table--fit">
   <tr><th>サービス</th><th>採点の根拠（公式サイトの記載・要約）</th></tr>
-${C.map(c => `  <tr><td>${c.name}</td><td>${axes.map(a => `<b>${a.short}</b>：${c.ev[a.key]}`).join('<br>')}<br><small>出典：<a href="${c.official}" rel="nofollow noopener" target="_blank">${c.official}</a></small></td></tr>`).join('\n')}
+${C.map(c => `  <tr><td>${c.name}</td><td>${axes.map(a => `<b>${a.short}</b>：${c.ev[a.key]}`).join('<br>')}<br><small>出典：${srcLinks(c)}</small></td></tr>`).join('\n')}
 </table></div>`;
 }
 

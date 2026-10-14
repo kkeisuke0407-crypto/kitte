@@ -886,24 +886,25 @@ body { margin: 0; background: #f4f4f4; }
     var picks = [], notes = [];
 
     var uriel = ['アルバムや箱に入ったまま、<b>仕分けずに自宅で査定</b>してもらえます。'];
-    uriel.push(soon ? '<b>最短翌日</b>に査定、その場で現金払い。24時間受付です。' : '出張料・査定料・キャンセル料は<b>0円</b>。その場で現金払いです。');
+    uriel.push(soon ? '<b>最短翌日</b>に査定（予約状況・訪問先による）、その場で現金払い。24時間受付です。' : '出張料・査定料・キャンセル料は<b>0円</b>。その場で現金払いです。');
     if (big) uriel.push('記念・特殊・中国・戦前切手など<b>19品目</b>を案内。その場での追加もOK。');
     if (damaged) uriel.push('汚れや破損で<b>他店に断られた切手でも買取できる場合あり</b>と公式に記載。');
     var buysell = ['<b>東証上場企業</b>が運営。仕分け不要でそのまま査定。'];
-    buysell.push(damaged ? 'シミ・汚れ・台紙貼りも、出張・店頭なら<b>買取保証</b>の対象。' : '24時間365日受付。査定料・キャンセル料など各種無料。');
+    buysell.push(damaged ? (method === 'takuhai' ? '<b>宅配は買取保証の対象外</b>。状態の悪い切手は出張・店頭がおすすめです。' : 'シミ・汚れ・台紙貼りも、出張・店頭なら<b>買取保証</b>の対象（重大な損傷は除く）。') : '24時間365日受付。査定料・キャンセル料など各種無料。');
 
     if (method === 'tento') {
       picks.push(['buysell', '優先候補', ['<b>店頭買取</b>に対応。店舗でその場で査定・現金化できます。'].concat(buysell)]);
       picks.push(['uriel', '比較候補', ['店舗・催事買取も案内。<b>運ぶのが大変な量なら、自宅に来てもらう出張</b>が手軽です。', uriel[0]]]);
     } else if (method === 'takuhai') {
-      picks.push(['buysell', '優先候補', ['<b>宅配買取</b>に対応。'].concat(buysell)]);
+      picks.push(['buysell', '優先候補', ['<b>宅配買取</b>に対応（成立すれば銀行振込）。'].concat(buysell)]);
+      notes.push('宅配で金額に納得できなかった場合、返送料は着払い（利用者負担）です。');
       picks.push(['uriel', '比較候補', ['箱詰めや発送の手間なく、<b>最短翌日に自宅で</b>見てもらう方法もあります。', uriel[1]]]);
     } else {
       picks.push(['uriel', '優先候補', uriel]);
       picks.push(['buysell', '比較候補', buysell]);
     }
     if (kind === 'china' || kind === 'kinen') picks.push(['fukuchan', '比較候補', ['記念切手・中国切手などの<b>買取実例</b>を写真・日付つきで公開しています。']]);
-    if (compare) notes.push('2社に申し込んで見積りを比べるのがおすすめです。どちらも査定後のキャンセルは無料です。');
+    if (compare) notes.push('2社に申し込んで見積りを比べるのがおすすめです。どちらも査定後のキャンセル料はかかりません。');
 
     out.innerHTML = '';
     var box = el('div', { 'class': 'kt-res', tabindex: '-1' });
