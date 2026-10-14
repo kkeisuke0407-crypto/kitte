@@ -341,14 +341,13 @@ body { margin: 0; background: #f4f4f4; }
 .kt-lastpush li { padding: .3em .8em; border-radius: 99px; background: #fff; border: 1px solid #f2c94c; font-size: 13px; }
 .kt-lastpush li b { color: var(--yk-red); }
 
-/* 日本語の改行（Safari・Chrome 共通で同じ結果になるよう、ブラウザー任せの機能 auto-phrase / text-wrap: pretty は使わない）
-   ・本文：通常の日本語の改行（行末までしっかり詰める）＋禁則（line-break: strict）。最後の行が短くなりすぎないよう、
-     tools/wrap-ja.cjs が段落の最後の4文字を見えない WORD JOINER（U+2060）でつなぐ
-   ・それ以外（見出し・表・ボタン・短いラベル・注記）：文節単位の改行（wrap-ja.cjs が文節の切れ目に <wbr> を入れ、keep-all で語の途中では改行しない） */
-.yk-body, .kt-site, .yk-footer { line-break: strict; word-break: keep-all; overflow-wrap: anywhere; }
-/* 長い本文（横幅いっぱいの段落）だけは通常の改行で行末まで詰める */
-.yk-body :is(.kt-wrap > p:not(.yk-small, .kt-src, .yk-catch, .yk-svchead__catch, .kt-lead), .mt-faq__a, .yk-voice li p, .yk-editor__body p, .kt-flow p, .kt-points p, .kt-campaign__terms, .kt-best3__foot, .kt-caution, .kt-rankfold__lead) { word-break: normal; overflow-wrap: break-word; }
-/* 見出しは行の長さをそろえる（Safari 17.5 以降・Chrome。非対応でも文節単位で改行される） */
+/* 日本語の改行（Safari・Chrome で同じ結果になるよう、ブラウザーごとに動きが違う auto-phrase / text-wrap: pretty は使わない）
+   ・基本（本文・吹き出し・リスト・注記など横幅のある文）：通常の日本語の改行で行末まで詰める＋禁則（line-break: strict）。
+     最後の行が1〜3文字にならないよう、tools/wrap-ja.cjs が文の最後の4文字を見えない WORD JOINER（U+2060）でつなぐ
+   ・見出し・ボタン・ラベル・狭い表のセル：文節単位の改行（wrap-ja.cjs が文節の切れ目に <wbr> を入れ、keep-all で語の途中では改行しない） */
+.yk-body, .kt-site, .yk-footer { line-break: strict; overflow-wrap: break-word; }
+.yk-body :is(h1, h2, h3, h4, th, dt, summary, label, figcaption, .yk-sec-ttl, .yk-svchead__catch, .kt-lead--c, .yk-best3__text, .yk-best3__note, .yk-pickup__name, .yk-rankcatch, .yk-combo__head, .yk-combo__points b, .yk-catch, .yk-btn, .kt-lastpush, .yk-order a, .yk-voice__who, .yk-kv td, .yk-cmp td, .kt-radarlist span, .kt-vs td, .yk-matrix__item, .kt-table--crit td, .yk-chips li, .yk-tags li, .kt-chiplist li, .kt-nums li, .yk-jobcard__ttl, .yk-jobex__ttl, .kt-textshot dt, .yk-features li, .kt-update, .yk-features__ttl, .yk-listbox__ttl, .mt-img__note) { word-break: keep-all; overflow-wrap: anywhere; }
+/* 見出しは行の長さをそろえる（Safari 17.5 以降・Chrome） */
 .yk-body :is(h2, h3, h4, th, summary, .yk-sec-ttl, .yk-svchead__catch, .yk-rankcatch, .yk-combo__head, .kt-lastpush__q, .yk-best3__text, .yk-pickup__name) { text-wrap: balance; }
 .yk-body .kt-table--marks th, .yk-body .kt-table--marks td { white-space: nowrap; }
 .kt-nw { white-space: nowrap; }
