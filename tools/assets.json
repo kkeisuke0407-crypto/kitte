@@ -105,38 +105,8 @@
       "orig": "https://ranknetplus.com/kitte/assets/images/stamp-home-visit-v2.webp",
       "alt": "自宅のテーブルで査定士が切手アルバムを確認している出張査定のイメージ",
       "text": "なし",
-      "where": "比較TOP #flow／ウリエル詳細 確認2／バイセル詳細 確認2",
+      "where": "ウリエル詳細 確認2／バイセル詳細 確認2（比較TOPの流れはユーザー支給画像に変更）",
       "rights": "ユーザー許可（ranknetplus素材）。各社の査定士ではない旨を注記"
-    },
-    {
-      "id": "IMG05b",
-      "kind": "have",
-      "label": "既存素材（取得）",
-      "role": "出張査定の流れ STEP3（金額の説明）",
-      "ratio": "16:9（960x540）",
-      "files": [
-        "photo/stamp-payment.webp"
-      ],
-      "orig": "https://ranknetplus.com/kitte/assets/images/stamp-payment-flow-v2.webp",
-      "alt": "査定後に買取金額の説明を受けているイメージ",
-      "text": "なし",
-      "where": "比較TOP #flow",
-      "rights": "ユーザー許可（ranknetplus素材）"
-    },
-    {
-      "id": "IMG06",
-      "kind": "make",
-      "label": "自作SVG",
-      "role": "編集部アイコン",
-      "ratio": "104:128",
-      "files": [
-        "illust/editor.svg"
-      ],
-      "orig": "自作（切手型の台紙＋人物＋ルーペ）",
-      "alt": "空（装飾。見出しに「編集部」と記載）",
-      "text": "編集部",
-      "where": "比較TOP mt-talk・mt-say・rank-4",
-      "rights": "自作"
     },
     {
       "id": "BNR",
@@ -223,19 +193,37 @@
       "rights": "【要確認】広告での使用条件はASP・各社の提供素材で確認。生成・加工はしていない"
     },
     {
-      "id": "IMG05d",
-      "kind": "free",
-      "label": "フリー素材（ぱくたそ）",
-      "role": "申し込みから現金化までの流れ STEP1（申し込み・日程調整）",
-      "ratio": "960x540（16:9に切り出し）",
+      "id": "IMG05",
+      "kind": "have",
+      "label": "ユーザー支給画像",
+      "role": "申し込みから現金化までの流れ STEP1〜3",
+      "ratio": "960x540（16:9）",
       "files": [
-        "photo/stamp-apply-phone.webp"
+        "photo/flow-apply.webp",
+        "photo/flow-appraisal.webp",
+        "photo/flow-payment.webp"
       ],
-      "orig": "https://www.pakutaso.com/20181032274post-17790.html（ぱくたそ「通販カタログを見ながら電話注文する高齢男性」モデル：まーちゃん。2026-10-14取得）",
-      "alt": "自宅で電話をかけて申し込んでいるイメージ",
+      "orig": "ユーザー支給（2026-10-14 チャット添付）",
+      "alt": "STEP1 電話で申し込み／STEP2 査定士が切手アルバムを確認／STEP3 その場で買取金額を受け取り",
       "text": "",
-      "where": "比較TOP #flow STEP1",
-      "rights": "ぱくたそ利用規約（無料・商用可・クレジット不要）。モデル写真のため、イメージキャラクター・公式イメージとしての利用やなりすましは不可。※写真はイメージです と表記"
+      "where": "比較TOP #flow",
+      "rights": "ユーザー支給素材（※写真はイメージです と表記）"
+    },
+    {
+      "id": "IMG06",
+      "kind": "have",
+      "label": "ユーザー支給画像",
+      "role": "相談者・編集部のアイコン",
+      "ratio": "240x240（正方形に切り出し）",
+      "files": [
+        "illust/consultant-photo.webp",
+        "illust/editor-photo.webp"
+      ],
+      "orig": "ユーザー支給（2026-10-14 チャット添付）",
+      "alt": "空（装飾。名前は「相談者」「編集部」と本文に記載）",
+      "text": "",
+      "where": "比較TOP 導入会話・ランキング前の一言・編集部のイチオシポイント",
+      "rights": "ユーザー支給素材"
     }
   ],
   "unused": [

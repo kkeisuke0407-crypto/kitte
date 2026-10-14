@@ -160,7 +160,7 @@ ${c.records.map((r, i) => `          <div class="yk-jobex"><p class="yk-jobex__t
       </div>
     </div>
   </div>
-  <div class="yk-editor"><p class="yk-editor__ttl">編集部の<em>イチオシ</em>ポイント</p><img class="yk-editor__chara" src="assets/img/illust/editor.svg" alt="" width="52" height="64">
+  <div class="yk-editor"><p class="yk-editor__ttl">編集部の<em>イチオシ</em>ポイント</p><img class="yk-editor__chara" src="assets/img/illust/editor-photo.webp" alt="" width="52" height="64">
     <div class="yk-editor__body"><p>${c.editor}</p></div></div>
   <h4 class="yk-voice__ttl">${c.name}の利用者の声（公式掲載）</h4>
   <ul class="yk-voice">
