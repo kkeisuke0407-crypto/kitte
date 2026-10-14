@@ -19,7 +19,7 @@
 | `/kitte-kaitori/buysell/` | バイセル詳細 |
 | `/kitte-kaitori/fukuchan/` | 福ちゃん詳細 |
 | `/kitte-kaitori/methodology/` | ランキング調査概要 |
-| `/kitte-kaitori/about/` | 運営者情報（運営者名などは未記入のプレースホルダ） |
+| `/kitte-kaitori/about/` | 運営者情報（HAKOBU MEDIA。ほかの運営サイトと同じ表記） |
 | `/kitte-kaitori/privacy/` | プライバシーポリシー |
 | `/_production/kitte-kaitori/imgslot-preview.html` | 制作用・非公開：image-1（画像指示枠）で全画像の仕様・取得元・権利を管理 |
 
