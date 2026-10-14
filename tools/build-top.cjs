@@ -86,24 +86,21 @@ ${C.map(c => '      ' + row(c, `${head(c)}${cell(c, 'houmon')}${cell(c, 'hiyou')
 function matrix() {
   const X = c => c.marks.joutai + c.marks.tairyou;            // 状態・量を問わず相談しやすい（6〜10）
   const Y = c => c.marks.uketsuke + c.marks.hiyou + c.marks.houmon; // 自宅で手軽に頼みやすい（9〜15）
-  const used = {};
-  // 横：X=10→82%、9→56%、8→30%（ロゴ枠25%幅が重ならない間隔）。縦：Y=14→53%、13→71%、12以下→86%。1位は上段に吹き出し枠で表示
+  // 点数から基本の位置を決め（右・上ほど高評価）、格子状に並ばないよう会社ごとに少しずらす（mxShift）。重なりがないことは確認済み
   const pos = c => {
-    let x = 82 - (10 - X(c)) * 26, y = Y(c) >= 14 ? 53 : Y(c) === 13 ? 71 : 86;
-    const k = X(c) + ':' + Y(c); const n = used[k] = (used[k] || 0) + 1;
-    if (n > 1) x -= (n - 1) * 26; // 同じ評価は左にずらす
-    return [Math.max(16, Math.min(84, x)), y];
+    const s = c.mxShift || [0, 0];
+    return [Math.round(15 + (X(c) - 7) * 22 + s[0]), Math.round(15 + (15 - Y(c)) * 22 + s[1])];
   };
   const items = C.map(c => {
-    if (c.rank === 1) return `  <div class="yk-matrix__item is-pick" style="--x:64%;--y:21%">${logo(c, 90, 22)}<ul><li>✔ 状態不良・大量もそのまま</li><li>✔ 最短翌日・24時間受付</li></ul></div>`;
     const [x, y] = pos(c);
+    if (c.rank === 1) return `  <div class="yk-matrix__item is-pick" style="--x:${x}%;--y:${y}%">${logo(c, 90, 22)}<ul><li class="kt-nw">✔ 状態不良・大量もOK</li><li class="kt-nw">✔ 最短翌日・24時間受付</li></ul></div>`;
     return `  <span class="yk-matrix__item kt-has-cap" style="--x:${x}%;--y:${y}%">${logo(c, 90, 20)}<small>${c.rank}位 ${score(c)}</small></span>`;
   });
   return `<div class="yk-matrix" role="img" aria-label="横軸：状態・量を問わず相談しやすい、縦軸：自宅で手軽に頼みやすい。右上ほど両方の評価が高い。${C.map(c => `${c.name}（${X(c)}点・${Y(c)}点）`).join('、')}">
   <span class="yk-matrix__ax yk-matrix__ax--t">自宅で手軽に頼める</span><span class="yk-matrix__ax yk-matrix__ax--b">条件の確認が必要</span><span class="yk-matrix__ax yk-matrix__ax--l">状態・量 要確認</span><span class="yk-matrix__ax yk-matrix__ax--r">状態・量を問わない</span>
 ${items.join('\n')}
 </div>
-<p class="yk-small">※横軸＝「状態の悪い切手」＋「大量・アルバムのまま」、縦軸＝「24時間受付」＋「費用0円」＋「訪問の早さ」の採点合計で配置（同じ点数の会社は重ならないよう左右にずらして表示）。<a href="methodology/index.html#matrix">配置の基準</a></p>`;
+<p class="yk-small">※横軸＝「状態の悪い切手」＋「大量・アルバムのまま」、縦軸＝「24時間受付」＋「費用0円」＋「訪問の早さ」の採点合計で配置（見やすいよう、会社ごとに少しずらして表示）。<a href="methodology/index.html#matrix">配置の基準</a></p>`;
 }
 
 // ---------- ランキング ----------

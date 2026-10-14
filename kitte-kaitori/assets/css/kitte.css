@@ -346,7 +346,7 @@ body { margin: 0; background: #f4f4f4; }
      最後の行が1〜3文字にならないよう、tools/wrap-ja.cjs が文の最後の4文字を見えない WORD JOINER（U+2060）でつなぐ
    ・見出し・ボタン・ラベル・狭い表のセル：文節単位の改行（wrap-ja.cjs が文節の切れ目に <wbr> を入れ、keep-all で語の途中では改行しない） */
 .yk-body, .kt-site, .yk-footer { line-break: strict; overflow-wrap: break-word; }
-.yk-body :is(h1, h2, h3, h4, th, dt, summary, label, figcaption, .yk-sec-ttl, .yk-svchead__catch, .kt-lead--c, .yk-best3__text, .yk-best3__note, .yk-pickup__name, .yk-rankcatch, .yk-combo__head, .yk-combo__points b, .yk-catch, .yk-btn, .kt-lastpush, .yk-order a, .yk-voice__who, .yk-kv td, .yk-cmp td, .kt-radarlist span, .kt-vs td, .yk-matrix__item, .kt-table--crit td, .yk-chips li, .yk-tags li, .kt-chiplist li, .kt-nums li, .yk-jobcard__ttl, .yk-jobex__ttl, .kt-textshot dt, .yk-features li, .kt-update, .yk-features__ttl, .yk-listbox__ttl, .mt-img__note) { word-break: keep-all; overflow-wrap: anywhere; }
+.yk-body :is(h1, h2, h3, h4, th, dt, summary, label, figcaption, a, .yk-sec-ttl, .yk-svchead__catch, .kt-lead--c, .yk-best3__text, .yk-best3__note, .yk-pickup__name, .yk-rankcatch, .yk-combo__head, .yk-combo__points b, .yk-catch, .yk-btn, .kt-lastpush, .yk-order a, .yk-voice__who, .yk-kv td, .yk-cmp td, .kt-radarlist span, .kt-vs td, .yk-matrix__item, .kt-table--crit td, .yk-chips li, .yk-tags li, .kt-chiplist li, .kt-nums li, .yk-jobcard__ttl, .yk-jobex__ttl, .kt-textshot dt, .yk-features li, .kt-update, .yk-features__ttl, .yk-listbox__ttl, .mt-img__note) { word-break: keep-all; overflow-wrap: anywhere; }
 /* 見出しは行の長さをそろえる（Safari 17.5 以降・Chrome） */
 .yk-body :is(h2, h3, h4, th, summary, .yk-sec-ttl, .yk-svchead__catch, .yk-rankcatch, .yk-combo__head, .kt-lastpush__q, .yk-best3__text, .yk-pickup__name) { text-wrap: balance; }
 .yk-body .kt-table--marks th, .yk-body .kt-table--marks td { white-space: nowrap; }
@@ -363,3 +363,8 @@ body { margin: 0; background: #f4f4f4; }
 .yk-cmp .yk-catch::before, .yk-cmp .yk-catch::after { content: none; }
 .kt-table--crit th:first-child { width: 22%; }
 .kt-table--crit th:not(:first-child) { width: 26%; }
+/* 早見表：1位の枠を右上に大きく、側面の軸ラベルが見切れないよう左右の余白を広げる */
+.yk-body .yk-matrix { margin-left: 24px; margin-right: 24px; }
+.yk-matrix__item.is-pick { width: 50%; padding: 5px 6px; }
+.yk-matrix__item.is-pick li { font-size: 10px; letter-spacing: -.01em; }
+@media (max-width: 340px) { .yk-matrix__item.is-pick { padding: 3px 4px; } .yk-matrix__item.is-pick img { height: 16px; } .yk-matrix__item.is-pick li { font-size: 9px; } }

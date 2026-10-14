@@ -278,7 +278,11 @@
           "text": "蔵を片付けていて出てきた中国切手。捨てようかと思ったが、家族にすすめられて問い合わせたところ、思いのほか高い値段で売れた——という趣旨の声です。"
         }
       ],
-      "topVoiceSrc": "https://www.uriel-cuore.co.jp/lp/af/stamp/16525/"
+      "topVoiceSrc": "https://www.uriel-cuore.co.jp/lp/af/stamp/16525/",
+      "mxShift": [
+        -9,
+        7
+      ]
     },
     {
       "id": "buysell",
@@ -390,7 +394,11 @@
         "label": "バイセルの公式サイトで<br>無料査定を申し込む",
         "pending": "バイセルの詳細を見る",
         "short": "査定無料"
-      }
+      },
+      "mxShift": [
+        1,
+        7
+      ]
     },
     {
       "id": "fukuchan",
@@ -492,7 +500,11 @@
       "recordSrc": "https://www.fuku-chan.info/kitte/",
       "recordSrcName": "福ちゃん公式 切手買取ページ",
       "banner": null,
-      "cta": null
+      "cta": null,
+      "mxShift": [
+        -4,
+        13
+      ]
     },
     {
       "id": "nikkoudou",
@@ -539,6 +551,10 @@
           "受付時間",
           "8:00〜20:00（年中無休）"
         ]
+      ],
+      "mxShift": [
+        9,
+        12
       ]
     },
     {
@@ -586,6 +602,10 @@
           "受付時間",
           "総合受付24時間"
         ]
+      ],
+      "mxShift": [
+        -12,
+        17
       ]
     },
     {
@@ -633,6 +653,10 @@
           "受付時間",
           "電話10:00〜21:00"
         ]
+      ],
+      "mxShift": [
+        -24,
+        17
       ]
     }
   ]
