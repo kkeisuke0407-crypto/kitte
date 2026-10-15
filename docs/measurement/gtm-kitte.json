@@ -1,0 +1,199 @@
+{
+  "exportFormatVersion": 2,
+  "exportTime": "2026-10-15 03:25:16",
+  "containerVersion": {
+    "path": "accounts/6382641621/containers/267191304/versions/0",
+    "accountId": "6382641621",
+    "containerId": "267191304",
+    "containerVersionId": "0",
+    "container": {
+      "path": "accounts/6382641621/containers/267191304",
+      "accountId": "6382641621",
+      "containerId": "267191304",
+      "name": "kitte.navolio.net",
+      "publicId": "GTM-P5BDV4FC",
+      "usageContext": [
+        "WEB"
+      ],
+      "fingerprint": "1792034486072",
+      "tagManagerUrl": "https://tagmanager.google.com/#/container/accounts/6382641621/containers/267191304/workspaces?apiLink=container",
+      "features": {
+        "supportUserPermissions": true,
+        "supportEnvironments": true,
+        "supportWorkspaces": true,
+        "supportGtagConfigs": false,
+        "supportBuiltInVariables": true,
+        "supportClients": false,
+        "supportFolders": true,
+        "supportTags": true,
+        "supportTemplates": true,
+        "supportTriggers": true,
+        "supportVariables": true,
+        "supportVersions": true,
+        "supportZones": true,
+        "supportTransformations": false
+      },
+      "tagIds": [
+        "GTM-P5BDV4FC"
+      ]
+    },
+    "tag": [
+      {
+        "accountId": "6382641621",
+        "containerId": "267191304",
+        "tagId": "3",
+        "name": "GA4 - 切手買取LP",
+        "type": "dest_ga",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "destinationId",
+            "value": "G-NWC1Z8NMEJ"
+          }
+        ],
+        "fingerprint": "1792034655880",
+        "firingTriggerId": [
+          "2147479573"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT",
+        "monitoringMetadata": {
+          "type": "MAP"
+        },
+        "consentSettings": {
+          "consentStatus": "NOT_SET"
+        }
+      }
+    ],
+    "builtInVariable": [
+      {
+        "accountId": "6382641621",
+        "containerId": "267191304",
+        "type": "PAGE_URL",
+        "name": "Page URL"
+      },
+      {
+        "accountId": "6382641621",
+        "containerId": "267191304",
+        "type": "PAGE_HOSTNAME",
+        "name": "Page Hostname"
+      },
+      {
+        "accountId": "6382641621",
+        "containerId": "267191304",
+        "type": "PAGE_PATH",
+        "name": "Page Path"
+      },
+      {
+        "accountId": "6382641621",
+        "containerId": "267191304",
+        "type": "REFERRER",
+        "name": "Referrer"
+      },
+      {
+        "accountId": "6382641621",
+        "containerId": "267191304",
+        "type": "EVENT",
+        "name": "Event"
+      }
+    ],
+    "fingerprint": "1792034716884",
+    "tagManagerUrl": "https://tagmanager.google.com/#/versions/accounts/6382641621/containers/267191304/versions/0?apiLink=version",
+    "gtagConfig": [
+      {
+        "accountId": "6382641621",
+        "containerId": "267191304",
+        "gtagConfigId": "4",
+        "type": "ogt_auto_events",
+        "parameter": [
+          {
+            "type": "BOOLEAN",
+            "key": "enableOutboundClick",
+            "value": "false"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "enableScroll",
+            "value": "false"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "enableDownload",
+            "value": "false"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "enableHistoryEvents",
+            "value": "false"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "enableForm",
+            "value": "false"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "enableVideo",
+            "value": "false"
+          }
+        ],
+        "fingerprint": "1792034655898"
+      },
+      {
+        "accountId": "6382641621",
+        "containerId": "267191304",
+        "gtagConfigId": "5",
+        "type": "ogt_1p_data_v2",
+        "parameter": [
+          {
+            "type": "BOOLEAN",
+            "key": "isAutoEnabled",
+            "value": "false"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "isManualEnabled",
+            "value": "false"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "autoPhoneEnabled",
+            "value": "false"
+          },
+          {
+            "type": "LIST",
+            "key": "autoCollectExclusionSelectors",
+            "list": [
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "exclusionSelector"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "isEnabled",
+            "value": "false"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "autoAddressEnabled",
+            "value": "false"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "autoEmailEnabled",
+            "value": "false"
+          }
+        ],
+        "fingerprint": "1792034655901"
+      }
+    ],
+    "variable": [],
+    "trigger": []
+  }
+}
