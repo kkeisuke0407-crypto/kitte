@@ -22,7 +22,8 @@
       if(hasId) localStorage.setItem('kitte_ads_click', JSON.stringify(click));
     } catch (_) {}
   }
-  window.__kitteMeasurement = { mode: mode, attribution: attribution };
+  /* Populate only after the ASP has issued and verified the exact tracking URL. */
+  window.__kitteMeasurement = { mode: mode, attribution: attribution, approvedAffiliateUrls: {}, adsMcvDestination: 'AW-18514170119/JWJxCJyfup0dEIein_xE' };
   window.dataLayer = window.dataLayer || [];
   window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
   window.gtag('js',new Date());
@@ -34,6 +35,8 @@
   var shared = {measurement_mode:mode,allow_google_signals:false,allow_ad_personalization_signals:false,page_location:safePage.href,page_referrer:safeRef};
   if(mode==='debug') shared.debug_mode=true;
   window.gtag('set',shared);
+  /* No Ads page-view conversion; only explicit verified affiliate exits send one. */
+  window.gtag('config','AW-18514170119',{send_page_view:false,allow_enhanced_conversions:false});
   window.dataLayer.push({'gtm.start': Date.now(),event:'gtm.js'});
   var s=document.createElement('script'); s.async=true;
   s.src='https://www.googletagmanager.com/gtm.js?id=GTM-P5BDV4FC';

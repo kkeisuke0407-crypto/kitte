@@ -11,7 +11,7 @@
   if (window.__kitteBehaviorInstalled) return;
   window.__kitteBehaviorInstalled = true;
 
-  /* 計測イベントの共通属性。GTM/GA4未接続中はdataLayerへのローカル記録のみ。 */
+  /* 専用GA4に送る計測イベントの共通属性。 */
   window.dataLayer = window.dataLayer || [];
   var lpPath = location.pathname.replace(/\/index\.html$/, '/');
   var lpCode = /\/uriel\/?$/.test(lpPath) ? 'kitte_uriel'
@@ -86,8 +86,11 @@
     var externalAff = false;
     try {
       var url = new URL(a.getAttribute('href'), location.href);
+      var approved = window.__kitteMeasurement && window.__kitteMeasurement.approvedAffiliateUrls || {};
+      var approvedUrls = approved[a.dataset.aff] || [];
       externalAff = !!a.dataset.aff && !pending && /^https?:$/.test(url.protocol)
-        && url.host !== location.host && a.getAttribute('href').indexOf('__') !== 0;
+        && url.host !== location.host && a.getAttribute('href').indexOf('__') !== 0
+        && approvedUrls.indexOf(url.href) !== -1;
     } catch (_) { /* malformed/unset affiliate URL: do not count */ }
     trackLP('cta_click', {
       cta_place: a.dataset.place || '',
@@ -105,6 +108,10 @@
       conversion_stage: 'affiliate_outbound',
       cta_pending: false
       });
+      var adsDestination = window.__kitteMeasurement && window.__kitteMeasurement.adsMcvDestination;
+      if (measurementMode === 'normal' && adsDestination && window.gtag) {
+        window.gtag('event','conversion',{send_to:adsDestination,value:0,currency:'JPY',transport_type:'beacon'});
+      }
     }
   }
   document.addEventListener('click', onCtaClick);
@@ -113,7 +120,7 @@
 
   /* ============================================================
      ソウガクのGA4計測に合わせたLP行動イベント
-     GTMへ渡すだけで、タグ/エンドポイントの設定までは外部送信なし。
+     専用GA4へ送り、dataLayerにも記録する。
      個人情報・診断回答内容・URLの広告クリックIDはイベントには含めない。
      ============================================================ */
   trackLP('lp_page_view', { lp_path: lpPath });
