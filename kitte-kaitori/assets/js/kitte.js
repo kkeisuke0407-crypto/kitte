@@ -8,6 +8,8 @@
    ============================================================ */
 (function () {
   'use strict';
+  if (window.__kitteBehaviorInstalled) return;
+  window.__kitteBehaviorInstalled = true;
 
   /* 計測イベントの共通属性。GTM/GA4未接続中はdataLayerへのローカル記録のみ。 */
   window.dataLayer = window.dataLayer || [];
@@ -18,11 +20,34 @@
     : /\/methodology\/?$/.test(lpPath) ? 'kitte_methodology'
     : /\/about\/?$/.test(lpPath) ? 'kitte_about'
     : /\/privacy\/?$/.test(lpPath) ? 'kitte_privacy' : 'kitte_top';
-  var measurementMode = new URLSearchParams(location.search).get('measurement_mode') === 'debug' ? 'debug' : 'normal';
+  var measurementMode = window.__kitteMeasurement ? window.__kitteMeasurement.mode : (new URLSearchParams(location.search).get('measurement_mode') === 'debug' ? 'debug' : 'normal');
+  var debugLog;
+  if (measurementMode === 'debug') {
+    var debugPanel = document.createElement('details');
+    debugPanel.id = 'kitte-measurement-debug';
+    debugPanel.style.cssText = 'position:fixed;bottom:0;left:0;z-index:99999;max-width:100%;max-height:35vh;overflow:auto;background:white;color:#222;font:11px monospace;border:1px solid #999';
+    var debugTitle = document.createElement('summary'); debugTitle.textContent = '切手 計測テスト（広告MCV送信なし）';
+    debugLog = document.createElement('pre');
+    debugPanel.appendChild(debugTitle); debugPanel.appendChild(debugLog); document.body.appendChild(debugPanel);
+  }
   function trackLP(name, params) {
-    var record = { event: name, lp_id: lpCode, measurement_mode: measurementMode };
+    var record = { event: name, lp_id: lpCode, lp_path:lpPath, measurement_mode: measurementMode,
+      cta_company:null,cta_place:null,cta_pending:null,cta_external:null,cta_text:null,conversion_stage:null,
+      scroll_percent:null,section_id:null,active_seconds:null,faq_label:null,
+      event_id: (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : Date.now()+'-'+Math.random().toString(36).slice(2) };
+    if (measurementMode === 'debug') record.debug_mode = true;
+    var attribution = window.__kitteMeasurement && window.__kitteMeasurement.attribution || {};
+    Object.keys(attribution).forEach(function (key) { record[key] = attribution[key]; });
     Object.keys(params || {}).forEach(function (key) { record[key] = params[key]; });
     window.dataLayer.push(record);
+    /* GTM owns the dedicated Google tag. Send behavior through its gtag queue only;
+       do not install a second GA4 custom-event trigger for these dataLayer records. */
+    if (window.gtag) {
+      var gaParams = {send_to:'G-NWC1Z8NMEJ'};
+      Object.keys(record).forEach(function (key) { if(key!=='event' && key.indexOf('gtm.')!==0 && record[key]!=null) gaParams[key]=record[key]; });
+      window.gtag('event',name,gaParams);
+    }
+    if(debugLog) debugLog.textContent = (debugLog.textContent+'\n'+JSON.stringify(record)).split('\n').slice(-100).join('\n');
   }
 
 
@@ -52,7 +77,9 @@
      window.dataLayer があれば { event: 'cta_click', cta_place, cta_company, cta_pending } を送る。
      計測タグが無いあいだは何もしない（外部送信なし）。
      ------------------------------------------------------------ */
-  document.addEventListener('click', function (e) {
+  var lastMcv = new WeakMap();
+  function onCtaClick(e) {
+    if (e.type === 'auxclick' && e.button !== 1) return;
     var a = e.target.closest && e.target.closest('a[data-place]');
     if (!a) return;
     var pending = a.classList.contains('is-pending');
@@ -70,13 +97,18 @@
       cta_external: externalAff
     });
     /* MCVは成果リンクへの実遷移のみ。未設定ASPリンク→内部詳細ページは含めない。 */
-    if (externalAff) trackLP('kitte_mcv', {
+    if (externalAff && !e.defaultPrevented && (e.type !== 'click' || e.button === 0) && Date.now()-(lastMcv.get(a)||0)>1500) {
+      lastMcv.set(a,Date.now());
+      trackLP('kitte_mcv', {
       cta_company: a.dataset.aff,
       cta_place: a.dataset.place || '',
       conversion_stage: 'affiliate_outbound',
       cta_pending: false
-    });
-  });
+      });
+    }
+  }
+  document.addEventListener('click', onCtaClick);
+  document.addEventListener('auxclick', onCtaClick);
 
 
   /* ============================================================
@@ -112,20 +144,26 @@
   if ('IntersectionObserver' in window) {
     var seenSections = {}, sectionObserver = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        var section = entry.target.id;
+        if (!entry.isIntersecting || entry.intersectionRatio < 0.35) return;
+        var section = entry.target.dataset.measurementSection || entry.target.id;
         if (!section || seenSections[section]) return;
         seenSections[section] = true;
         trackLP('lp_section_view', { section_id: section });
         sectionObserver.unobserve(entry.target);
       });
     }, { threshold: 0.35 });
-    document.querySelectorAll('section[id],h2[id],h3[id]').forEach(function (el) { sectionObserver.observe(el); });
+    /* Long sections may never occupy 35% of the viewport: observe their heading. */
+    document.querySelectorAll('section[id],h2[id],h3[id]').forEach(function (el) {
+      var target = el.tagName === 'SECTION' ? el.querySelector('h2,h3') : el;
+      if (!target) target = el;
+      target.dataset.measurementSection = el.id;
+      sectionObserver.observe(target);
+    });
 
     var seenCtas = new WeakSet();
     var ctaObserver = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
-        if (!entry.isIntersecting || seenCtas.has(entry.target)) return;
+        if (!entry.isIntersecting || entry.intersectionRatio < 0.5 || seenCtas.has(entry.target)) return;
         seenCtas.add(entry.target);
         trackLP('lp_cta_view', {
           cta_place: entry.target.dataset.place || '',
@@ -135,13 +173,15 @@
         ctaObserver.unobserve(entry.target);
       });
     }, { threshold: 0.5 });
-    document.querySelectorAll('a[data-place]').forEach(function (el) { ctaObserver.observe(el); });
+    function observeCtas(root) { root.querySelectorAll('a[data-place]').forEach(function (el) { ctaObserver.observe(el); }); }
+    observeCtas(document);
+    if ('MutationObserver' in window) new MutationObserver(function(entries) { entries.forEach(function(entry) { entry.addedNodes.forEach(function(node) { if(node.nodeType===1) { if(node.matches('a[data-place]')) ctaObserver.observe(node); observeCtas(node); } }); }); }).observe(document.body,{childList:true,subtree:true});
   }
 
   /* FAQ開封、診断利用（選択した内容そのものは取得しない） */
   document.addEventListener('toggle', function (e) {
     var detail = e.target;
-    if (!detail || detail.tagName !== 'DETAILS' || !detail.open) return;
+    if (!detail || detail.tagName !== 'DETAILS' || !detail.open || detail.id === 'kitte-measurement-debug') return;
     var summary = detail.querySelector('summary');
     trackLP('lp_faq_open', { faq_label: (summary && summary.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 90) });
   }, true);
