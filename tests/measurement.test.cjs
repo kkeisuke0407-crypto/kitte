@@ -3,6 +3,13 @@ const assert=require('node:assert/strict');
 const vm=require('node:vm');
 const fs=require('node:fs');
 const source=fs.readFileSync(require.resolve('../kitte-kaitori/assets/js/kitte.js'),'utf8');
+test('each published page loads measurement bootstrap exactly once after charset',()=>{
+ for(const page of ['index.html','uriel/index.html','buysell/index.html','fukuchan/index.html','methodology/index.html','about/index.html','privacy/index.html']){
+  const html=fs.readFileSync(require('node:path').join(__dirname,'../kitte-kaitori',page),'utf8');
+  assert.equal((html.match(/<script src="[^"]*measurement-init\.js/g)||[]).length,1,page);
+  assert.ok(html.indexOf('<meta charset=')<html.indexOf('measurement-init.js'),page);
+ }
+});
 function setup(mode='normal'){
   const listeners={},records=[],observers=[];
   const document={querySelectorAll:()=>[],getElementById:()=>null,createElement:()=>({style:{},appendChild(){},textContent:''}),body:{appendChild(){}},addEventListener:(type,fn)=>(listeners[type]??=[]).push(fn),hidden:false,hasFocus:()=>true,documentElement:{scrollHeight:2000}};
