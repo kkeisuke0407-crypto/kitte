@@ -9,6 +9,23 @@
 (function () {
   'use strict';
 
+  /* 計測イベントの共通属性。GTM/GA4未接続中はdataLayerへのローカル記録のみ。 */
+  window.dataLayer = window.dataLayer || [];
+  var lpPath = location.pathname.replace(/\/index\.html$/, '/');
+  var lpCode = /\/uriel\/?$/.test(lpPath) ? 'kitte_uriel'
+    : /\/buysell\/?$/.test(lpPath) ? 'kitte_buysell'
+    : /\/fukuchan\/?$/.test(lpPath) ? 'kitte_fukuchan'
+    : /\/methodology\/?$/.test(lpPath) ? 'kitte_methodology'
+    : /\/about\/?$/.test(lpPath) ? 'kitte_about'
+    : /\/privacy\/?$/.test(lpPath) ? 'kitte_privacy' : 'kitte_top';
+  var measurementMode = new URLSearchParams(location.search).get('measurement_mode') === 'debug' ? 'debug' : 'normal';
+  function trackLP(name, params) {
+    var record = { event: name, lp_id: lpCode, measurement_mode: measurementMode };
+    Object.keys(params || {}).forEach(function (key) { record[key] = params[key]; });
+    window.dataLayer.push(record);
+  }
+
+
   /* ------------------------------------------------------------
      1. ASPリンク
      HTMLの href に直接 ASP のクリックURLを書く運用（置換対象の文字列は下記）。
@@ -37,9 +54,123 @@
      ------------------------------------------------------------ */
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a[data-place]');
-    if (!a || !window.dataLayer || typeof window.dataLayer.push !== 'function') return;
-    window.dataLayer.push({ event: 'cta_click', cta_place: a.dataset.place, cta_company: a.dataset.aff || '', cta_pending: a.classList.contains('is-pending') });
+    if (!a) return;
+    var pending = a.classList.contains('is-pending');
+    var externalAff = false;
+    try {
+      var url = new URL(a.getAttribute('href'), location.href);
+      externalAff = !!a.dataset.aff && !pending && /^https?:$/.test(url.protocol)
+        && url.host !== location.host && a.getAttribute('href').indexOf('__') !== 0;
+    } catch (_) { /* malformed/unset affiliate URL: do not count */ }
+    trackLP('cta_click', {
+      cta_place: a.dataset.place || '',
+      cta_company: a.dataset.aff || '',
+      cta_text: (a.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 80),
+      cta_pending: pending,
+      cta_external: externalAff
+    });
+    /* MCVは成果リンクへの実遷移のみ。未設定ASPリンク→内部詳細ページは含めない。 */
+    if (externalAff) trackLP('kitte_mcv', {
+      cta_company: a.dataset.aff,
+      cta_place: a.dataset.place || '',
+      conversion_stage: 'affiliate_outbound',
+      cta_pending: false
+    });
   });
+
+
+  /* ============================================================
+     ソウガクのGA4計測に合わせたLP行動イベント
+     GTMへ渡すだけで、タグ/エンドポイントの設定までは外部送信なし。
+     個人情報・診断回答内容・URLの広告クリックIDはイベントには含めない。
+     ============================================================ */
+  trackLP('lp_page_view', { lp_path: lpPath });
+
+  /* スクロール到達：同一ページ表示内で各割合1回のみ */
+  var scrollMarks = [25, 50, 75, 90, 100], sentScroll = {};
+  var scrolling = false;
+  function measureScroll() {
+    scrolling = false;
+    var doc = document.documentElement;
+    var range = Math.max(1, doc.scrollHeight - window.innerHeight);
+    var pct = Math.min(100, Math.round(window.scrollY * 100 / range));
+    scrollMarks.forEach(function (mark) {
+      if (pct >= mark && !sentScroll[mark]) {
+        sentScroll[mark] = true;
+        trackLP('lp_scroll', { scroll_percent: mark });
+      }
+    });
+  }
+  window.addEventListener('scroll', function () {
+    if (!scrolling) {
+      scrolling = true;
+      window.requestAnimationFrame(measureScroll);
+    }
+  }, { passive: true });
+
+  /* 見出し・CTAが見えた回数（初回だけ） */
+  if ('IntersectionObserver' in window) {
+    var seenSections = {}, sectionObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var section = entry.target.id;
+        if (!section || seenSections[section]) return;
+        seenSections[section] = true;
+        trackLP('lp_section_view', { section_id: section });
+        sectionObserver.unobserve(entry.target);
+      });
+    }, { threshold: 0.35 });
+    document.querySelectorAll('section[id],h2[id],h3[id]').forEach(function (el) { sectionObserver.observe(el); });
+
+    var seenCtas = new WeakSet();
+    var ctaObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting || seenCtas.has(entry.target)) return;
+        seenCtas.add(entry.target);
+        trackLP('lp_cta_view', {
+          cta_place: entry.target.dataset.place || '',
+          cta_company: entry.target.dataset.aff || '',
+          cta_pending: entry.target.classList.contains('is-pending')
+        });
+        ctaObserver.unobserve(entry.target);
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('a[data-place]').forEach(function (el) { ctaObserver.observe(el); });
+  }
+
+  /* FAQ開封、診断利用（選択した内容そのものは取得しない） */
+  document.addEventListener('toggle', function (e) {
+    var detail = e.target;
+    if (!detail || detail.tagName !== 'DETAILS' || !detail.open) return;
+    var summary = detail.querySelector('summary');
+    trackLP('lp_faq_open', { faq_label: (summary && summary.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 90) });
+  }, true);
+
+  var finderStarted = false;
+  document.addEventListener('change', function (e) {
+    if (finderStarted || !e.target.closest || !e.target.closest('#kt-finder')) return;
+    finderStarted = true;
+    trackLP('lp_finder_start', {});
+  });
+  document.addEventListener('submit', function (e) {
+    if (e.target && e.target.id === 'kt-finder') trackLP('lp_finder_complete', {});
+  }, true);
+
+  /* アクティブ閲覧時間：30 / 60 / 120秒到達時に1回だけ */
+  var activeSeconds = 0, lastActiveTime = Date.now(), sentActive = {};
+  function tickRead() {
+    var now = Date.now();
+    if (!document.hidden && document.hasFocus()) activeSeconds += Math.min(6, (now - lastActiveTime) / 1000);
+    lastActiveTime = now;
+    [30, 60, 120].forEach(function (seconds) {
+      if (activeSeconds >= seconds && !sentActive[seconds]) {
+        sentActive[seconds] = true;
+        trackLP('lp_active_read', { active_seconds: seconds });
+      }
+    });
+  }
+  window.setInterval(tickRead, 5000);
+  document.addEventListener('visibilitychange', function () { lastActiveTime = Date.now(); });
 
   /* ヘッダーの日付：毎日、日本時間の今日の日付を表示する（JSが動かない場合はHTMLに書いた日付のまま） */
   var jst = new Date(Date.now() + 9 * 3600 * 1000);
