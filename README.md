@@ -103,3 +103,17 @@ node tools/check.cjs [出力先]   # 375/390/1280px の動作チェック（引�
 node tools/build-preview.cjs    # 画像台帳を更新したら再生成
 node tools/build-standalone.cjs # ページを直したら単体HTML版を再生成
 ```
+
+## LP行動分析・MCV計測（2026-10-15）
+
+ソウガクのGA4行動計測を参考に、共通スクリプト `kitte-kaitori/assets/js/kitte.js` に、
+`lp_page_view`、`lp_scroll`、`lp_section_view`、`lp_cta_view`、`lp_active_read`、
+`lp_faq_open`、`lp_finder_start`、`lp_finder_complete`、`cta_click` を実装しました。
+
+`kitte_mcv` は設定済みASP成果リンクで外部へ遷移するクリックのみで発火し、
+未設定ASPリンクから内部詳細ページへ誘導される場合はMCV計上しません。
+`?measurement_mode=debug` はテスト用モードで、GTM/GA4側でも除外設定が必要です。
+
+現時点で各イベントは `window.dataLayer` に積まれるだけです。
+GA4・GTM・Google Adsタグ、MCC子アカウント、オフライン成果インポートは未接続/未作成です。
+詳細は `docs/切手買取LP計測仕様_ソウガク準拠_20261015.md` を参照。
