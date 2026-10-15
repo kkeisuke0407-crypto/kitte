@@ -6,7 +6,7 @@
 
 - GA4: 切手買取LP / property `559084496` / stream `16131934719` / measurement `G-NWC1Z8NMEJ`。日本・Asia/Tokyo・JPY。
 - GTM: 切手買取 / kitte.navolio.net / `GTM-P5BDV4FC`。account `6382641621` / container `267191304`。
-- Google広告: ボスMCC `820-007-4047`。子アカウント作成はreCAPTCHA確認待ち。子ID未発行。既存アカウントは変更しない。
+- Google広告: 切手買取 `253-112-3349`、ボスMCC `820-007-4047`直下。日本・JPY・日本標準時。自動タグ「はい」を確認。請求設定なし、キャンペーン0件。専用GA4へのリンク済み（指標共有オン・オーディエンス共有オフ）。
 - 公開先: `https://kitte.navolio.net/kitte-kaitori/` と既存ドメイン直下を維持。Pages配信ブランチは `codex/pages`。
 
 ## 実装と重複防止
@@ -26,9 +26,11 @@
 |lp_finder_start|診断の初回入力 / 回答値なし|
 |lp_finder_complete|診断実行 / 回答値なし|
 |cta_click|data-place付き導線 / 内部移動も含む。成果ではない|
-|kitte_mcv|未設定・pendingを除くdata-aff付き外部HTTP(S)成果リンク / company, place, conversion_stage=affiliate_outbound|
+|kitte_mcv|確認済み成果URLに完全一致するdata-aff付き外部HTTP(S)リンク / cta_company, cta_place, conversion_stage=affiliate_outbound|
 
 共通: measurement_mode, event_id。同じJSの重複読込を抑止。MCVは同じ要素の1.5秒以内の再クリックを抑止。中クリックにも対応。診断で動的に増えるCTAも表示計測する。
+
+`measurement-init.js` の `approvedAffiliateUrls` は会社ごとの発行・確認済みURL一覧。未取得の現状は空で、外部URLを貼るだけではMCV対象にならない。リンク取得後、許可条件を確認してHTMLとこの一覧を同時に更新・検証する。広告送信先は `AW-18514170119/JWJxCJyfup0dEIein_xE`。通常モードの確認済み送客だけに広告conversionを1回送る。GA4 `kitte_mcv` と広告 `conversion` は別の宛先であり、GA4から広告へ再インポートしない。
 
 ## 検証アクセスと広告流入
 
@@ -39,13 +41,13 @@
 - ad_campaign_id/ad_group_id/ad_keyword/ad_matchtypeはタブ内で保持し内部ページへ引き継ぐ。任意URLパラメータはGA4のpage_locationに転送しない。
 - GCLID/GBRAID/WBRAIDは通常モードでこのドメインのlocalStorageに最大90日保管。GA4の独自パラメータには入れず、ASPへ渡す処理もまだ無効。
 
-## Google広告コンバージョンの予定構成
+## Google広告コンバージョン
 
 |アクション名|最適化|カウント・値|状態|
 |---|---|---|---|
-|切手_MCV_公式遷移|Secondary|1回・0円|子アカウント作成後に設定|
-|切手_申込発生_オフライン|Secondary|成果単位。報酬を二重集計しないよう価値0円|ASP発生データの返却仕様を確認後|
-|切手_申込承認_オフライン|Primary|成果単位。実際の確定報酬JPY|子アカウント作成後に設定。実取込は未稼働|
+|切手_MCV_公式遷移|Secondary|初回のみ・0円・30日|作成済み。action 7846399900。実送客未確認|
+|切手_申込発生_オフライン|Secondary|全件・値を使用しない・90日|受け皿作成済み。データソース未接続、実取込なし|
+|切手_申込承認_オフライン|Primary|全件・実際の確定報酬JPY（デフォルト0円）・90日|受け皿作成済み。データソース未接続、実取込なし|
 
 MCVのGA4側の同イベントをGoogle広告へ再インポートしない。現行の個別CPCではPrimary/Secondaryは自動入札の稼働を意味しない。申込発生と承認を合算して実成果件数・売上として扱わない。
 
