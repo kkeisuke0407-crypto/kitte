@@ -10,6 +10,13 @@ const { axes, companies: C } = data;
 const total = c => axes.reduce((s, a) => s + c.marks[a.key], 0);
 const score = c => (Math.round(total(c) / axes.length * 10) / 10).toFixed(1);
 const maru = v => (v >= 5 ? '◎' : v >= 4 ? '○' : '△');
+// 記号は字形の大きさがフォントで変わるため、同じ大きさの図形（SVG）で表示し、読み上げ用に文字も持つ
+const MARU_SVG = {
+  5: '<circle cx="12" cy="12" r="9.6"/><circle cx="12" cy="12" r="4.6"/>',
+  4: '<circle cx="12" cy="12" r="9.6"/>',
+  3: '<path d="M12 3.2 21.4 19.8H2.6Z"/>'
+};
+const maruIcon = v => `<svg class="kt-maru" viewBox="0 0 24 24" aria-hidden="true">${MARU_SVG[v >= 5 ? 5 : v >= 4 ? 4 : 3]}</svg><span class="kt-sr">${maru(v)}</span>`;
 const stars = c => `<span class="kt-stars" style="--p:${(score(c) / 5 * 100).toFixed(0)}%" aria-hidden="true">★★★★★</span><span class="kt-score"><small>編集部評価</small>${score(c)}</span>`;
 // 地域名は都道府県のあとでだけ改行する（例：東京都／世田谷区）
 const pref = s => s.replace(/^(.{2,3}?[都道府県])/, '$1<wbr>');
@@ -24,7 +31,7 @@ const official = (c, label = '公式サイトで条件を確認する') =>
 const medal = r => `yk-medal${r === 2 ? ' yk-medal--2' : r === 3 ? ' yk-medal--3' : r > 3 ? ' yk-medal--n' : ''}`;
 const radar = c => `<div class="kt-radarbox"><p class="kt-radarbox__ttl">${c.name}の編集部評価 ${stars(c)}</p>
         <div class="yk-radar" data-name="${c.name}" data-labels="${axes.map(a => a.radar).join(',')}" data-scores="${axes.map(a => c.marks[a.key]).join(',')}" data-min="2"></div>
-        <ul class="kt-radarlist">${axes.map(a => `<li><span>${a.short}</span><b class="kt-m${c.marks[a.key]}">${maru(c.marks[a.key])}</b><small>${c.ev[a.key]}</small></li>`).join('')}</ul>
+        <ul class="kt-radarlist">${axes.map(a => `<li><span>${a.short}</span><b class="kt-m${c.marks[a.key]}">${maruIcon(c.marks[a.key])}</b><small>${c.ev[a.key]}</small></li>`).join('')}</ul>
         <p class="yk-small yk-radar__note">※◎＝5点・○＝4点・△＝3点。各社公式サイトの記載をもとにした編集部の採点です（<a href="methodology/index.html#radar">採点基準</a>）</p></div>`;
 
 // ---------- BEST3 ----------
@@ -62,7 +69,7 @@ ${u.topVoices.map(v => `  <li><div class="yk-voice__who"><span class="yk-voice__
 function compare() {
   const row = (c, cells) => `<tr${c.rank === 1 ? ' class="is-pick"' : ''}>${cells}</tr>`;
   const head = c => `<td><span class="yk-cmp__rank">${c.rank}</span><span class="yk-cmp__logo">${logo(c, 90, 22)}</span><a class="yk-cmp__name" href="${c.detail || '#rank-' + c.id}">${c.name}</a></td>`;
-  const cell = (c, k) => `<td><span class="yk-maru kt-m${c.marks[k]}">${maru(c.marks[k])}</span><small>${c.ev[k]}</small></td>`;
+  const cell = (c, k) => `<td><span class="yk-maru kt-m${c.marks[k]}">${maruIcon(c.marks[k])}</span><small>${c.ev[k]}</small></td>`;
   const btn = c => c.aff ? `<p class="yk-catch">${c.cta.short || c.cta.catch}</p>${aff(c, 'yk-btn yk-btn--sm', '公式', `#rank-${c.id}`, '詳細', `compare-${c.id}`)}` : `<a class="yk-btn yk-btn--sm is-pending" href="#rank-${c.id}" data-place="compare-${c.id}">詳細</a>`;
   return `<div class="yk-tabs">
   <input type="radio" name="cmp1" id="cmp1-1" checked><input type="radio" name="cmp1" id="cmp1-2"><input type="radio" name="cmp1" id="cmp1-3">
@@ -91,7 +98,7 @@ function matrix() {
   // 点数から基本の位置を決め（右・上ほど高評価）、格子状に並ばないよう会社ごとに少しずらす（mxShift）。重なりがないことは確認済み
   const pos = c => {
     const s = c.mxShift || [0, 0];
-    return [Math.round(15 + (X(c) - 7) * 22 + s[0]), Math.round(15 + (15 - Y(c)) * 22 + s[1])];
+    return [Math.round(14 + (X(c) - 7) * 24 + s[0]), Math.round(14 + (15 - Y(c)) * 18 + s[1])];
   };
   const items = C.map(c => {
     const [x, y] = pos(c);
@@ -189,7 +196,7 @@ ${axes.map(a => `  <tr><td><b>${a.short}</b><br><small>${a.full}</small></td><td
 </table></div>
 <div class="kt-x"><table class="kt-table kt-table--marks">
   <tr><th>順位</th><th>サービス</th>${axes.map(a => `<th>${a.short}</th>`).join('')}<th>編集部評価</th></tr>
-${C.map(c => `  <tr><td class="is-c">${c.rank}</td><td>${c.name}</td>${axes.map(a => `<td class="is-c" title="${c.ev[a.key].replace(/<[^>]+>/g, '')}">${maru(c.marks[a.key])}</td>`).join('')}<td class="is-c">${score(c)}</td></tr>`).join('\n')}
+${C.map(c => `  <tr><td class="is-c">${c.rank}</td><td>${c.name}</td>${axes.map(a => `<td class="is-c kt-m${c.marks[a.key]}" title="${c.ev[a.key].replace(/<[^>]+>/g, '')}">${maruIcon(c.marks[a.key])}</td>`).join('')}<td class="is-c">${score(c)}</td></tr>`).join('\n')}
 </table></div>
 <div class="kt-x"><table class="kt-table kt-table--fit">
   <tr><th>サービス</th><th>採点の根拠（公式サイトの記載・要約）</th></tr>
