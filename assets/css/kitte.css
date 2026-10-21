@@ -365,7 +365,7 @@ body { margin: 0; background: #f4f4f4; }
 .kt-table--crit th:not(:first-child) { width: 26%; }
 /* 早見表：1位の枠を右上に大きく、側面の軸ラベルが見切れないよう左右の余白を広げる */
 .yk-body .yk-matrix { margin-left: 24px; margin-right: 24px; }
-.yk-matrix__item.is-pick { width: 50%; padding: 5px 6px; }
+.yk-matrix__item.is-pick { width: 56%; padding: 5px 6px; }
 .yk-matrix__item.is-pick li { font-size: 10px; letter-spacing: -.01em; }
 @media (max-width: 340px) { .yk-matrix__item.is-pick { padding: 3px 4px; } .yk-matrix__item.is-pick img { height: 16px; } .yk-matrix__item.is-pick li { font-size: 9px; } }
 /* 申し込みから現金化までの流れ：STEP見出しの下に「写真｜説明」を横並び */
@@ -383,3 +383,12 @@ body { margin: 0; background: #f4f4f4; }
 .yk-jobcard .yk-jobcard__pay small { display: block; min-height: 1.4em; }
 /* 大見出しを1行に収める：--n＝文字数。狭い画面では文字を少し小さくして改行させない */
 .kt-h2.kt-1l { white-space: nowrap; text-wrap-mode: nowrap; font-size: min(19px, calc((min(100vw, 640px) - 34px) / (var(--n) + 1.4))); }
+
+/* ◎○△：字形の大きさ・高さがフォントでそろわないため、同じ大きさの図形で表示（build-top.cjs の maruIcon） */
+.kt-maru { display: block; width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linejoin: round; }
+.yk-maru { display: flex; align-items: center; justify-content: center; height: 30px; margin: 0 auto 2px; }
+.kt-radarlist li > b { display: flex; align-items: center; justify-content: center; }
+.kt-radarlist .kt-maru { width: 18px; height: 18px; stroke-width: 2.6; }
+.kt-table--marks .kt-maru { width: 18px; height: 18px; margin: 0 auto; stroke-width: 2.6; }
+/* 比較表：記号の高さを行の中でそろえる（説明文の長さで上下にずれないよう上詰め） */
+.yk-cmp td:has(> .yk-maru) { vertical-align: top; padding-top: 10px; }
