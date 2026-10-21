@@ -328,7 +328,7 @@
 
     if (method === 'tento') {
       picks.push(['buysell', '優先候補', ['<b>店頭買取</b>に対応。店舗でその場で査定・現金化できます。'].concat(buysell)]);
-      picks.push(['uriel', '比較候補', ['店舗・催事買取も案内。<b>運ぶのが大変な量なら、自宅に来てもらう出張</b>が手軽です。', uriel[0]]]);
+      picks.push(['uriel', '比較候補', ['店舗買取も案内。<b>運ぶのが大変な量なら、自宅に来てもらう出張</b>が手軽です。', uriel[0]]]);
     } else if (method === 'takuhai') {
       picks.push(['buysell', '優先候補', ['<b>宅配買取</b>に対応（成立すれば銀行振込）。'].concat(buysell)]);
       notes.push('宅配で金額に納得できなかった場合、返送料は着払い（利用者負担）です。');
