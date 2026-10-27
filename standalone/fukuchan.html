@@ -666,8 +666,8 @@ body { margin: 0; background: #f4f4f4; }
 .kt-lastpush { margin: 1em 0 .8em; padding: 14px 12px; border-radius: 10px; background: var(--yk-cream); border: 2px dashed #f2c94c; text-align: center; }
 .kt-lastpush__q { margin: 0 0 .6em !important; font-size: 17px; font-weight: 900; line-height: 1.5 !important; }
 .kt-lastpush__q em { font-style: normal; color: var(--yk-red); background: linear-gradient(transparent 60%, var(--yk-mark) 60%); }
-.kt-lastpush ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin: 0; padding: 0; list-style: none; }
-.kt-lastpush li { padding: .3em .8em; border-radius: 99px; background: #fff; border: 1px solid #f2c94c; font-size: 13px; }
+.kt-lastpush ul { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin: 0; padding: 0; list-style: none; }
+.kt-lastpush li { display: block; padding: .45em .2em; border-radius: 8px; background: #fff; border: 1px solid #f2c94c; font-size: 12px; line-height: 1.5; white-space: nowrap; }
 .kt-lastpush li b { color: var(--yk-red); }
 
 /* 日本語の改行（Safari・Chrome で同じ結果になるよう、ブラウザーごとに動きが違う auto-phrase / text-wrap: pretty は使わない）
@@ -721,6 +721,7 @@ body { margin: 0; background: #f4f4f4; }
 .kt-table--marks .kt-maru { width: 18px; height: 18px; margin: 0 auto; stroke-width: 2.6; }
 /* 比較表：記号の高さを行の中でそろえる（説明文の長さで上下にずれないよう上詰め） */
 .yk-cmp td:has(> .yk-maru) { vertical-align: top; padding-top: 10px; }
+@media (max-width: 360px) { .kt-lastpush { padding-left: 8px; padding-right: 8px; } .kt-lastpush li { font-size: 11px; } }
 
 </style>
 </head>
