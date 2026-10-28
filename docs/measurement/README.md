@@ -30,7 +30,7 @@
 
 共通: measurement_mode, event_id。同じJSの重複読込を抑止。MCVは同じ要素の1.5秒以内の再クリックを抑止。中クリックにも対応。診断で動的に増えるCTAも表示計測する。
 
-`measurement-init.js` の `approvedAffiliateUrls` は会社ごとの発行・確認済みURL一覧。2026-10-28にウリエル（felmat `https://t.felmat.net/fmcl?ak=D107130.1.K150885J.L1419226&pb=`）と福ちゃん（A8 `https://px.a8.net/svt/ejp?a8mat=4BEMLP+7DJH7M+35HU+BZ0Z6`）を登録。バイセルは未取得で空。一覧にない外部URLはMCV対象にならない。
+`measurement-init.js` の `approvedAffiliateUrls` は会社ごとの発行・確認済みURL一覧。2026-10-28にウリエル（felmat `https://t.felmat.net/fmcl?ak=D107130.1.E149890F.L1419226`）と福ちゃん（A8 `https://px.a8.net/svt/ejp?a8mat=4BEMLP+7DJH7M+35HU+BZ0Z6`）を登録。バイセルは未取得で空。一覧にない外部URLはMCV対象にならない。
 
 ## 検証アクセスと広告流入
 

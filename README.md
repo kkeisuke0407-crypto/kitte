@@ -70,7 +70,7 @@ HTML 内の文字列を一括置換する。未置換の間は `kitte.js` がボ
 
 | 置換文字列 | 対象 | 箇所 |
 |---|---|---|
-| （設定済み）`https://t.felmat.net/fmcl?ak=D107130.1.K150885J.L1419226&pb=` | ウリエル（felmat、プロモーションID 10713。2026-10-28設定） | 比較TOP・uriel/・kitte.js（診断結果）・companies.json の `aff`。MCVの対象は `measurement-init.js` の `approvedAffiliateUrls` |
+| （設定済み）`https://t.felmat.net/fmcl?ak=D107130.1.E149890F.L1419226` | ウリエル（felmat 特単リンク、プロモーションID 10713・サイト141922。2026-10-29差し替え） | 比較TOP・uriel/・kitte.js（診断結果）・companies.json の `aff`。MCVの対象は `measurement-init.js` の `approvedAffiliateUrls` |
 | `__BUYSELL_AFF_LINK__` | バイセル（プロモーションID 10523） | 比較TOP 6・buysell/ 4・kitte.js 1（診断結果） |
 | （設定済み）`https://px.a8.net/svt/ejp?a8mat=4BEMLP+7DJH7M+35HU+BZ0Z6` | 福ちゃん（A8テキストリンク。2026-10-28設定。表示計測の1×1画像を比較TOP・fukuchan/ に1つずつ） | 比較TOP（companies.json の `aff`・`cta`）・fukuchan/ 3・kitte.js（診断結果）。MCVの対象は `approvedAffiliateUrls` |
 | （買取大吉・日晃堂・なんぼや） | ASP提携なし | 公式サイトへの通常リンク（外部・広告リンクではない旨を表示）のみ |
