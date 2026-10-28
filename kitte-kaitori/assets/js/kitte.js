@@ -278,7 +278,7 @@
   var out = document.getElementById('kt-finder-result');
 
   var SVC = {
-    uriel: { name: 'ウリエル', logo: 'assets/img/logo/uriel.svg', detail: 'uriel/index.html', aff: 'https://t.felmat.net/fmcl?ak=D107130.1.K150885J.L1419226&pb=', pendingLabel: 'ウリエルの詳細を見る' },
+    uriel: { name: 'ウリエル', logo: 'assets/img/logo/uriel.svg', detail: 'uriel/index.html', aff: 'https://t.felmat.net/fmcl?ak=D107130.1.E149890F.L1419226', pendingLabel: 'ウリエルの詳細を見る' },
     buysell: { name: 'バイセル', logo: 'assets/img/logo/buysell.svg', detail: 'buysell/index.html', aff: '__BUYSELL_AFF_LINK__', pendingLabel: 'バイセルの詳細を見る' },
     fukuchan: { name: '福ちゃん', logo: 'assets/img/logo/fukuchan.svg', detail: 'fukuchan/index.html', aff: 'https://px.a8.net/svt/ejp?a8mat=4BEMLP+7DJH7M+35HU+BZ0Z6', pendingLabel: '福ちゃんの詳細を見る' }
   };
