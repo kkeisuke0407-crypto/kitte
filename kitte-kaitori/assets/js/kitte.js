@@ -54,9 +54,9 @@
   /* ------------------------------------------------------------
      1. ASPリンク
      HTMLの href に直接 ASP のクリックURLを書く運用（置換対象の文字列は下記）。
-       ウリエル   : __URIEL_AFF_LINK__
-       バイセル   : __BUYSELL_AFF_LINK__
-       福ちゃん   : ASP条件未取得のため、成果リンクのボタン自体を置いていない（__FUKUCHAN_AFF_LINK__ はコメントのみ）
+       ウリエル   : felmat（2026-10-28 設定済み）
+       バイセル   : __BUYSELL_AFF_LINK__（未取得）
+       福ちゃん   : A8（2026-10-28 設定済み）
      置換されていない（"__" で始まる）ボタンは、data-pending-href / data-pending-label の内部導線に切り替える。
      ------------------------------------------------------------ */
   function settleAffLinks(root) {
@@ -278,9 +278,9 @@
   var out = document.getElementById('kt-finder-result');
 
   var SVC = {
-    uriel: { name: 'ウリエル', logo: 'assets/img/logo/uriel.svg', detail: 'uriel/index.html', aff: '__URIEL_AFF_LINK__', pendingLabel: 'ウリエルの詳細を見る' },
+    uriel: { name: 'ウリエル', logo: 'assets/img/logo/uriel.svg', detail: 'uriel/index.html', aff: 'https://t.felmat.net/fmcl?ak=D107130.1.K150885J.L1419226&pb=', pendingLabel: 'ウリエルの詳細を見る' },
     buysell: { name: 'バイセル', logo: 'assets/img/logo/buysell.svg', detail: 'buysell/index.html', aff: '__BUYSELL_AFF_LINK__', pendingLabel: 'バイセルの詳細を見る' },
-    fukuchan: { name: '福ちゃん', logo: 'assets/img/logo/fukuchan.svg', detail: 'fukuchan/index.html', aff: null }
+    fukuchan: { name: '福ちゃん', logo: 'assets/img/logo/fukuchan.svg', detail: 'fukuchan/index.html', aff: 'https://px.a8.net/svt/ejp?a8mat=4BEMLP+7DJH7M+35HU+BY641', pendingLabel: '福ちゃんの詳細を見る' }
   };
 
   function el(tag, attrs, html) {
