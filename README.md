@@ -70,9 +70,9 @@ HTML 内の文字列を一括置換する。未置換の間は `kitte.js` がボ
 
 | 置換文字列 | 対象 | 箇所 |
 |---|---|---|
-| `__URIEL_AFF_LINK__` | ウリエル（プロモーションID 10713） | 比較TOP 14（BEST3・実績カード6・比較表・2社併用・ランキング2・結論・迷ったら・FAQ下）・uriel/ 5・kitte.js 1（診断結果） |
+| （設定済み）`https://t.felmat.net/fmcl?ak=D107130.1.K150885J.L1419226&pb=` | ウリエル（felmat、プロモーションID 10713。2026-10-28設定） | 比較TOP・uriel/・kitte.js（診断結果）・companies.json の `aff`。MCVの対象は `measurement-init.js` の `approvedAffiliateUrls` |
 | `__BUYSELL_AFF_LINK__` | バイセル（プロモーションID 10523） | 比較TOP 6・buysell/ 4・kitte.js 1（診断結果） |
-| `__FUKUCHAN_AFF_LINK__` | 福ちゃん（ASP未取得） | コメントのみ。成果リンクのボタンは置いていない。取得したら `companies.json` の `aff` と `cta` を設定して `node tools/build-top.cjs`、詳細ページはコメント位置のボタンを差し替え |
+| （設定済み）`https://px.a8.net/svt/ejp?a8mat=4BEMLP+7DJH7M+35HU+BY641` | 福ちゃん（A8。2026-10-28設定） | 比較TOP（companies.json の `aff`・`cta`）・fukuchan/ 3・kitte.js（診断結果）。MCVの対象は `approvedAffiliateUrls` |
 | （買取大吉・日晃堂・なんぼや） | ASP提携なし | 公式サイトへの通常リンク（外部・広告リンクではない旨を表示）のみ |
 
 ボタン上のひとこと（`yk-catch`）はASPの対象条件が未取得のため、公式サイトで確認できた事実（「出張は対象エリアのみ」など）にしている。ASP条件を取得したら合わせて見直す。

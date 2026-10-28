@@ -67,7 +67,7 @@
         "w": 157,
         "h": 53
       },
-      "aff": "__URIEL_AFF_LINK__",
+      "aff": "https://t.felmat.net/fmcl?ak=D107130.1.K150885J.L1419226&amp;pb=",
       "detail": "uriel/index.html",
       "official": "https://www.uriel-cuore.co.jp/stamp/",
       "tagline": "汚れ・破れ・大量のバラ・切手アルバムもそのまま",
@@ -443,7 +443,7 @@
         "w": 112,
         "h": 32
       },
-      "aff": null,
+      "aff": "https://px.a8.net/svt/ejp?a8mat=4BEMLP+7DJH7M+35HU+BY641",
       "detail": "fukuchan/index.html",
       "official": "https://www.fuku-chan.info/kitte/",
       "tagline": "記念・中国切手の実例が豊富。即日出張も",
@@ -535,7 +535,14 @@
       "recordSrc": "https://www.fuku-chan.info/kitte/",
       "recordSrcName": "福ちゃん公式 切手買取ページ",
       "banner": null,
-      "cta": null,
+      "cta": {
+        "catch": "1点から相談OK",
+        "label": "福ちゃんで無料査定を<br>申し込む（公式）",
+        "pending": "福ちゃんの詳細を見る",
+        "short": "訪問料0円",
+        "rankTop": "即日出張も（対応地域）",
+        "rankBottom": "断っても0円"
+      },
       "mxShift": [
         -2,
         22
