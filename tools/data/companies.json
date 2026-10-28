@@ -315,7 +315,7 @@
         "w": 95,
         "h": 21
       },
-      "aff": "__BUYSELL_AFF_LINK__",
+      "aff": "https://buysell-kaitori.com/stamp/",
       "detail": "buysell/index.html",
       "official": "https://buysell-kaitori.com/stamp/",
       "tagline": "東証上場企業が運営。出張・店頭・宅配から選べる",
@@ -432,7 +432,8 @@
           "宅配買取ページ",
           "https://buysell-kaitori.com/delivery/"
         ]
-      ]
+      ],
+      "affOfficial": true
     },
     {
       "id": "fukuchan",

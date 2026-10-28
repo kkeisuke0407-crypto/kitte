@@ -23,7 +23,7 @@ const pref = s => s.replace(/^(.{2,3}?[都道府県])/, '$1<wbr>');
 const logo = (c, w, h, alt = c.name) => `<img src="${c.logo.src}" alt="${alt}" width="${w}" height="${h}">`;
 // place：ボタンの場所（計測用。kitte.js がクリック時に dataLayer へ cta_place として送る）
 const aff = (c, cls, label, pendingHref, pendingLabel, place) =>
-  `<a class="${cls}" href="${c.aff}" data-aff="${c.id}" data-place="${place}" data-pending-href="${pendingHref}" data-pending-label="${pendingLabel}" rel="nofollow sponsored noopener" target="_blank">${label}</a>`;
+  `<a class="${cls}" href="${c.aff}" data-aff="${c.id}" data-place="${place}" data-pending-href="${pendingHref}" data-pending-label="${pendingLabel}" rel="${c.affOfficial ? 'nofollow noopener' : 'nofollow sponsored noopener'}" target="_blank">${pendingLabel}</a>`;  // 文言は「〜の詳細を見る」などに統一（2026-10-29 ユーザー指示）
 // 出典リンク（companies.json の srcs）
 const srcLinks = c => (c.srcs || [['切手買取ページ', c.official]]).map(([n, u]) => `<a href="${u}" rel="nofollow noopener" target="_blank">${c.name}公式 ${n}</a>`).join('・');
 const official = (c, label = '公式サイトで条件を確認する') =>

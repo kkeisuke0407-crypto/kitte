@@ -55,7 +55,7 @@
      1. ASPリンク
      HTMLの href に直接 ASP のクリックURLを書く運用（置換対象の文字列は下記）。
        ウリエル   : felmat（2026-10-28 設定済み）
-       バイセル   : __BUYSELL_AFF_LINK__（未取得）
+       バイセル   : ASPリンク未取得。公式サイトへの通常リンク（2026-10-29〜。MCV対象外）
        福ちゃん   : A8（2026-10-28 設定済み）
      置換されていない（"__" で始まる）ボタンは、data-pending-href / data-pending-label の内部導線に切り替える。
      ------------------------------------------------------------ */
@@ -279,7 +279,7 @@
 
   var SVC = {
     uriel: { name: 'ウリエル', logo: 'assets/img/logo/uriel.svg', detail: 'uriel/index.html', aff: 'https://t.felmat.net/fmcl?ak=D107130.1.E149890F.L1419226', pendingLabel: 'ウリエルの詳細を見る' },
-    buysell: { name: 'バイセル', logo: 'assets/img/logo/buysell.svg', detail: 'buysell/index.html', aff: '__BUYSELL_AFF_LINK__', pendingLabel: 'バイセルの詳細を見る' },
+    buysell: { name: 'バイセル', logo: 'assets/img/logo/buysell.svg', detail: 'buysell/index.html', aff: 'https://buysell-kaitori.com/stamp/', official: true, pendingLabel: 'バイセルの詳細を見る' },
     fukuchan: { name: '福ちゃん', logo: 'assets/img/logo/fukuchan.svg', detail: 'fukuchan/index.html', aff: 'https://px.a8.net/svt/ejp?a8mat=4BEMLP+7DJH7M+35HU+BZ0Z6', pendingLabel: '福ちゃんの詳細を見る' }
   };
 
@@ -301,7 +301,7 @@
     pair.appendChild(el('a', { 'class': 'yk-btn yk-btn--sub', href: s.detail, 'data-place': 'finder-' + key + '-detail' }, '詳細<br>ページへ'));
     var right = el('div');
     if (s.aff) {
-      right.appendChild(el('a', { 'class': 'yk-btn yk-btn--sm', href: s.aff, 'data-aff': key, 'data-place': 'finder-' + key, 'data-pending-href': s.detail, 'data-pending-label': s.pendingLabel, rel: 'nofollow sponsored noopener', target: '_blank' }, s.name + 'で無料査定を<br>申し込む（公式）'));
+      right.appendChild(el('a', { 'class': 'yk-btn yk-btn--sm', href: s.aff, 'data-aff': key, 'data-place': 'finder-' + key, 'data-pending-href': s.detail, 'data-pending-label': s.pendingLabel, rel: s.official ? 'nofollow noopener' : 'nofollow sponsored noopener', target: '_blank' }, s.pendingLabel));
     } else {
       // 福ちゃん：ASP条件未取得のため成果リンクは置かない
       right.appendChild(el('a', { 'class': 'yk-btn yk-btn--sm is-pending', href: s.detail, 'data-place': 'finder-' + key }, '福ちゃんの<br>確認ポイントを見る'));
