@@ -4,7 +4,9 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const root = path.join(__dirname, '..', 'kitte-kaitori');
-const files = ['index.html', 'uriel/index.html', 'buysell/index.html', 'fukuchan/index.html', 'methodology/index.html', 'about/index.html', 'privacy/index.html'];
+const files = ['index.html', 'uriel/index.html', 'buysell/index.html', 'fukuchan/index.html', 'methodology/index.html', 'about/index.html', 'privacy/index.html'].concat(
+  // 広告グループ別LP（tools/build-variants.cjs が作る furui.html・tokyo.html など）
+  require('fs').readdirSync(require('path').join(__dirname, '..', 'kitte-kaitori')).filter(f => /^[a-z]+\.html$/.test(f) && f !== 'index.html'));
 const hash = f => crypto.createHash('sha256').update(fs.readFileSync(path.join(root, f))).digest('hex').slice(0, 8);
 for (const f of files) {
   const p = path.join(root, f);

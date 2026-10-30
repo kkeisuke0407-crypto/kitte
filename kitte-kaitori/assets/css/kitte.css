@@ -394,3 +394,5 @@ body { margin: 0; background: #f4f4f4; }
 .yk-cmp td:has(> .yk-maru) { vertical-align: top; padding-top: 10px; }
 /* ASPの表示計測用1×1画像（見た目に影響させない） */
 .kt-a8px { position: absolute; width: 1px; height: 1px; border: 0; opacity: 0; pointer-events: none; }
+/* 導入会話の吹き出しも文節の切れ目（<wbr>）でだけ改行する */
+.yk-body .mt-talk__b { word-break: keep-all; overflow-wrap: anywhere; }

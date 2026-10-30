@@ -81,10 +81,12 @@ HTML 内の文字列を一括置換する。未置換の間は `kitte.js` がボ
 
 `tools/build-variants.cjs` が、比較TOP（`kitte-kaitori/index.html`）をコピーし、ヒーロー画像と見出し（読み上げ用）だけを差し替えたページを同じフォルダに作る（`npm run build` の最後に実行。生成物なので直接編集しない）。
 
+一覧：`docs/広告グループ別LP_最終ページURL一覧_20261030.md`
+
 | ファイル | 広告グループ | ヒーロー画像 | GA4の lp_id |
 |---|---|---|---|
 | `furui.html`（`https://kitte.navolio.net/furui.html`） | CP② 切手買取「古い切手・日本旧切手」 | `assets/img/photo/hero-furui.webp`（hero-top3 の1行目を「古い切手を高く売りたい方へ！」に差し替え） | `kitte_top_furui` |
-| `tokyo.html`（`https://kitte.navolio.net/tokyo.html`） | CP③ 地域「東京」 | `assets/img/photo/hero-tokyo.webp`（1行目を「東京で切手を高く売りたい方へ！」に差し替え）＋PR表記の下に地域版の導入会話（`talk()`） | `kitte_top_tokyo` |
+| `東京・大阪など17都府県.html`（例 `tokyo.html`・`osaka.html`） | CP③ 地域の都府県別グループ | `assets/img/photo/hero-<id>.webp`（1行目を「〇〇で切手を高く売りたい方へ！」）＋PR表記の下に地域版の導入会話（案B） | `kitte_top_<id>` |
 
 ## 日本語の改行
 
