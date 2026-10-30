@@ -19,7 +19,8 @@
     : /\/fukuchan\/?$/.test(lpPath) ? 'kitte_fukuchan'
     : /\/methodology\/?$/.test(lpPath) ? 'kitte_methodology'
     : /\/about\/?$/.test(lpPath) ? 'kitte_about'
-    : /\/privacy\/?$/.test(lpPath) ? 'kitte_privacy' : 'kitte_top';
+    : /\/privacy\/?$/.test(lpPath) ? 'kitte_privacy'
+    : /\/furui\.html$/.test(lpPath) ? 'kitte_top_furui' : 'kitte_top';
   var measurementMode = window.__kitteMeasurement ? window.__kitteMeasurement.mode : (new URLSearchParams(location.search).get('measurement_mode') === 'debug' ? 'debug' : 'normal');
   var debugLog;
   if (measurementMode === 'debug') {

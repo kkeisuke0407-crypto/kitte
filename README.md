@@ -77,6 +77,14 @@ HTML 内の文字列を一括置換する。未置換の間は `kitte.js` がボ
 
 ボタン上のひとこと（`yk-catch`）はASPの対象条件が未取得のため、公式サイトで確認できた事実（「出張は対象エリアのみ」など）にしている。ASP条件を取得したら合わせて見直す。
 
+## 広告グループ別のLP（ヒーロー画像だけ差し替え）
+
+`tools/build-variants.cjs` が、比較TOP（`kitte-kaitori/index.html`）をコピーし、ヒーロー画像と見出し（読み上げ用）だけを差し替えたページを同じフォルダに作る（`npm run build` の最後に実行。生成物なので直接編集しない）。
+
+| ファイル | 広告グループ | ヒーロー画像 | GA4の lp_id |
+|---|---|---|---|
+| `furui.html`（`https://kitte.navolio.net/furui.html`） | CP② 切手買取「古い切手・日本旧切手」 | `assets/img/photo/hero-furui.webp`（hero-top3 の1行目を「古い切手を高く売りたい方へ！」に差し替え） | `kitte_top_furui` |
+
 ## 日本語の改行
 
 スマホ（特にSafari）で言葉の途中で改行しないよう、`tools/wrap-ja.cjs` が BudouX で文節の切れ目に `<wbr>` を入れ、CSS の `word-break: keep-all` と組み合わせている。HTMLやデータを直したら `npm run build`（または `node tools/wrap-ja.cjs`）を実行する。複合語や切手の名前（見返り美人・月に雁など）は `tools/wrap-ja.cjs` の `KEEP` に入れると途中で改行しない。改行させたくない語は `<span class="kt-nw">` で囲む。
