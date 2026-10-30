@@ -8,7 +8,7 @@
     "check": "node tools/check.cjs",
     "build:preview": "node tools/build-preview.cjs",
     "build:standalone": "node tools/build-standalone.cjs",
-    "build": "node tools/build-top.cjs && node tools/wrap-ja.cjs && node tools/stamp-assets.cjs && node tools/build-variants.cjs && node tools/build-preview.cjs && node tools/build-standalone.cjs"
+    "build": "node tools/build-top.cjs && node tools/build-variants.cjs && node tools/wrap-ja.cjs && node tools/stamp-assets.cjs && node tools/build-preview.cjs && node tools/build-standalone.cjs"
   },
   "devDependencies": {
     "budoux": "^0.9.3"

@@ -84,6 +84,7 @@ HTML 内の文字列を一括置換する。未置換の間は `kitte.js` がボ
 | ファイル | 広告グループ | ヒーロー画像 | GA4の lp_id |
 |---|---|---|---|
 | `furui.html`（`https://kitte.navolio.net/furui.html`） | CP② 切手買取「古い切手・日本旧切手」 | `assets/img/photo/hero-furui.webp`（hero-top3 の1行目を「古い切手を高く売りたい方へ！」に差し替え） | `kitte_top_furui` |
+| `tokyo.html`（`https://kitte.navolio.net/tokyo.html`） | CP③ 地域「東京」 | `assets/img/photo/hero-tokyo.webp`（1行目を「東京で切手を高く売りたい方へ！」に差し替え）＋PR表記の下に地域版の導入会話（`talk()`） | `kitte_top_tokyo` |
 
 ## 日本語の改行
 

@@ -889,7 +889,7 @@ body { margin: 0; background: #f4f4f4; }
     : /\/methodology\/?$/.test(lpPath) ? 'kitte_methodology'
     : /\/about\/?$/.test(lpPath) ? 'kitte_about'
     : /\/privacy\/?$/.test(lpPath) ? 'kitte_privacy'
-    : /\/furui\.html$/.test(lpPath) ? 'kitte_top_furui' : 'kitte_top';
+    : /\/([a-z]+)\.html$/.test(lpPath) ? 'kitte_top_' + lpPath.match(/\/([a-z]+)\.html$/)[1] : 'kitte_top';  // 広告グループ別LP（furui.html・tokyo.html など）
   var measurementMode = window.__kitteMeasurement ? window.__kitteMeasurement.mode : (new URLSearchParams(location.search).get('measurement_mode') === 'debug' ? 'debug' : 'normal');
   var debugLog;
   if (measurementMode === 'debug') {
