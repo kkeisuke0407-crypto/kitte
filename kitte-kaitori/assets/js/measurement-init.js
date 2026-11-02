@@ -22,8 +22,8 @@
       if(hasId) localStorage.setItem('kitte_ads_click', JSON.stringify(click));
     } catch (_) {}
   }
-  /* Exact ASP click URLs issued 2026-10-28 (Uriel: felmat / Fukuchan: A8). BuySell is pending. */
-  window.__kitteMeasurement = { mode: mode, attribution: attribution, approvedAffiliateUrls: { uriel: ['https://t.felmat.net/fmcl?ak=D107130.1.E149890F.L1419226'], fukuchan: ['https://px.a8.net/svt/ejp?a8mat=4BEMLP+7DJH7M+35HU+BZ0Z6'] }, adsMcvDestination: 'AW-18514170119/JWJxCJyfup0dEIein_xE' };
+  /* MCV is Uriel only (felmat special-rate link). Fukuchan (A8) and BuySell clicks are cta_click only, not MCV (2026-11-02). */
+  window.__kitteMeasurement = { mode: mode, attribution: attribution, approvedAffiliateUrls: { uriel: ['https://t.felmat.net/fmcl?ak=D107130.1.E149890F.L1419226'] }, adsMcvDestination: 'AW-18514170119/JWJxCJyfup0dEIein_xE' };
   window.dataLayer = window.dataLayer || [];
   window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
   window.gtag('js',new Date());
