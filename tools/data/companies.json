@@ -207,11 +207,11 @@
         "rankBottom": "断っても0円"
       },
       "campaign": {
-        "img": "assets/img/banner/uriel-campaign-202610.webp",
+        "img": "assets/img/banner/uriel-campaign-202611.webp",
         "w": 800,
         "h": 160,
-        "alt": "ウリエル 抽選で買取金額MAX7倍 キャンペーン対象期間：2026年10月1日〜10月31日",
-        "end": "2026-10-31",
+        "alt": "ウリエル 抽選で買取金額MAX7倍 キャンペーン対象期間：2026年11月1日〜11月30日",
+        "end": "2026-11-30",
         "terms": "出張買取1回の成約金額5,000円以上の方から抽選で2名に、買取金額を含めて最大7倍相当を還元（上乗せ分は1名につき上限10万円・クーリング・オフした場合は対象外）。",
         "src": "https://www.uriel-cuore.co.jp/campaign/"
       },
