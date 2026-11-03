@@ -45,8 +45,10 @@ function best3() {
 <ol class="yk-best3__list">
 ${C.slice(0, 3).map(c => {
   const btn = c.aff ? aff(c, 'yk-btn yk-btn--sm', '公式サイト', `#rank-${c.id}`, '詳しく見る', `best3-${c.id}`) : `<a class="yk-btn yk-btn--sm is-pending" href="#rank-${c.id}" data-place="best3-${c.id}">詳しく見る</a>`;
-  return `  <li class="yk-best3__item">${c.id === monthlyAward.companyId ? `<span class="kt-best3__badge" data-award-month="${monthlyAward.period}"><span class="kt-best3__badge-month">${awardMonthText}</span><span class="kt-best3__badge-label">申込数</span><strong>No.1</strong></span>` : ""}<span class="yk-best3__crown"><span class="kt-best3__rank">${c.rank}</span></span><span class="yk-best3__logo">${logo(c, 102, 30)}</span><p class="kt-best3__score">${stars(c)}</p><p class="yk-best3__text">${c.best3.red ? `<span class="yk-red">${c.best3.red}</span><br>` : ''}${c.best3.mark ? `<span class="yk-mark">${c.best3.mark}</span>` : ''}${c.best3.text}</p><p class="yk-best3__note kt-note-pos">${c.best3.note}</p>
-    <p class="yk-catch">${c.best3.catch}</p>${btn}</li>`;
+  const body = `${c.best3.mark ? `<span class="yk-mark">${c.best3.mark}</span>` : ''}${c.best3.text}`;
+  const lines = c.id === 'uriel' ? body.split('<br>').map(line => `<span class="kt-nw">${line}</span>`).join('<br>') : body;
+  return `  <li class="yk-best3__item">${c.id === monthlyAward.companyId ? `<span class="kt-best3__badge" data-award-month="${monthlyAward.period}"><span class="kt-best3__badge-month">${awardMonthText}</span><span class="kt-best3__badge-label">申込数</span><strong>No.1</strong></span>` : ""}<span class="yk-best3__crown"><span class="kt-best3__rank">${c.rank}</span></span><span class="yk-best3__logo">${logo(c, 102, 30)}</span><p class="kt-best3__score">${stars(c)}</p><p class="yk-best3__text">${c.best3.red ? `<span class="yk-red">${c.best3.red}</span><br>` : ''}${lines}</p><p class="yk-best3__note kt-note-pos">${c.best3.note}</p>
+    <p class="yk-catch${c.id === 'uriel' ? ' kt-nw' : ''}">${c.best3.catch}</p>${btn}</li>`;
 }).join('\n')}
 </ol></section>`;  // BEST3下の注記（※1・※2・順位の注記）は削除（2026-11-03 ユーザー指示）
 }
