@@ -53,7 +53,11 @@ console.log('■ 2. 個別ページの detail-1〜7');
 
 console.log('■ 3. 公開ページの残りもの（mt-imgslot・ダミー・旧薬剤師文言）');
 const BAD = [/mt-imgslot/, /薬剤師/, /転職/, /求人/, /正社員/, /年収/, /サービス[A-F]/, /◯/, /#sample/, /class="yk-ph/, /総合評価/, /yk-stars/, /高価買取保証/, /No\.?1/i, /業界(初|一|最)/];
-pages.forEach(f => { const h = strip(read(f)); BAD.forEach(re => { const m = h.match(re); if (m) err(`${rel(f)}: 「${m[0]}」が残っている`); }); });
+// ユーザー採用済みの年月付き申込数バッジだけを除外。他のNo.1表示は引き続き検出する。
+const award = JSON.parse(fs.readFileSync(path.join(root, 'tools/data/monthly-award.json'), 'utf8'));
+const [awardYear, awardMonth] = award.period.split('-').map(Number);
+const approvedAward = `<span class="kt-best3__badge" data-award-month="${award.period}"><span class="kt-best3__badge-month">${awardYear}年${awardMonth}月</span><span class="kt-best3__badge-label">申込数</span><strong>No.1</strong></span>`;
+pages.forEach(f => { const h = strip(read(f)).replace(approvedAward, ''); BAD.forEach(re => { const m = h.match(re); if (m) err(`${rel(f)}: 「${m[0]}」が残っている`); }); });
 if (!errors) console.log('  OK 該当なし');
 
 console.log('■ 4. img の alt / width / height');
