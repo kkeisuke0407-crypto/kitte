@@ -40,11 +40,10 @@ function best3() {
 <ol class="yk-best3__list">
 ${C.slice(0, 3).map(c => {
   const btn = c.aff ? aff(c, 'yk-btn yk-btn--sm', '公式サイト', `#rank-${c.id}`, '詳しく見る', `best3-${c.id}`) : `<a class="yk-btn yk-btn--sm is-pending" href="#rank-${c.id}" data-place="best3-${c.id}">詳しく見る</a>`;
-  return `  <li class="yk-best3__item"><span class="yk-best3__crown">${c.rank}</span><span class="yk-best3__logo">${logo(c, 102, 30)}</span><p class="kt-best3__score">${stars(c)}</p><p class="yk-best3__text"><span class="yk-red">${c.best3.red}</span><br><span class="yk-mark">${c.best3.mark}</span>${c.best3.text}</p><p class="yk-best3__note kt-note-pos">${c.best3.note}</p>
+  return `  <li class="yk-best3__item">${c.id === "uriel" ? '<span class="kt-best3__badge">10月 最多申込み</span>' : ""}<span class="yk-best3__crown">${c.rank}</span><span class="yk-best3__logo">${logo(c, 102, 30)}</span><p class="kt-best3__score">${stars(c)}</p><p class="yk-best3__text">${c.best3.red ? `<span class="yk-red">${c.best3.red}</span><br>` : ''}${c.best3.mark ? `<span class="yk-mark">${c.best3.mark}</span>` : ''}${c.best3.text}</p><p class="yk-best3__note kt-note-pos">${c.best3.note}</p>
     <p class="yk-catch">${c.best3.catch}</p>${btn}</li>`;
 }).join('\n')}
-</ol>
-<p class="kt-best3__foot">${C.filter(c => c.featureNote).slice(0, 2).map(c => c.featureNote).join('<br>')}<br>※順位は公式サイトの記載をもとにした編集部の評価で、買取価格の高さの順ではありません。ウリエルの「最短翌日」は予約状況・訪問先により対応できない場合があります。</p></section>`;
+</ol></section>`;  // BEST3下の注記（※1・※2・順位の注記）は削除（2026-11-03 ユーザー指示）
 }
 
 // ---------- 買取実績（ウリエル）：高額の例と身近な金額の例を交互に並べ、利用者の声を直下に置く ----------
@@ -152,7 +151,7 @@ ${c.features.map(f => `          <li><span>${f}</span>${n <= 3 ? '<small>※公�
       <div>
         ${tab1img}
         ${tab1btn}
-        ${c.campaign ? `<div class="kt-campaign kt-campaign--mini" data-campaign-end="${c.campaign.end}"><img src="${c.campaign.img}" alt="${c.campaign.alt}" width="${c.campaign.w}" height="${c.campaign.h}" loading="lazy"><p class="kt-campaign__terms">${c.campaign.terms}<a href="${c.campaign.src}" rel="nofollow noopener" target="_blank">公式のキャンペーン詳細</a></p></div>` : ''}
+        ${c.campaign ? `<div class="kt-campaign kt-campaign--mini" data-campaign-end="${c.campaign.end}"><img src="${c.campaign.img}" alt="${c.campaign.alt}" width="${c.campaign.w}" height="${c.campaign.h}" loading="lazy"><p class="kt-campaign__terms">${c.campaign.terms}</p></div>` : ''}
         ${features}
         ${c.featureNote ? `<p class="yk-small">${c.featureNote}</p>` : ''}
       </div>
