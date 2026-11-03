@@ -398,23 +398,23 @@ body { margin: 0; background: #f4f4f4; }
 .yk-body .mt-talk__b { word-break: keep-all; overflow-wrap: anywhere; }
 
 /* BEST3：C案の赤い丸バッジ。元の順位帯・数字の中央・カード形状を維持 */
-.yk-best3__list { padding-top:36px; }
+.yk-best3__list { padding-top:28px; }
 .yk-best3__item:first-child { position:relative; overflow:visible; }
 .yk-best3__item:first-child .yk-best3__crown { border-radius:8px 8px 0 0; }
-.kt-best3__badge { position:absolute; z-index:2; top:-34px; left:-6px; width:54px; height:54px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1px; box-sizing:border-box; border:2px solid #b52631; border-radius:50%; color:#fff; background:#b52631; outline:1px solid #ffe3c7; outline-offset:-4px; box-shadow:0 2px 4px rgba(80,24,24,.16); line-height:1; white-space:nowrap; word-break:normal; overflow-wrap:normal; }
-.kt-best3__badge-month { font-size:6.5px; font-weight:700; letter-spacing:0; }
-.kt-best3__badge-label { font-size:9px; font-weight:800; letter-spacing:0; }
-.kt-best3__badge > strong { font-family:Georgia,"Times New Roman",serif; font-size:24px; font-weight:900; letter-spacing:-1px; line-height:.9; transform:translateY(-2px) scaleX(.84); }
+.kt-best3__badge { position:absolute; z-index:2; top:-26px; left:-3px; width:46px; height:46px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1px; box-sizing:border-box; border:2px solid #b52631; border-radius:50%; color:#fff; background:#b52631; outline:1px solid #ffe3c7; outline-offset:-4px; box-shadow:0 2px 4px rgba(80,24,24,.16); line-height:1; white-space:nowrap; word-break:normal; overflow-wrap:normal; }
+.kt-best3__badge-month { font-size:6px; font-weight:700; letter-spacing:0; }
+.kt-best3__badge-label { font-size:8px; font-weight:800; letter-spacing:0; }
+.kt-best3__badge > strong { font-family:Georgia,"Times New Roman",serif; font-size:18px; font-weight:900; letter-spacing:-.6px; line-height:.95; transform:translateY(-1px) scaleX(.9); }
 @media (min-width:600px) {
-  .yk-best3__list { padding-top:48px; }
-  .kt-best3__badge { top:-48px; left:-14px; width:80px; height:80px; gap:2px; }
-  .kt-best3__badge-month { font-size:9px; }
-  .kt-best3__badge-label { font-size:12px; }
-  .kt-best3__badge > strong { font-size:34px; }
+  .yk-best3__list { padding-top:38px; }
+  .kt-best3__badge { top:-38px; left:-10px; width:64px; height:64px; gap:1px; }
+  .kt-best3__badge-month { font-size:8px; }
+  .kt-best3__badge-label { font-size:10px; }
+  .kt-best3__badge > strong { font-size:23px; }
 }
 @media (max-width:360px) {
-  .kt-best3__badge { left:-7px; top:-30px; width:46px; height:46px; }
+  .kt-best3__badge { left:-3px; top:-23px; width:40px; height:40px; }
   .kt-best3__badge-month { font-size:5.5px; }
   .kt-best3__badge-label { font-size:7.5px; }
-  .kt-best3__badge > strong { font-size:22px; }
+  .kt-best3__badge > strong { font-size:16px; }
 }
