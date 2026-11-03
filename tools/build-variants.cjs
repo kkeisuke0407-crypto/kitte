@@ -27,7 +27,7 @@ const VARIANTS = [
   })),
 ];
 
-// 地域版の導入会話（体験談パーツ mt-talk）。PR表記のすぐ下に入れる
+// 地域版の導入会話（体験談パーツ mt-talk）。ロゴ列のすぐ下に入れる
 function talk(area) {
   const row = (who, icon, text, right) =>
     `  <div class="mt-talk__row${right ? ' mt-talk__row--r' : ''}"><div class="mt-talk__who"><span class="mt-talk__icon"><img src="assets/img/illust/${icon}" alt="" width="56" height="56"></span><span class="mt-talk__name">${who}</span></div><div class="mt-talk__b">${text}</div></div>`;
@@ -52,7 +52,7 @@ for (const v of VARIANTS) {
   };
   swap(/(<header class="yk-hero kt-hero--banner">\s*<h1 class="kt-sr">)[\s\S]*?(<\/h1>)/, `$1${v.h1}$2`, '見出し');
   swap(/<img class="kt-hero__banner" src="[^"]+" alt="[^"]*" width="\d+" height="\d+"/, `<img class="kt-hero__banner" src="${v.img}" alt="${v.alt}" width="1200" height="675"`, 'ヒーロー画像');
-  if (v.talk) swap(/(<p class="yk-pr">[\s\S]*?<\/p>\n)/, `$1\n${v.talk}`, 'PR表記');
+  if (v.talk) swap(/<!--@regional-intro-->/, v.talk, '地域版の導入会話');
   html = html.replace('<!DOCTYPE html>', `<!DOCTYPE html>\n<!-- 生成物：tools/build-variants.cjs（index.html のコピー。直接編集しない） -->`);
   fs.writeFileSync(path.join(dir, v.file), html);
   console.log('variant:', v.file);
