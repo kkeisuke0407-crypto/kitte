@@ -40,7 +40,7 @@ function best3() {
 <ol class="yk-best3__list">
 ${C.slice(0, 3).map(c => {
   const btn = c.aff ? aff(c, 'yk-btn yk-btn--sm', '公式サイト', `#rank-${c.id}`, '詳しく見る', `best3-${c.id}`) : `<a class="yk-btn yk-btn--sm is-pending" href="#rank-${c.id}" data-place="best3-${c.id}">詳しく見る</a>`;
-  return `  <li class="yk-best3__item"><div class="kt-best3__rankline"><span class="yk-best3__crown">${c.rank}位</span>${c.id === "uriel" ? '<span class="kt-best3__badge"><span>2026年10月</span><strong>最多申込み</strong></span>' : ""}</div><span class="yk-best3__logo">${logo(c, 102, 30)}</span><p class="kt-best3__score">${stars(c)}</p><p class="yk-best3__text">${c.best3.red ? `<span class="yk-red">${c.best3.red}</span><br>` : ''}${c.best3.mark ? `<span class="yk-mark">${c.best3.mark}</span>` : ''}${c.best3.text}</p><p class="yk-best3__note kt-note-pos">${c.best3.note}</p>
+  return `  <li class="yk-best3__item"><span class="yk-best3__crown"><span class="kt-best3__rank">${c.rank}</span>${c.id === "uriel" ? '<span class="kt-best3__badge"><span>2026年10月</span><strong>最多申込み</strong></span>' : ""}</span><span class="yk-best3__logo">${logo(c, 102, 30)}</span><p class="kt-best3__score">${stars(c)}</p><p class="yk-best3__text">${c.best3.red ? `<span class="yk-red">${c.best3.red}</span><br>` : ''}${c.best3.mark ? `<span class="yk-mark">${c.best3.mark}</span>` : ''}${c.best3.text}</p><p class="yk-best3__note kt-note-pos">${c.best3.note}</p>
     <p class="yk-catch">${c.best3.catch}</p>${btn}</li>`;
 }).join('\n')}
 </ol></section>`;  // BEST3下の注記（※1・※2・順位の注記）は削除（2026-11-03 ユーザー指示）

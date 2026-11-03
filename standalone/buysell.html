@@ -726,21 +726,18 @@ body { margin: 0; background: #f4f4f4; }
 /* 導入会話の吹き出しも文節の切れ目（<wbr>）でだけ改行する */
 .yk-body .mt-talk__b { word-break: keep-all; overflow-wrap: anywhere; }
 
-/* BEST3：順位の横に年月と最多申込みを表示 */
-.kt-best3__rankline { display:flex; align-items:stretch; height:46px; gap:3px; }
-.kt-best3__rankline .yk-best3__crown { flex:1; height:46px; font-size:15px; }
-.yk-best3__item:first-child .kt-best3__rankline .yk-best3__crown { flex:0 0 25px; font-size:13px; }
-.kt-best3__badge { display:flex; flex:1; min-width:0; flex-direction:column; align-items:center; justify-content:center; gap:3px; box-sizing:border-box; margin:2px 2px 2px 0; padding:3px 1px; border:2px solid #b52b27; border-radius:4px; color:#9e211e; background:#fffaf1; line-height:1.1; white-space:nowrap; word-break:normal; overflow-wrap:normal; }
-.kt-best3__badge > span { font-size:10px; font-weight:700; letter-spacing:0; }
-.kt-best3__badge > strong { font-size:13px; font-weight:900; letter-spacing:0; }
+/* BEST3：元の順位帯と中央の数字を維持し、右側に文字のみ添える */
+.yk-best3__item:first-child .yk-best3__crown { position:relative; }
+.kt-best3__badge { position:absolute; top:0; bottom:0; right:2px; width:calc(50% - 9px); display:flex; flex-direction:column; justify-content:center; align-items:center; gap:1px; color:#742313; line-height:1.1; white-space:nowrap; word-break:normal; overflow-wrap:normal; }
+.kt-best3__badge > span { font-size:7.5px; font-weight:700; letter-spacing:0; }
+.kt-best3__badge > strong { font-size:9px; font-weight:900; letter-spacing:0; }
 @media (min-width:600px) {
-  .yk-best3__item:first-child .kt-best3__rankline .yk-best3__crown { flex-basis:34px; font-size:15px; }
   .kt-best3__badge > span { font-size:10px; }
-  .kt-best3__badge > strong { font-size:15px; }
+  .kt-best3__badge > strong { font-size:13px; }
 }
 @media (max-width:360px) {
-  .kt-best3__badge > span { font-size:9px; }
-  .kt-best3__badge > strong { font-size:11px; }
+  .kt-best3__badge > span { font-size:6.5px; }
+  .kt-best3__badge > strong { font-size:7.2px; }
 }
 
 </style>
