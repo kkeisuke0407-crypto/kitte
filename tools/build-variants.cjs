@@ -51,7 +51,7 @@ for (const v of VARIANTS) {
     html = html.replace(re, to);
   };
   swap(/(<header class="yk-hero kt-hero--banner">\s*<h1 class="kt-sr">)[\s\S]*?(<\/h1>)/, `$1${v.h1}$2`, '見出し');
-  swap(/<img class="kt-hero__banner" src="[^"]+" alt="[^"]*"/, `<img class="kt-hero__banner" src="${v.img}" alt="${v.alt}"`, 'ヒーロー画像');
+  swap(/<img class="kt-hero__banner" src="[^"]+" alt="[^"]*" width="\d+" height="\d+"/, `<img class="kt-hero__banner" src="${v.img}" alt="${v.alt}" width="1200" height="675"`, 'ヒーロー画像');
   if (v.talk) swap(/(<p class="yk-pr">[\s\S]*?<\/p>\n)/, `$1\n${v.talk}`, 'PR表記');
   html = html.replace('<!DOCTYPE html>', `<!DOCTYPE html>\n<!-- 生成物：tools/build-variants.cjs（index.html のコピー。直接編集しない） -->`);
   fs.writeFileSync(path.join(dir, v.file), html);
