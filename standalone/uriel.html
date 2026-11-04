@@ -690,6 +690,9 @@ body { margin: 0; background: #f4f4f4; }
 .kt-stars, .yk-body .kt-nw { text-wrap-mode: nowrap; }
 .yk-cmp .yk-catch { font-size: 10px; }
 .yk-cmp .yk-catch::before, .yk-cmp .yk-catch::after { content: none; }
+/* 比較表の「公式サイト」ボタンを1行で収める（2026-11-04）：公式列を広げ、文字とボタン右余白を少し詰める */
+.yk-cmp col.c1 { width: 23%; } .yk-cmp col.c4 { width: 25%; }
+.yk-cmp .yk-btn { font-size: 12px; padding-right: 1em; }
 .kt-table--crit th:first-child { width: 22%; }
 .kt-table--crit th:not(:first-child) { width: 26%; }
 /* 早見表：1位の枠を右上に大きく、側面の軸ラベルが見切れないよう左右の余白を広げる */
