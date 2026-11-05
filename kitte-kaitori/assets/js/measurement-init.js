@@ -1,4 +1,4 @@
-/* Dedicated Kitte measurement. No ASP parameter rewriting. */
+/* Dedicated Kitte measurement. ASP link parameters are added only by felmat's official fmptr.js (2026-11-05). */
 (function () {
   'use strict';
   if (window.__kitteMeasurement) return;
@@ -23,7 +23,8 @@
     } catch (_) {}
   }
   /* MCV is Uriel only (felmat special-rate link). Fukuchan (A8) and BuySell clicks are cta_click only, not MCV (2026-11-02). */
-  window.__kitteMeasurement = { mode: mode, attribution: attribution, approvedAffiliateUrls: { uriel: ['https://t.felmat.net/fmcl?ak=D107130.1.E149890F.L1419226'] }, adsMcvDestination: 'AW-18514170119/JWJxCJyfup0dEIein_xE' };
+  /* 2026-11-05 再出発：Google広告のMCVを新しいコンバージョン「切手_MCV_ウリエル_v2」(7890252661) へ。旧 JWJxCJyfup0dEIein_xE はサブ。 */
+  window.__kitteMeasurement = { mode: mode, attribution: attribution, approvedAffiliateUrls: { uriel: ['https://t.felmat.net/fmcl?ak=D107130.1.E149890F.L1419226'] }, adsMcvDestination: 'AW-18514170119/r7YTCPXmrrIdEIein_xE' };
   window.dataLayer = window.dataLayer || [];
   window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
   window.gtag('js',new Date());
@@ -41,4 +42,8 @@
   var s=document.createElement('script'); s.async=true;
   s.src='https://www.googletagmanager.com/gtm.js?id=GTM-P5BDV4FC';
   document.head.appendChild(s);
+  /* 2026-11-05 felmat公式タグ（fmptr.js）：成果をGoogle広告へ返す連携（申込CV）のため、felmatリンクにクリックID等を付ける。
+     リンクが揃ってから読み込む。kitte.js のMCV判定は、付いた引数があっても承認済みリンクと照合できるようにしてある。 */
+  var loadFelmat = function () { var f = document.createElement('script'); f.async = true; f.src = 'https://js.felmat.net/fmptr.js'; document.body.appendChild(f); };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', loadFelmat); else loadFelmat();
 })();

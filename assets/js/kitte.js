@@ -91,7 +91,12 @@
       var approvedUrls = approved[a.dataset.aff] || [];
       externalAff = !!a.dataset.aff && !pending && /^https?:$/.test(url.protocol)
         && url.host !== location.host && a.getAttribute('href').indexOf('__') !== 0
-        && approvedUrls.indexOf(url.href) !== -1;
+        && approvedUrls.some(function (u) {
+          /* felmatのfmptr.jsがクリックID等を足すため、完全一致ではなく「承認済みリンクの引数がすべて同じ値で含まれる」で照合する */
+          var ok = new URL(u); if (ok.origin !== url.origin || ok.pathname !== url.pathname) return false;
+          var same = true; ok.searchParams.forEach(function (v, k) { if (url.searchParams.get(k) !== v) same = false; });
+          return same;
+        });
     } catch (_) { /* malformed/unset affiliate URL: do not count */ }
     trackLP('cta_click', {
       cta_place: a.dataset.place || '',
