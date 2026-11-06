@@ -767,6 +767,52 @@ body { margin: 0; background: #f4f4f4; }
   .yk-best3__item:first-child .yk-catch { font-size:8px; }
 }
 
+/* インタビュー版（interview.html）で使う体験談パーツ（原本：lp-parts-taikendan/parts.css）2026-11-06 */
+:root { --mt-mark: #fff100; --mt-yellow-bg: #fffbe0; --mt-orange: #f5a623; }
+.kt-talk--six .mt-talk__row:nth-of-type(5) { animation-delay: 1.4s; }
+.kt-talk--six .mt-talk__row:nth-of-type(6) { animation-delay: 1.75s; }
+.mt-h4 { margin: 1.6em 0 .8em; padding: 2px 8px; border-left: 4px solid var(--mt-blue); font-size: 17px; font-weight: 700; line-height: 1.5; }
+.mt-h4 em { font-style: normal; color: var(--mt-red); background: linear-gradient(transparent 60%, var(--mt-mark) 60%); }
+.mt-author { display: flex; align-items: flex-start; gap: .9em; margin: 1.4em 0; padding: 1em; border: 1px solid var(--mt-rule); border-radius: 8px; background: #fff; }
+.mt-author__icon { display: grid; place-items: center; flex: 0 0 64px; width: 64px; height: 64px; border: 2px solid #9cc3e8; border-radius: 50%; background: var(--mt-blue-bg); overflow: hidden; color: var(--mt-blue); font-size: 13px; font-weight: 900; }
+.mt-author__icon img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.mt-author__name { margin: 0 0 .2em !important; font-size: 15px; font-weight: 900; }
+.mt-author__name small { display: block; margin: .1em 0 0; color: var(--mt-sub); font-size: 12px; font-weight: 400; }
+.mt-author__txt { margin: 0 0 .4em !important; color: #444; font-size: 13.5px; line-height: 1.7; }
+.mt-author__txt:last-child { margin-bottom: 0 !important; }
+.mt-conclusion { margin: 1.4em 0; padding: 1em 1.1em; border: 2px dashed var(--mt-orange); border-radius: 6px; background: var(--mt-yellow-bg); }
+.mt-conclusion__ttl { margin: 0 0 .4em !important; color: var(--mt-red); font-weight: 900; }
+.mt-conclusion p { margin: 0 0 .6em; font-size: 15px; line-height: 1.8; }
+.mt-conclusion p:last-child { margin: 0; }
+.mt-check { margin: 1.2em 0; padding: 1em 1em .7em; border: 2px dashed var(--mt-orange); border-radius: 8px; background: #fff; }
+.mt-check__ttl { margin: 0 0 .6em !important; text-align: center; font-size: 16px; font-weight: 900; }
+.mt-check ul { margin: 0; padding: 0; list-style: none; }
+.mt-check li { position: relative; margin: 0 0 .5em; padding: 0 0 .5em 2em; border-bottom: 1px dashed var(--mt-rule); font-size: 15px; line-height: 1.6; }
+.mt-check li:last-child { margin-bottom: 0; border-bottom: 0; }
+.mt-check li::before { content: ""; position: absolute; left: .1em; top: .2em; width: 1.1em; height: 1.1em; box-sizing: border-box; border: 2px solid var(--mt-blue); border-radius: 3px; background: #fff; }
+.mt-check li::after { content: ""; position: absolute; left: .5em; top: .1em; width: .4em; height: .8em; border: solid var(--mt-red); border-width: 0 3px 3px 0; transform: rotate(45deg); }
+.mt-timeline { position: relative; margin: 1.2em 0; padding: 0 0 0 1.6em; list-style: none; }
+.mt-timeline::before { content: ""; position: absolute; left: .55em; top: .5em; bottom: .8em; width: 2px; background: #9cc3e8; }
+.mt-timeline li { position: relative; margin: 0 0 1em; }
+.mt-timeline li::before { content: ""; position: absolute; left: -1.45em; top: .3em; width: .9em; height: .9em; box-sizing: border-box; border: 3px solid var(--mt-blue); border-radius: 50%; background: #fff; }
+.mt-timeline li.is-goal::before { border-color: var(--mt-red); background: var(--mt-red); }
+.mt-timeline__when { display: inline-block; padding: 0 .5em; border-radius: 4px; background: var(--mt-blue); color: #fff; font-size: 12px; font-weight: 700; line-height: 1.7; }
+.mt-timeline li.is-goal .mt-timeline__when { background: var(--mt-red); }
+.mt-timeline__what { display: block; margin-top: .2em; font-size: 15px; line-height: 1.7; }
+.mt-chat { margin: 1.2em 0; padding: .9em .8em; border-radius: 12px; background: #eef1f6; }
+.mt-chat__ttl { margin: 0 0 .6em !important; font-size: 14px; font-weight: 900; }
+.mt-chat__m { display: flex; margin: 0 0 .6em; }
+.mt-chat__m--r { justify-content: flex-end; }
+.mt-chat__b { max-width: 78%; padding: .5em .8em; border-radius: 14px; background: #fff; font-size: 14.5px; line-height: 1.6; }
+.mt-chat__m--r .mt-chat__b { background: #8de055; }
+.mt-chat__tip { margin: -.2em 0 .7em !important; font-size: 12px !important; color: var(--mt-red); line-height: 1.5 !important; }
+.mt-caution { margin: 1.4em 0; padding: .9em 1em; border: 2px solid #f0a9a5; border-radius: 8px; background: var(--mt-red-bg); }
+.mt-caution__ttl { display: flex; align-items: center; gap: .4em; margin: 0 0 .4em !important; color: var(--mt-red); font-size: 15px; font-weight: 900; }
+.mt-caution__ttl::before { content: "!"; display: grid; place-items: center; width: 1.4em; height: 1.4em; border-radius: 50%; background: var(--mt-red); color: #fff; font-size: 13px; }
+.mt-caution p { margin: 0 !important; font-size: 15px; line-height: 1.8; }
+.mt-caution p + p { margin-top: .5em !important; }
+.kt-hero__note { margin: 2px 6px 0; }
+
 </style>
 </head>
 <body>
