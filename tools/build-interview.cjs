@@ -25,7 +25,6 @@ const linkB = () => `<a href="${BUYSELL}" data-aff="buysell" data-place="text-bu
 swap(/(<header class="yk-hero kt-hero--banner">\s*<h1 class="kt-sr">)[\s\S]*?(<\/h1>)/, '$1元買取業者に聞いた。切手買取店の選び方と高く売るコツ$2', 'H1');
 swap(/<title>[\s\S]*?<\/title>/, '<title>元買取業者に聞いた｜切手買取店の選び方と高く売るコツ</title>', 'title');
 swap(/<img class="kt-hero__banner" src="[^"]+" alt="[^"]*" width="\d+" height="\d+"/, '<img class="kt-hero__banner" src="assets/img/photo/hero-interview-20261106.webp" alt="元買取業者に聞いた。買取店の選び方と高く売るコツ" width="1672" height="941"', 'ヒーロー画像');
-swap(/(<header class="yk-hero kt-hero--banner">[\s\S]*?<\/header>)/, '$1\n<p class="mt-img__note kt-hero__note">※写真はイメージです</p>', 'ヒーローの注記');
 
 /* ---------- 2. ロゴの横流しを外し、ヒーロー直下を導入会話にする（編集部と相談者） ---------- */
 const talkRow = (who, text) => {
@@ -52,7 +51,7 @@ swap(/<!-- ===== fv-2 ロゴの横流し[\s\S]*?<!--@regional-intro-->/, talk, '
 const sayRow = (who, text) => {
   const person = who === 'you'
     ? '<span class="mt-talk__icon"><img src="assets/img/illust/consultant-photo.webp" alt="" width="56" height="56"></span><span class="mt-talk__name">あなた</span>'
-    : '<span class="mt-talk__icon">査定士</span><span class="mt-talk__name">査定士</span>';
+    : '<span class="mt-talk__icon"><img src="assets/img/illust/appraiser-photo.webp" alt="" width="56" height="56"></span><span class="mt-talk__name">査定士</span>';
   return `  <div class="mt-talk__row${who === 'you' ? ' mt-talk__row--r' : ''}"><div class="mt-talk__who">${person}</div><div class="mt-talk__b">${text}</div></div>`;
 };
 const magic = [
@@ -66,7 +65,7 @@ const magic = [
 
 /* ---------- 6〜8. 額面・出張・3つのポイントを消し、お話を聞いた方・1位の理由・コツを入れる ---------- */
 const body = `<!-- ===== お話を聞いた方（体験談パーツ frame-5 mt-author）：肩書きのみ ===== -->
-<div class="mt-author" id="interviewee"><span class="mt-author__icon">取材</span><div>
+<div class="mt-author" id="interviewee"><span class="mt-author__icon"><img src="assets/img/illust/interviewee-photo.webp" alt="" width="64" height="64"></span><div>
   <p class="mt-author__name">元大手買取専門店スタッフ｜買取業界歴8年<small>今回お話を聞いた方</small></p>
   <p class="mt-author__txt">大手買取専門店に約8年勤務。ブランド品・貴金属・時計・切手・古銭・骨董品など、幅広い品目の査定と買取を担当。</p>
   <p class="mt-author__txt">店頭査定から出張買取、査定額の説明、買取価格の交渉まで、買取の仕事を一通り経験。</p>
@@ -81,7 +80,7 @@ const body = `<!-- ===== お話を聞いた方（体験談パーツ frame-5 mt-a
 <p class="kt-lead">手間がかかる分、店を間違えると査定が雑になることがあります。</p>
 
 <h3 class="mt-h4" id="reason-1">理由1：切手をきちんと見て、<em>金額の理由</em>まで説明してくれる</h3>
-<figure class="mt-img"><img src="assets/img/photo/stamp-loupe-check.webp" alt="ルーペで切手の細部と状態を確認しているイメージ" width="960" height="540" loading="lazy"><figcaption class="mt-img__note">※写真はイメージです</figcaption></figure>
+<figure class="mt-img"><img src="assets/img/photo/stamp-loupe-check.webp" alt="ルーペで切手の細部と状態を確認しているイメージ" width="960" height="540" loading="lazy"></figure>
 <p class="kt-lead">良い店かどうかは、表の図柄以外も見てくれるかで分かります。</p>
 <div class="mt-check"><p class="mt-check__ttl">査定士が見るところ</p><ul><li>裏糊</li><li>日焼け</li><li>シミ・カビ</li><li>目打ちの欠け</li></ul></div>
 <p class="kt-lead">もうひとつは、金額の理由を説明してくれるかです。</p>
@@ -102,7 +101,6 @@ const body = `<!-- ===== お話を聞いた方（体験談パーツ frame-5 mt-a
   <p>だから「今」査定を頼むなら、<span class="yk-mark">ウリエルが一番だと私は思っています。</span>先のことは分かりません。今なら、{U}です。</p>
 </div>
 <p class="yk-catch">金額を聞いてから決められる</p>${btnUriel('reason-uriel')}
-<p class="yk-small">※査定額は切手の状態などで変わります。元買取業者個人の見解です。出典：<a href="https://www.uriel-cuore.co.jp/lp/af/stamp/16525/" rel="nofollow noopener" target="_blank">ウリエル公式LP</a>・<a href="https://www.uriel-cuore.co.jp/stamp/" rel="nofollow noopener" target="_blank">切手買取ページ</a>・<a href="https://purchase.iid.co.jp/interview-uriel/" rel="nofollow noopener" target="_blank">インタビュー記事（株式会社イード）</a></p>
 
 <!-- ===== 高く売るコツ：相見積もり（台本8節） ===== -->
 <h2 class="kt-h2" id="tips">元買取業者に聞いた、<br>切手を1円でも高く売るコツ</h2>
