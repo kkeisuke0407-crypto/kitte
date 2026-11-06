@@ -132,6 +132,14 @@ ${magic}
 `.replace(/\{U\}/g, linkU).replace(/\{B\}/g, linkB);
 swap(/<!-- ===== 理由説明：額面だけで判断しない[\s\S]*?(<!-- ===== compare-1 タブ切替)/, () => body + '<!-- ===== compare-1 タブ切替', '額面〜3つのポイント');
 
+/* ---------- 買取実績と声を、コツの下・比較表の上へ移す（2026-11-07 ユーザー指示）。声の見出しから「家族の」を外す ---------- */
+const recordsMatch = html.match(/<!-- ===== top-2 買取実績カード[\s\S]*?<!--@records:end-->\s*/);
+if (!recordsMatch) throw new Error('interview: 買取実績のブロックが見つからない');
+html = html.replace(recordsMatch[0], '');
+const recordsBlock = recordsMatch[0].replace(new RegExp(loose('家族の切手を売った方の声')), '切手を売った方の声');
+if (recordsBlock === recordsMatch[0]) throw new Error('interview: 声の見出しが見つからない');
+swap(/<!-- ===== compare-1 タブ切替/, () => recordsBlock + '<!-- ===== compare-1 タブ切替', '比較表の前');
+
 /* ---------- 9. 比較表・ランキングのウリエルを、1位の理由にそろえる（他社の行は変えない） ---------- */
 swap(new RegExp(loose('3つのポイントを6項目に分けて採点しました')), '6項目で採点しました', '比較表の見出し');
 swap(new RegExp(loose('汚れ・破れ・大量のバラ・切手アルバムもそのまま')), '査定額の根拠まで説明。無店舗経営と独自の販路で買取価格に還元', '比較表の得意なこと');
