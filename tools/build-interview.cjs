@@ -128,7 +128,6 @@ ${magic}
 <p class="kt-lead">私の経験では、この流れで最初の金額より高く売れることが多いです。</p>
 <div class="mt-caution"><p class="mt-caution__ttl">強く交渉しすぎに注意</p><p>上の流れくらいがちょうどいいです。求めすぎると、どちらにも買ってもらえずに終わることもあります。</p></div>
 <p class="yk-catch">まず1社目はウリエルから</p>${btnUriel('tips-uriel')}
-<p class="yk-small">※必ず高く売れることを約束するものではありません。</p>
 
 `.replace(/\{U\}/g, linkU).replace(/\{B\}/g, linkB);
 swap(/<!-- ===== 理由説明：額面だけで判断しない[\s\S]*?(<!-- ===== compare-1 タブ切替)/, () => body + '<!-- ===== compare-1 タブ切替', '額面〜3つのポイント');
@@ -157,6 +156,35 @@ rank = rank.replace(/<p class="[^"]*">(?:(?!<\/p>)[\s\S])*※1(?:<wbr>|⁠)*\s*�
 swapRank(/(<div class="yk-editor__body"><p>)[\s\S]*?(<\/p><\/div>)/, '$1元買取業者の話のとおり、切手の査定は手間がかかるので、店選びで差が出ます。ウリエルは<span class="yk-mark">査定額の根拠まで説明</span>してくれて、独自の流通網で欲しがる買い手も持っています。無店舗経営で抑えたコストを買取価格に回しているので、切手を買取強化している今は、<span class="yk-red">最初に相談してほしい1社</span>です。$2', 'イチオシ欄の本文');
 swapRank(new RegExp(loose('出張・店舗')), '出張買取が中心（店頭は予約制）', '買取方法');
 html = html.slice(0, a) + rank + html.slice(b);
+
+/* ---------- 10. 注釈を最低限にする（2026-11-06 ユーザー指示「写真はイメージですは消して。注釈最低限にしてよ」） ---------- */
+const plain = s => s.replace(/<[^>]+>/g, '').replace(/⁠/g, '').trim();
+const noteHits = {};
+const VOICE_NOTE = '※公式サイト掲載の声を、一部省略して掲載しています。個人の感想です。';
+const RECORD_NOTE = '※過去の買取例です。査定額は状態や時期により変わります。';
+const rewrite = (cls, rule) => {
+  html = html.replace(new RegExp(`\\s*<p class="${cls}"[^>]*>([\\s\\S]*?)</p>`, 'g'), (whole, inner) => {
+    const lead = whole.match(/^\s*/)[0];
+    const r = rule(plain(inner));
+    if (r === undefined) return whole;
+    noteHits[r.label] = (noteHits[r.label] || 0) + 1;
+    return r.to ? `${lead}<p class="${cls}">${r.to}</p>` : '';
+  });
+};
+rewrite('yk-small yk-radar__note', () => ({ label: 'レーダー注記' }));
+rewrite('kt-src', t => {
+  if (t.startsWith('出典')) return { label: '出典' };
+  if (t.startsWith('写真・実績')) return { label: '実績注記', to: RECORD_NOTE };
+  if (t.startsWith('※写真はイメージ')) return { label: '流れの写真注記' };
+});
+rewrite('yk-small', t => {
+  if (t.startsWith('※各社の公式サイトに掲載')) return { label: '声の注記', to: VOICE_NOTE };
+  if (t.startsWith('※横軸')) return { label: '分布図の注記' };
+  if (t.startsWith('※2社とも')) return { label: 'キャンセル注記' };
+});
+const noteWant = { 'レーダー注記': 6, '出典': 6, '実績注記': 4, '流れの写真注記': 1, '声の注記': 4, '分布図の注記': 1, 'キャンセル注記': 1 };
+for (const [k, n] of Object.entries(noteWant)) if (noteHits[k] !== n) throw new Error(`interview: 注釈 ${k} が ${noteHits[k] || 0} 件（想定 ${n} 件）`);
+if (/写真は(?:<wbr>|⁠)*イメージ/.test(html)) throw new Error('interview: 「写真はイメージ」が残っている');
 
 html = html.replace('<!DOCTYPE html>', '<!DOCTYPE html>\n<!-- 生成物：tools/build-interview.cjs（index.html から作るインタビュー版。直接編集しない） -->');
 fs.writeFileSync(path.join(dir, 'interview.html'), html);
