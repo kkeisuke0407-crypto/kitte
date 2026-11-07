@@ -951,6 +951,12 @@ body { margin: 0; background: #f4f4f4; }
   if (window.__kitteBehaviorInstalled) return;
   window.__kitteBehaviorInstalled = true;
 
+  /* 現在の年月の表示（日本時間で毎月自動更新） */
+  var jstNow = new Date(Date.now() + 9 * 60 * 60 * 1000);
+  document.querySelectorAll('[data-current-ym]').forEach(function (el) {
+    el.textContent = jstNow.getUTCFullYear() + '年' + (jstNow.getUTCMonth() + 1) + '月';
+  });
+
   /* 専用GA4に送る計測イベントの共通属性。 */
   window.dataLayer = window.dataLayer || [];
   var lpPath = location.pathname.replace(/\/index\.html$/, '/');
