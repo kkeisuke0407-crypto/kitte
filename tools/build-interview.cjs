@@ -65,10 +65,11 @@ const magic = [
 
 /* ---------- 6〜8. 額面・出張・3つのポイントを消し、お話を聞いた方・1位の理由・コツを入れる ---------- */
 const body = `<!-- ===== お話を聞いた方（体験談パーツ frame-5 mt-author）：肩書きのみ ===== -->
-<div class="mt-author" id="interviewee"><span class="mt-author__icon"><img src="assets/img/illust/interviewee-photo.webp" alt="" width="64" height="64"></span><div>
-  <p class="mt-author__name">元大手買取専門店スタッフ｜買取業界歴8年<small>今回お話を聞いた方</small></p>
+<div class="mt-author" id="interviewee"><span class="mt-author__icon"><img src="assets/img/illust/interviewee-hattori.webp" alt="" width="64" height="64"></span><div>
+  <p class="mt-author__name">元大手買取専門店スタッフ<br>服部さん（仮名）35歳<small>今回お話を聞いた方</small></p>
   <p class="mt-author__txt">大手買取専門店に約8年勤務。ブランド品・貴金属・時計・切手・古銭・骨董品など、幅広い品目の査定と買取を担当。</p>
   <p class="mt-author__txt">店頭査定から出張買取、査定額の説明、買取価格の交渉まで、買取の仕事を一通り経験。</p>
+  <p class="mt-author__txt">なお、このページで紹介している会社に勤務していたことはありません。</p>
   <p class="mt-author__txt">今回は現場の経験をもとに、買取価格が決まる仕組み、査定額に差が出る理由、後悔しない店の選び方を聞きました。</p>
 </div></div>
 
