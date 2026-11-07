@@ -122,7 +122,9 @@
       });
       var adsDestination = window.__kitteMeasurement && window.__kitteMeasurement.adsMcvDestination;
       if (measurementMode === 'normal' && adsDestination && window.gtag) {
-        window.gtag('event','conversion',{send_to:adsDestination,value:0,currency:'JPY',transport_type:'beacon'});
+        [].concat(adsDestination).forEach(function (dest) {
+          window.gtag('event','conversion',{send_to:dest,value:0,currency:'JPY',transport_type:'beacon'});
+        });
       }
     }
   }
