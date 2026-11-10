@@ -15,7 +15,7 @@ const swap = (re, to, label) => {
 };
 const URIEL = 'https://t.felmat.net/fmcl?ak=D107130.1.E149890F.L1419226';
 const BUYSELL = 'https://buysell-kaitori.com/stamp/';
-const btnUriel = place => `<a class="yk-btn" href="${URIEL}" data-aff="uriel" data-place="${place}" data-pending-href="uriel/index.html" data-pending-label="ウリエルの詳細を見る" rel="nofollow sponsored noopener" target="_blank">出張査定を予約する</a>`;
+const btnUriel = place => `<a class="yk-btn" href="${URIEL}" data-aff="uriel" data-place="${place}" data-pending-href="uriel/index.html" data-pending-label="ウリエルの詳細を見る" rel="nofollow sponsored noopener" target="_blank">無料査定してみる</a>`;
 // 本文の「ウリエル」「バイセル」のテキストリンク（{U}・{B} を置き換える）
 let nU = 0, nB = 0;
 const linkU = () => `<a href="${URIEL}" data-aff="uriel" data-place="text-uriel-${++nU}" data-pending-href="uriel/index.html" data-pending-label="ウリエル" rel="nofollow sponsored noopener" target="_blank">ウリエル</a>`;
