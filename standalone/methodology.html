@@ -728,6 +728,8 @@ body { margin: 0; background: #f4f4f4; }
 .kt-a8px { position: absolute; width: 1px; height: 1px; border: 0; opacity: 0; pointer-events: none; }
 /* 導入会話の吹き出しも文節の切れ目（<wbr>）でだけ改行する */
 .yk-body .mt-talk__b { word-break: keep-all; overflow-wrap: anywhere; }
+/* インタビュー版（body.kt-phrase）は本文も文節の切れ目（<wbr>）でだけ改行する。行末はそろわないが、言葉の途中で折れない（入りきらない長い語だけは折る） */
+.kt-phrase .yk-body, .kt-phrase .kt-site { word-break: keep-all; overflow-wrap: anywhere; }
 
 /* BEST3：C案の赤い丸バッジ。元の順位帯・数字の中央・カード形状を維持 */
 .yk-best3__list { padding-top:4px; }
@@ -835,11 +837,11 @@ body { margin: 0; background: #f4f4f4; }
 
 <h2 class="yk-numh" id="ad"><span>項目1</span>広告を<wbr>含⁠む⁠こ⁠と</h2>
 <p>本サイトは<wbr>アフィリエイトサイトです。<wbr>比較ページ・<wbr>個別ページには<wbr><b>広告・<wbr>アフィリエイトリンク</b>を<wbr>含みます。<wbr>ウリエル・<wbr>バイセルへの<wbr>申込ボタンは<wbr>ASP<wbr>（アフィリエイト・<wbr>サービス・<wbr>プロバイダ）<wbr>経由の<wbr>広告リンクで、<wbr>申込が<wbr>あった<wbr>場合に<wbr>運営者が<wbr>報酬を<wbr>受け取ることがあり⁠ま⁠す⁠。</p>
-<p>日晃堂・<wbr>買取大吉・<wbr>なんぼやは、<wbr>2026⁠年10⁠月28⁠日時点で<wbr>広告提携が<wbr>ないため、<wbr>申込ボタン<wbr>（成果報酬リンク）は<wbr>設置していません。<wbr>バイセルは<wbr>成果報酬リンクが<wbr>未発行の<wbr>ため、<wbr>申込ボタンは<wbr>公式サイトへの<wbr>通常リンク<wbr>（広告リンクではありません）です。<wbr>比較の<wbr>ために<wbr>各社公式サイトの<wbr>公開情報を<wbr>掲載し、<wbr>出典と<wbr>して<wbr>公式ページへの<wbr>通常リンクを<wbr>置いてい⁠ま⁠す⁠。</p>
+<p>日晃堂・<wbr>買取大吉・<wbr>なんぼやは、<wbr>2026⁠年10⁠月28⁠日時点で<wbr>広告提携が<wbr>ないため、<wbr>申込ボタン<wbr>（成果報酬リンク）⁠は<wbr>設置していません。<wbr>バイセルは<wbr>成果報酬リンクが<wbr>未発行の<wbr>ため、<wbr>申込ボタンは<wbr>公式サイトへの<wbr>通常リンク<wbr>（広告リンクではありません）⁠です。<wbr>比較の<wbr>ために<wbr>各社公式サイトの<wbr>公開情報を<wbr>掲載し、<wbr>出典と<wbr>して<wbr>公式ページへの<wbr>通常リンクを<wbr>置いてい⁠ま⁠す⁠。</p>
 
 <h2 class="yk-numh" id="order"><span>項目2</span>順位と<wbr>編集部評価の<wbr>決⁠め⁠方</h2>
 <p>本ページは、<wbr><b>実家などに<wbr>ある<wbr>大量の<wbr>切手を、<wbr>自宅で<wbr>査定して<wbr>もらう<wbr>「出張買取」</b>を<wbr>検討している<wbr>方に<wbr>向けた<wbr>比較です。<wbr>その<wbr>ため、<wbr>出張買取の<wbr>頼みやすさと、<wbr>仕分けていない・<wbr>状態の<wbr>悪い<wbr>切手への<wbr>対応を<wbr>重視した<wbr>6項目で<wbr>採点してい⁠ま⁠す⁠。</p>
-<p>各項目は、<wbr>各社の<wbr>公式サイト<wbr>（切手買取ページ・<wbr>公式LP<wbr>など）に<wbr>記載が<wbr>ある<wbr>内容だけで ◎<wbr>（5⁠点）<wbr>・○<wbr>（4⁠点）<wbr>・△<wbr>（3⁠点）を<wbr>付け、<wbr><b>6項目の<wbr>平均を<wbr>「編集部評価」</b>と<wbr>しています。<wbr>順位は<wbr>編集部評価の<wbr>高い順で、<wbr>同じ<wbr>点数の<wbr>場合は<wbr>編集部の<wbr>掲載順⁠で⁠す⁠。</p>
+<p>各項目は、<wbr>各社の<wbr>公式サイト<wbr>（切手買取ページ・<wbr>公式LP<wbr>など）⁠に<wbr>記載が<wbr>ある<wbr>内容だけで ◎<wbr>（5⁠点）<wbr>・○<wbr>（4⁠点）<wbr>・△<wbr>（3⁠点）⁠を<wbr>付け、<wbr><b>6項目の<wbr>平均を<wbr>「編集部評価」</b>と<wbr>しています。<wbr>順位は<wbr>編集部評価の<wbr>高い順で、<wbr>同じ<wbr>点数の<wbr>場合は<wbr>編集部の<wbr>掲載順⁠で⁠す⁠。</p>
 <p class="kt-caution"><b>ご注意：</b>編集部評価は<wbr>公式サイトの<wbr>記載内容を<wbr>比べた<wbr>もので、<wbr><b>同じ<wbr>切手を<wbr>各社に<wbr>査定して<wbr>もらった<wbr>結果や、<wbr>買取価格の<wbr>高さ・<wbr>利用者満足度の<wbr>順位ではありません</b>。<wbr>各社の<wbr>査定額は<wbr>切手の<wbr>状態・<wbr>時期・<wbr>相場<wbr>などで<wbr>変わり⁠ま⁠す⁠。</p>
 
 <h2 class="yk-numh" id="radar"><span>項目<wbr>3</span>6項目の<wbr>採点基準と<wbr>採⁠点⁠結⁠果</h2>
@@ -852,7 +854,7 @@ body { margin: 0; background: #f4f4f4; }
   <tr><td><b>汚れ・<wbr>破れOK</b><br><small>状態の<wbr>悪い<wbr>切手へ⁠の⁠対⁠応</small></td><td>汚れ・<wbr>破損<wbr>などが<wbr>あっても<wbr>「買取」できる<wbr>旨を<wbr>具体的に<wbr>明記<wbr>（他店で<wbr>断られた<wbr>品・<wbr>買取保証⁠な⁠ど⁠）</td><td>切手に<wbr>ついて、<wbr>状態の<wbr>悪い<wbr>ものも<wbr>査定・<wbr>相談できると<wbr>明記<wbr>（状態に<wbr>より<wbr>買取不可の<wbr>注記⁠あ⁠り⁠）</td><td>切手に<wbr>ついての<wbr>明記な<wbr>し<wbr>（全品目共通の<wbr>案内のみを<wbr>含⁠む⁠）</td></tr>
   <tr><td><b>大量・<wbr>アルバム</b><br><small>大量・<wbr>アルバムの<wbr>まま⁠の⁠相⁠談</small></td><td>バラ・<wbr>台紙貼り・<wbr>アルバムを<wbr>仕分けず<wbr>そのまま<wbr>査定できると<wbr>明⁠記</td><td>バラ・<wbr>台紙貼り・<wbr>大量の<wbr>いずれかを<wbr>買取・<wbr>査定できると<wbr>明記<wbr>（仕分け不要の<wbr>明記⁠な⁠し⁠）</td><td>大量・<wbr>アルバム・<wbr>バラへの<wbr>対応の<wbr>明記な<wbr>し<wbr>（買取実績の<wbr>掲載のみを<wbr>含⁠む⁠）</td></tr>
   <tr><td><b>訪問の<wbr>早さ</b><br><small>出張の<wbr>早さ・<wbr>その場での<wbr>現⁠金⁠化</small></td><td>最短の<wbr>訪問日の<wbr>目安と、<wbr>出張で<wbr>その場で<wbr>現金払いの<wbr>両方⁠を⁠明⁠記</td><td>その場で<wbr>現金払いのみ<wbr>明記<wbr>（<wbr>最短の<wbr>訪問日の<wbr>目安は<wbr>記載⁠な⁠し⁠）</td><td>出張の<wbr>支払いは<wbr>原則振込<wbr>（<wbr>当日の<wbr>現金は<wbr>事前相談）、<wbr>または<wbr>明⁠記⁠な⁠し</td></tr>
-  <tr><td><b>実績公開</b><br><small>実績・<wbr>信頼⁠の⁠公⁠開</small></td><td>写真つき買取実績<wbr>（日付・<wbr>地域）<wbr>・利用者の<wbr>声・<wbr>数値実績<wbr>（調査条件の<wbr>注記つき）を<wbr>すべ⁠て⁠公⁠開</td><td>上記の<wbr>うち2つを<wbr>公⁠開</td><td>1つ以下</td></tr>
+  <tr><td><b>実績公開</b><br><small>実績・<wbr>信頼⁠の⁠公⁠開</small></td><td>写真つき買取実績<wbr>（日付・<wbr>地域）<wbr>・利用者の<wbr>声・<wbr>数値実績<wbr>（調査条件の<wbr>注記つき）⁠を<wbr>すべ⁠て⁠公⁠開</td><td>上記の<wbr>うち2つを<wbr>公⁠開</td><td>1つ以下</td></tr>
 </table></div>
 <div class="kt-x"><table class="kt-table kt-table--marks">
   <tr><th>順位</th><th>サービス</th><th>24時間受付</th><th>費用0円</th><th>汚れ・破れOK</th><th>大量・アルバム</th><th>訪問の早さ</th><th>実績公開</th><th>編集部評価</th></tr>

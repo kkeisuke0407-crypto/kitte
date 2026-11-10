@@ -728,6 +728,8 @@ body { margin: 0; background: #f4f4f4; }
 .kt-a8px { position: absolute; width: 1px; height: 1px; border: 0; opacity: 0; pointer-events: none; }
 /* 導入会話の吹き出しも文節の切れ目（<wbr>）でだけ改行する */
 .yk-body .mt-talk__b { word-break: keep-all; overflow-wrap: anywhere; }
+/* インタビュー版（body.kt-phrase）は本文も文節の切れ目（<wbr>）でだけ改行する。行末はそろわないが、言葉の途中で折れない（入りきらない長い語だけは折る） */
+.kt-phrase .yk-body, .kt-phrase .kt-site { word-break: keep-all; overflow-wrap: anywhere; }
 
 /* BEST3：C案の赤い丸バッジ。元の順位帯・数字の中央・カード形状を維持 */
 .yk-best3__list { padding-top:4px; }
@@ -918,7 +920,7 @@ body { margin: 0; background: #f4f4f4; }
   <li>中国切手以外の<wbr>海外切手が<wbr>混ざっていないか<wbr>（買取⁠不⁠可⁠）</li>
   <li>本人確認書類を<wbr>用意で⁠き⁠る⁠か</li>
   <li>金額に<wbr>納得できない<wbr>ときは<wbr>無料で<wbr>キャンセルでき⁠る⁠こ⁠と</li>
-  <li>宅配の<wbr>場合、<wbr>金額に<wbr>納得で<wbr>きず返送して<wbr>もらう<wbr>ときは<wbr>着払い<wbr>（利用者負担）に<wbr>な⁠る⁠こ⁠と</li>
+  <li>宅配の<wbr>場合、<wbr>金額に<wbr>納得で<wbr>きず返送して<wbr>もらう<wbr>ときは<wbr>着払い<wbr>（利用者負担）⁠に<wbr>な⁠る⁠こ⁠と</li>
 </ul></div>
 <div class="mt-faq">
   <details><summary>切手を<wbr>整理していなくても<wbr>大丈夫で⁠す⁠か⁠？</summary><p class="mt-faq__a">公式FAQでは、<wbr>整理されていない<wbr>切手や<wbr>台紙に<wbr>貼ってある<wbr>切手、<wbr>バラ切手も<wbr>そのままの<wbr>状態で<wbr>査定できると<wbr>回答してい⁠ま⁠す⁠。</p></details>
@@ -932,7 +934,7 @@ body { margin: 0; background: #f4f4f4; }
 
 <footer class="yk-footer">
   <ul><li><a href="about.html">運営者情報</a></li><li><a href="methodology.html">ランキング調⁠査⁠概⁠要</a></li><li><a href="privacy.html">プライバシーポ⁠リ⁠シ⁠ー</a></li></ul>
-  <p>PR：本ページは<wbr>広告・<wbr>アフィリエイトリンクを<wbr>含みます。<wbr>掲載情報は<wbr>バイセル公式サイトの<wbr>掲載内容<wbr>（2026⁠年10⁠月13⁠日確認）を<wbr>もとにしています。<wbr>最新の<wbr>条件は<wbr>公式サイトで<wbr>ご確認くだ⁠さ⁠い⁠。</p>
+  <p>PR：本ページは<wbr>広告・<wbr>アフィリエイトリンクを<wbr>含みます。<wbr>掲載情報は<wbr>バイセル公式サイトの<wbr>掲載内容<wbr>（2026⁠年10⁠月13⁠日確認）⁠を<wbr>もとにしています。<wbr>最新の<wbr>条件は<wbr>公式サイトで<wbr>ご確認くだ⁠さ⁠い⁠。</p>
   <small>最終更新日：<wbr>2026⁠年10⁠月⁠1⁠4⁠日<br><span class="kt-nw">運営：HAKOBU MEDIA</span> ／ <span class="kt-nw">© 切手買取 比較ガイド</span></small>
 </footer>
 

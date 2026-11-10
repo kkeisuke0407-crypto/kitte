@@ -197,6 +197,20 @@ const noteWant = { 'レーダー注記': 6, '出典': 6, '実績注記': 4, '流
 for (const [k, n] of Object.entries(noteWant)) if (noteHits[k] !== n) throw new Error(`interview: 注釈 ${k} が ${noteHits[k] || 0} 件（想定 ${n} 件）`);
 if (/写真は(?:<wbr>|⁠)*イメージ/.test(html)) throw new Error('interview: 「写真はイメージ」が残っている');
 
+/* ---------- スマホの折り返し（2026-11-10 ユーザー指示「会話とかちゃんと適切なところで折り返す」「変なところで折り返さない」） ----------
+   ・本文も文節（wrap-ja.cjs が入れる <wbr>）でだけ折り返す（CSS の .kt-phrase）
+   ・会話の吹き出しは、文の終わり（。！？）で改行する */
+const bodyTags = html.match(/<body>/g) || [];
+if (bodyTags.length !== 1) throw new Error('interview: <body> が1つではない');
+html = html.replace('<body>', '<body class="kt-phrase">');
+let talkBreaks = 0;
+html = html.replace(/(<div class="mt-talk__b">)([\s\S]*?)(<\/div>)/g, (all, open, inner, close) => {
+  let out = inner.replace(/([。！？])(?=[^\s<」』）])/g, (m, p) => { talkBreaks++; return p + '<br>'; });
+  // 文の途中でも、理由・前置きの区切り（〜ので、〜けど、〜から、）のあとで改行する
+  out = out.replace(/(ので|けど|けれど|から)、(?=[^\s<」』）])/g, '$1、<br>');
+  return open + out + close;
+});
+if (!talkBreaks) throw new Error('interview: 会話の改行を入れる文が見つからない');
 html = html.replace('<!DOCTYPE html>', '<!DOCTYPE html>\n<!-- 生成物：tools/build-interview.cjs（index.html から作るインタビュー版。直接編集しない） -->');
 fs.writeFileSync(path.join(dir, 'interview.html'), html);
 console.log('variant: interview.html');

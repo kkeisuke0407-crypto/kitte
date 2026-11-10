@@ -727,6 +727,8 @@ body { margin: 0; background: #f4f4f4; }
 .kt-a8px { position: absolute; width: 1px; height: 1px; border: 0; opacity: 0; pointer-events: none; }
 /* 導入会話の吹き出しも文節の切れ目（<wbr>）でだけ改行する */
 .yk-body .mt-talk__b { word-break: keep-all; overflow-wrap: anywhere; }
+/* インタビュー版（body.kt-phrase）は本文も文節の切れ目（<wbr>）でだけ改行する。行末はそろわないが、言葉の途中で折れない（入りきらない長い語だけは折る） */
+.kt-phrase .yk-body, .kt-phrase .kt-site { word-break: keep-all; overflow-wrap: anywhere; }
 
 /* BEST3：C案の赤い丸バッジ。元の順位帯・数字の中央・カード形状を維持 */
 .yk-best3__list { padding-top:4px; }
@@ -832,7 +834,7 @@ body { margin: 0; background: #f4f4f4; }
   <tr><th class="kt-nw">運営者サイト</th><td><a href="https://hakobu-family.com/company.html" rel="noopener" target="_blank">ハコぶファミリー<wbr>（運営者⁠情⁠報⁠）</a></td></tr>
 </table></div>
 <h2 class="kt-h2">この<wbr>サイトに<wbr>つ⁠い⁠て</h2>
-<p>実家などで<wbr>見つかった<wbr>切手の<wbr>売却を<wbr>考えている<wbr>方に<wbr>向けて、<wbr>切手買取<wbr>サービスの<wbr>公開情報<wbr>（買取対象・<wbr>買取方法・<wbr>出張地域・<wbr>費用・<wbr>断る<wbr>ときの<wbr>条件・<wbr>過去の<wbr>買取実績）を<wbr>比較しています。<wbr>掲載内容は<wbr>各社公式サイトの<wbr>掲載内容を<wbr>もとに<wbr>編集部が<wbr>まとめた<wbr>もので、<wbr>調査日を<wbr>各ページに<wbr>記載してい⁠ま⁠す⁠。</p>
+<p>実家などで<wbr>見つかった<wbr>切手の<wbr>売却を<wbr>考えている<wbr>方に<wbr>向けて、<wbr>切手買取<wbr>サービスの<wbr>公開情報<wbr>（買取対象・<wbr>買取方法・<wbr>出張地域・<wbr>費用・<wbr>断る<wbr>ときの<wbr>条件・<wbr>過去の<wbr>買取実績）⁠を<wbr>比較しています。<wbr>掲載内容は<wbr>各社公式サイトの<wbr>掲載内容を<wbr>もとに<wbr>編集部が<wbr>まとめた<wbr>もので、<wbr>調査日を<wbr>各ページに<wbr>記載してい⁠ま⁠す⁠。</p>
 <h2 class="kt-h2">広告に<wbr>ついて</h2>
 <p>本サイトは<wbr>広告・<wbr>アフィリエイトリンクを<wbr>含みます。<wbr>掲載順や<wbr>評価の<wbr>考え方は<wbr><a href="methodology.html">ランキング調査概要</a>を<wbr>ご覧くだ⁠さ⁠い⁠。</p>
 

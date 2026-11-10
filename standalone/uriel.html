@@ -728,6 +728,8 @@ body { margin: 0; background: #f4f4f4; }
 .kt-a8px { position: absolute; width: 1px; height: 1px; border: 0; opacity: 0; pointer-events: none; }
 /* 導入会話の吹き出しも文節の切れ目（<wbr>）でだけ改行する */
 .yk-body .mt-talk__b { word-break: keep-all; overflow-wrap: anywhere; }
+/* インタビュー版（body.kt-phrase）は本文も文節の切れ目（<wbr>）でだけ改行する。行末はそろわないが、言葉の途中で折れない（入りきらない長い語だけは折る） */
+.kt-phrase .yk-body, .kt-phrase .kt-site { word-break: keep-all; overflow-wrap: anywhere; }
 
 /* BEST3：C案の赤い丸バッジ。元の順位帯・数字の中央・カード形状を維持 */
 .yk-best3__list { padding-top:4px; }
@@ -874,7 +876,7 @@ body { margin: 0; background: #f4f4f4; }
   <li><small>創業年数</small><b>15<i>年以上</i></b><span>⁠※3</span></li>
 </ul>
 <p class="yk-small">⁠※1 自社<wbr>調べ。<wbr>2025⁠年7⁠月〜2026⁠年6⁠月に<wbr>実施した<wbr>出張査定ご利用の<wbr>お客様<wbr>アンケート結果<wbr>（有効回答数<wbr>283⁠件）。<wbr>5段階評価の<wbr>うち<wbr>「大変満足」<wbr>「やや<wbr>満足」と<wbr>回答した<wbr>方の<wbr>割合。⁠※2 2025⁠年3⁠月〜2026⁠年2⁠月の<wbr>全買取品目に<wbr>おける<wbr>買取点数。⁠※3 運営母体である<wbr>株式会社<wbr>クオーレの<wbr>創業年数。<wbr>出典：<a href="https://www.uriel-cuore.co.jp/" rel="nofollow noopener" target="_blank">ウリエル公式サイト トップページ</a>の<wbr>実績表示・<wbr>広⁠告⁠素⁠材</p>
-<p>運営母体の<wbr>株式会社<wbr>クオーレは、<wbr>遺品整理・<wbr>生前整理を<wbr>中心に<wbr><span class="yk-mark">年間<wbr>30,000⁠件以上の<wbr>作業実績</span>が<wbr>あると<wbr>公式LPで<wbr>案内しています。<wbr>研修を<wbr>受けた<wbr>査定士が、<wbr>状態や<wbr>査定額の<wbr>根拠を<wbr>説明しながら<wbr>査定します。<wbr>古物商許可番号<wbr>（愛知県公安委員会 第542791100800号）も<wbr>公開されてい⁠ま⁠す⁠。</p>
+<p>運営母体の<wbr>株式会社<wbr>クオーレは、<wbr>遺品整理・<wbr>生前整理を<wbr>中心に<wbr><span class="yk-mark">年間<wbr>30,000⁠件以上の<wbr>作業実績</span>が<wbr>あると<wbr>公式LPで<wbr>案内しています。<wbr>研修を<wbr>受けた<wbr>査定士が、<wbr>状態や<wbr>査定額の<wbr>根拠を<wbr>説明しながら<wbr>査定します。<wbr>古物商許可番号<wbr>（愛知県公安委員会 第542791100800号）⁠も<wbr>公開されてい⁠ま⁠す⁠。</p>
 
 <!-- detail-5 番号見出し 2 -->
 <h2 class="yk-numh" id="u-2"><span>確認<wbr>2</span>仕分け前・<wbr>状態の<wbr>悪い<wbr>切手も<wbr>そ⁠の⁠ま⁠ま</h2>
@@ -940,7 +942,7 @@ body { margin: 0; background: #f4f4f4; }
 </ul></div>
 <div class="mt-faq">
   <details><summary>手元の<wbr>切手の<wbr>価値が<wbr>分からなくても<wbr>査定して<wbr>もらえま⁠す⁠か⁠？</summary><p class="mt-faq__a">大丈夫です。<wbr>公式LPでは、<wbr>価値が<wbr>不明な<wbr>ものでも<wbr>切手の<wbr>専門知識を<wbr>もつ<wbr>査定士が<wbr>拝見し、<wbr>買取価格を<wbr>提示すると<wbr>案内してい⁠ま⁠す⁠。</p></details>
-  <details><summary>アルバムから<wbr>切手を<wbr>外してから<wbr>申し込んだ方が<wbr>いいで⁠す⁠か⁠？</summary><p class="mt-faq__a">外さなくて<wbr>大丈夫です。<wbr>台紙に<wbr>貼られた<wbr>切手<wbr>（切手<wbr>アルバム）も<wbr>査定大歓迎と<wbr>案内されています。<wbr>無理にはがすと<wbr>傷むこともあるので、<wbr>そのまま<wbr>見て<wbr>もらいまし⁠ょ⁠う⁠。</p></details>
+  <details><summary>アルバムから<wbr>切手を<wbr>外してから<wbr>申し込んだ方が<wbr>いいで⁠す⁠か⁠？</summary><p class="mt-faq__a">外さなくて<wbr>大丈夫です。<wbr>台紙に<wbr>貼られた<wbr>切手<wbr>（切手<wbr>アルバム）⁠も<wbr>査定大歓迎と<wbr>案内されています。<wbr>無理にはがすと<wbr>傷むこともあるので、<wbr>そのまま<wbr>見て<wbr>もらいまし⁠ょ⁠う⁠。</p></details>
   <details><summary>査定だけで<wbr>お金は<wbr>かかりま⁠す⁠か⁠？</summary><p class="mt-faq__a">かかりません。<wbr>出張料・<wbr>査定料・<wbr>キャンセル料は<wbr>0⁠円で、<wbr>金額に<wbr>納得できなければ<wbr>断る<wbr>こともできます<wbr>（2026⁠年10⁠月13⁠日確⁠認⁠）⁠。</p></details>
   <details><summary>売った<wbr>あとで<wbr>考え直したくなっ⁠た⁠ら⁠？</summary><p class="mt-faq__a">出張買取で<wbr>成約した<wbr>場合、<wbr>書面を<wbr>受け取った<wbr>日から<wbr>8⁠日以内なら<wbr>クーリング・オフが<wbr>できると、<wbr><a href="https://www.uriel-cuore.co.jp/coolingoff/" rel="nofollow noopener" target="_blank">ウリエル公式 クーリングオフの<wbr>ページ</a>で<wbr>案内されています<wbr>（一部、<wbr>対象外の<wbr>品物などの<wbr>例外あり）。<wbr>クーリング・オフの<wbr>通知は<wbr>書面または<wbr>電磁的記録で<wbr>行い⁠ま⁠す⁠。</p></details>
 </div>
@@ -950,7 +952,7 @@ body { margin: 0; background: #f4f4f4; }
 
 <footer class="yk-footer">
   <ul><li><a href="about.html">運営者情報</a></li><li><a href="methodology.html">ランキング調⁠査⁠概⁠要</a></li><li><a href="privacy.html">プライバシーポ⁠リ⁠シ⁠ー</a></li></ul>
-  <p>PR：本ページは<wbr>広告・<wbr>アフィリエイトリンクを<wbr>含みます。<wbr>掲載情報は<wbr>ウリエル公式サイトの<wbr>掲載内容<wbr>（2026⁠年10⁠月13⁠日確認）を<wbr>もとにしています。<wbr>最新の<wbr>条件は<wbr>公式サイトで<wbr>ご確認くだ⁠さ⁠い⁠。</p>
+  <p>PR：本ページは<wbr>広告・<wbr>アフィリエイトリンクを<wbr>含みます。<wbr>掲載情報は<wbr>ウリエル公式サイトの<wbr>掲載内容<wbr>（2026⁠年10⁠月13⁠日確認）⁠を<wbr>もとにしています。<wbr>最新の<wbr>条件は<wbr>公式サイトで<wbr>ご確認くだ⁠さ⁠い⁠。</p>
   <small>最終更新日：<wbr>2026⁠年10⁠月⁠1⁠4⁠日<br><span class="kt-nw">運営：HAKOBU MEDIA</span> ／ <span class="kt-nw">© 切手買取 比較ガイド</span></small>
 </footer>
 

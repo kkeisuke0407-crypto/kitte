@@ -46,6 +46,8 @@ function breakPoints(full) {
   for (let k = 1; k < full.length; k++) if (full[k] === '（' && !/\s/.test(full[k - 1])) pts.add(k);
   // ひとまとまりの語（切手の名前・複合語）の途中では改行しない
   for (const w of KEEP) for (let at = full.indexOf(w); at >= 0; at = full.indexOf(w, at + 1)) for (let k = at + 1; k < at + w.length; k++) pts.delete(k);
+  // かっこの直後の助詞（「（親、子供、旦那など）と」の「と」など）は、かっこから離さない
+  for (let k = 1; k < full.length; k++) if (full[k - 1] === '）' && /[とがをにはのでもや]/.test(full[k])) pts.delete(k);
   // 注記の「※」は前の語から離さない
   for (let k = 1; k < full.length; k++) if (full[k] === '※') pts.delete(k);
   return pts;
@@ -80,6 +82,8 @@ for (const f of files) {
       if (o !== t) n++;
       // 「※」の前は改行させない（見えない WORD JOINER を入れる）
       o = o.replace(/※/g, '\u2060※');
+      // かっこ閉じの直後の助詞の前でも改行させない（約物のあとはブラウザーが改行してよい位置として扱うため）
+      o = o.replace(/）(?=[とがをにはのでもや])/g, '）\u2060');
       // 数字と単位（0円・5点・24時間など）の間でも改行させない
       o = o.replace(/(\d)(?=[円点件%％万年月日時社名位倍枚種])/g, '$1\u2060');
       tokens[k] = o;

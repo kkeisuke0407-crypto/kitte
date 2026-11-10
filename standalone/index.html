@@ -729,6 +729,8 @@ body { margin: 0; background: #f4f4f4; }
 .kt-a8px { position: absolute; width: 1px; height: 1px; border: 0; opacity: 0; pointer-events: none; }
 /* 導入会話の吹き出しも文節の切れ目（<wbr>）でだけ改行する */
 .yk-body .mt-talk__b { word-break: keep-all; overflow-wrap: anywhere; }
+/* インタビュー版（body.kt-phrase）は本文も文節の切れ目（<wbr>）でだけ改行する。行末はそろわないが、言葉の途中で折れない（入りきらない長い語だけは折る） */
+.kt-phrase .yk-body, .kt-phrase .kt-site { word-break: keep-all; overflow-wrap: anywhere; }
 
 /* BEST3：C案の赤い丸バッジ。元の順位帯・数字の中央・カード形状を維持 */
 .yk-best3__list { padding-top:4px; }
@@ -965,7 +967,7 @@ body { margin: 0; background: #f4f4f4; }
     </table></div>
   </div>
 </div>
-<p class="kt-cmp-note">⁠※◎＝5⁠点・<wbr>○＝4⁠点・<wbr>△＝3⁠点。<wbr>各社公式サイトの<wbr>記載<wbr>（2026⁠年10⁠月13⁠日確認）を<wbr>もとに<wbr>した<wbr>編集部の<wbr>採点で、<wbr>編集部評価は<wbr>6項目の<wbr>平均です<wbr>（<a href="methodology.html#radar">採点基準</a>）。</p>
+<p class="kt-cmp-note">⁠※◎＝5⁠点・<wbr>○＝4⁠点・<wbr>△＝3⁠点。<wbr>各社公式サイトの<wbr>記載<wbr>（2026⁠年10⁠月13⁠日確認）⁠を<wbr>もとに<wbr>した<wbr>編集部の<wbr>採点で、<wbr>編集部評価は<wbr>6項目の<wbr>平均です<wbr>（<a href="methodology.html#radar">採点基準</a>）。</p>
 <!--@compare:end-->
 
 <!-- ===== 比較表の下：こんな方は、まずウリエル（yk-features） ===== -->
@@ -1024,7 +1026,7 @@ body { margin: 0; background: #f4f4f4; }
           <li><span>バラ・<wbr>台紙貼り・<wbr>価値不明・<wbr>汚れの<wbr>ある<wbr>切手も<wbr><span class="yk-red">そのま⁠ま⁠相⁠談</span></span><small>⁠※公式</small></li>
           <li><span>出張料・<wbr>査定料・<wbr>キャンセル料<span class="yk-red">0⁠円</span>、<wbr>24⁠時⁠間⁠受⁠付</span><small>⁠※公式</small></li>
         </ul></div>
-        <p class="yk-small">⁠※1 自社<wbr>調べ。<wbr>2025⁠年7⁠月〜2026⁠年6⁠月に<wbr>実施した<wbr>出張査定ご利用の<wbr>お客様<wbr>アンケート<wbr>（有効回答<wbr>283⁠件）で、<wbr>5段階評価の<wbr>うち<wbr>「大変満足」<wbr>「やや<wbr>満足」と<wbr>回答した<wbr>方⁠の⁠割⁠合</p>
+        <p class="yk-small">⁠※1 自社<wbr>調べ。<wbr>2025⁠年7⁠月〜2026⁠年6⁠月に<wbr>実施した<wbr>出張査定ご利用の<wbr>お客様<wbr>アンケート<wbr>（有効回答<wbr>283⁠件）⁠で、<wbr>5段階評価の<wbr>うち<wbr>「大変満足」<wbr>「やや<wbr>満足」と<wbr>回答した<wbr>方⁠の⁠割⁠合</p>
       </div>
       <div>
         <div class="kt-radarbox"><p class="kt-radarbox__ttl">ウリエルの<wbr>編集⁠部⁠評⁠価 <span class="kt-stars" style="--p:100%" aria-hidden="true">★★★★★</span><span class="kt-score"><small>編集部評価</small>5.0</span></p>
@@ -1264,7 +1266,7 @@ body { margin: 0; background: #f4f4f4; }
 <!-- ===== close-3 フッター（yk-footer） ===== -->
 <footer class="yk-footer">
   <ul><li><a href="about.html">運営者情報</a></li><li><a href="methodology.html">ランキング調⁠査⁠概⁠要</a></li><li><a href="privacy.html">プライバシーポ⁠リ⁠シ⁠ー</a></li></ul>
-  <p>PR：本ページは<wbr>広告・<wbr>アフィリエイトリンクを<wbr>含みます。<wbr>掲載情報は<wbr>各社公式サイトの<wbr>掲載内容<wbr>（2026⁠年10⁠月13⁠日確認）を<wbr>もとにしています。<wbr>最新の<wbr>条件は<wbr>各社公式サイトで<wbr>ご確認くだ⁠さ⁠い⁠。</p>
+  <p>PR：本ページは<wbr>広告・<wbr>アフィリエイトリンクを<wbr>含みます。<wbr>掲載情報は<wbr>各社公式サイトの<wbr>掲載内容<wbr>（2026⁠年10⁠月13⁠日確認）⁠を<wbr>もとにしています。<wbr>最新の<wbr>条件は<wbr>各社公式サイトで<wbr>ご確認くだ⁠さ⁠い⁠。</p>
   <small>最終更新日：<wbr>2026⁠年10⁠月⁠1⁠4⁠日<br><span class="kt-nw">運営：HAKOBU MEDIA</span> ／ <span class="kt-nw">© 切手買取 比較ガイド</span></small>
 </footer>
 
