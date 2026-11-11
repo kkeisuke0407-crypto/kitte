@@ -1040,18 +1040,23 @@ body { margin: 0; background: #f4f4f4; }
     if (!a) return;
     var pending = a.classList.contains('is-pending');
     var externalAff = false;
+    var learnSendTo = null;
     try {
       var url = new URL(a.getAttribute('href'), location.href);
-      var approved = window.__kitteMeasurement && window.__kitteMeasurement.approvedAffiliateUrls || {};
-      var approvedUrls = approved[a.dataset.aff] || [];
-      externalAff = !!a.dataset.aff && !pending && /^https?:$/.test(url.protocol)
-        && url.host !== location.host && a.getAttribute('href').indexOf('__') !== 0
-        && approvedUrls.some(function (u) {
-          /* felmatのfmptr.jsがクリックID等を足すため、完全一致ではなく「承認済みリンクの引数がすべて同じ値で含まれる」で照合する */
+      var config = window.__kitteMeasurement || {};
+      /* felmatのfmptr.jsがクリックID等を足すため、完全一致ではなく「承認済みリンクの引数がすべて同じ値で含まれる」で照合する */
+      var matches = function (list) {
+        return (list || []).some(function (u) {
           var ok = new URL(u); if (ok.origin !== url.origin || ok.pathname !== url.pathname) return false;
           var same = true; ok.searchParams.forEach(function (v, k) { if (url.searchParams.get(k) !== v) same = false; });
           return same;
         });
+      };
+      var outbound = !!a.dataset.aff && !pending && /^https?:$/.test(url.protocol)
+        && url.host !== location.host && a.getAttribute('href').indexOf('__') !== 0;
+      externalAff = outbound && matches((config.approvedAffiliateUrls || {})[a.dataset.aff]);
+      var learn = (config.adsLearningClicks || {})[a.dataset.aff];
+      if (outbound && !externalAff && learn && matches(learn.urls)) learnSendTo = learn.sendTo || null;
     } catch (_) { /* malformed/unset affiliate URL: do not count */ }
     trackLP('cta_click', {
       cta_place: a.dataset.place || '',
@@ -1074,6 +1079,14 @@ body { margin: 0; background: #f4f4f4; }
         [].concat(adsDestination).forEach(function (dest) {
           window.gtag('event','conversion',{send_to:dest,value:0,currency:'JPY',transport_type:'beacon'});
         });
+      }
+    }
+    /* 2026-11-11 入札の学習用：バイセル・福ちゃんの公式リンクへの遷移は、Google広告のコンバージョンにだけ送る。
+       GA4のMCV（kitte_mcv）とスプシのMCVはウリエルだけのまま。 */
+    if (learnSendTo && !e.defaultPrevented && (e.type !== 'click' || e.button === 0) && Date.now()-(lastMcv.get(a)||0)>1500) {
+      lastMcv.set(a,Date.now());
+      if (measurementMode === 'normal' && window.gtag) {
+        window.gtag('event','conversion',{send_to:learnSendTo,value:0,currency:'JPY',transport_type:'beacon'});
       }
     }
   }

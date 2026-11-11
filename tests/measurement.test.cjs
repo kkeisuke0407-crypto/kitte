@@ -56,3 +56,15 @@ test('ad dimensions persist without click IDs or stale CTA fields in later event
  const s=setup();s.click(s.link('/uriel/'));s.window.scrollY=1000;s.dispatch('scroll',{});
  const scroll=s.records.find(x=>x.event==='lp_scroll');assert.equal(scroll.cta_place,null);assert.equal(scroll.ad_campaign_id,'123');assert.equal(scroll.gclid,undefined);
 });
+test('BuySell and Fukuchan official links send only their own Ads learning conversion, not kitte_mcv',()=>{
+ const s=setup();
+ s.window.__kitteMeasurement.adsLearningClicks={buysell:{urls:['https://buysell-kaitori.com/stamp/'],sendTo:'AW-1/buysell'},fukuchan:{urls:['https://px.a8.net/svt/ejp?a8mat=TEST+X'],sendTo:'AW-1/fukuchan'}};
+ const b=s.link('https://buysell-kaitori.com/stamp/',{aff:'buysell'}),f=s.link('https://px.a8.net/svt/ejp?a8mat=TEST+X',{aff:'fukuchan'});
+ s.click(b);s.click(b);s.click(f);
+ s.click(s.link('https://buysell-kaitori.com/other/',{aff:'buysell'}));
+ s.click(s.link('https://buysell-kaitori.com/stamp/',{aff:'buysell',pending:true}));
+ assert.deepEqual(s.sent.filter(x=>x[1]==='conversion').map(x=>x[2].send_to),['AW-1/buysell','AW-1/fukuchan']);
+ assert.equal(s.records.filter(x=>x.event==='kitte_mcv').length,0);
+ const d=setup('debug');d.window.__kitteMeasurement.adsLearningClicks=s.window.__kitteMeasurement.adsLearningClicks;d.click(d.link('https://buysell-kaitori.com/stamp/',{aff:'buysell'}));
+ assert.equal(d.sent.filter(x=>x[1]==='conversion').length,0);
+});
