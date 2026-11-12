@@ -197,9 +197,38 @@ const noteWant = { 'レーダー注記': 6, '出典': 6, '実績注記': 4, '流
 for (const [k, n] of Object.entries(noteWant)) if (noteHits[k] !== n) throw new Error(`interview: 注釈 ${k} が ${noteHits[k] || 0} 件（想定 ${n} 件）`);
 if (/写真は(?:<wbr>|⁠)*イメージ/.test(html)) throw new Error('interview: 「写真はイメージ」が残っている');
 
+/* ---------- KW別ページ（2026-11-12 ユーザー指示「キーワード、広告文、LPの冒頭に橋を架けたい」「ヒーロー画像にキーワードをうまく追加してほしい」） ----------
+   interview.html を丸ごと複製し、ヒーロー画像（2段目をKW入りに差し替えた画像）・H1・alt・導入会話の最初の2行だけを差し替える。
+   CP② 切手買取の広告グループ別。案：案件_切手買取/24_KW橋渡し案_20261112.md。画像：25_ヒーロー画像_KW別/make_hero.py
+   ファイル名は英小文字だけにする（kitte.js の lp_id・wrap-ja・stamp-assets がファイル名 [a-z]+.html で拾うため）。 */
+const HERO_RE = /<img class="kt-hero__banner" src="assets\/img\/photo\/hero-interview-20261106\.webp" alt="[^"]*" width="1672" height="941"/;
+const H1_RE = /(<header class="yk-hero kt-hero--banner">\s*<h1 class="kt-sr">)[\s\S]*?(<\/h1>)/;
+const TALK_C = talkRow('c', '切手を売りたいのですが、どこに頼めばいいのか分からなくて…');
+const TALK_E = talkRow('e', '買取店はたくさんありますし、根拠がよく分からない情報も多いですよね。');
+const KW_PAGES = [
+  { file: 'ivfurui.html', kw: '古い切手', img: 'hero-iv-furui.webp', c: '家にある古い切手を売りたいのですが、どこに頼めばいいのか分からなくて…', e: '古い切手は、発行年代や状態で金額が大きく変わりますよね。根拠がよく分からない情報も多いですし。' },
+  { file: 'ivmukashi.html', kw: '昔の切手', img: 'hero-iv-mukashi.webp', c: '昔の切手を売りたいのですが、どこに頼めばいいのか分からなくて…', e: '昔の切手は、発行年代や状態で金額が大きく変わりますよね。根拠がよく分からない情報も多いですし。' },
+  { file: 'ivkinen.html', kw: '記念切手', img: 'hero-iv-kinen.webp', c: '記念切手を売りたいのですが、どこに頼めばいいのか分からなくて…', e: '記念切手は種類が多くて、店によって査定が違いますよね。根拠がよく分からない情報も多いですし。' },
+  { file: 'ivsheet.html', kw: '切手シート', img: 'hero-iv-sheet.webp', c: '切手シートを売りたいのですが、どこに頼めばいいのか分からなくて…', e: '切手シートは、シートのままかバラかでも金額が変わりますよね。根拠がよく分からない情報も多いですし。' },
+  { file: 'ivshushu.html', kw: '集めた切手', img: 'hero-iv-shushu.webp', c: '昔集めた切手をまとめて売りたいのですが、どこに頼めばいいのか分からなくて…', e: '量が多いと、持ち込むのも大変ですよね。根拠がよく分からない情報も多いですし。' },
+];
+const pages = [{ file: 'interview.html', html }];
+for (const v of KW_PAGES) {
+  let h = html;
+  const must = (re, to, label) => { const n = (h.match(new RegExp(re.source, 'g')) || []).length; if (n !== 1) throw new Error(`${v.file}: ${label} が ${n} 件`); h = h.replace(re, to); };
+  const title = `元買取業者に聞いた。${v.kw}の売り先と高く売るコツ`;
+  must(HERO_RE, `<img class="kt-hero__banner" src="assets/img/photo/${v.img}" alt="${title}" width="1672" height="941"`, 'ヒーロー画像');
+  must(H1_RE, `$1${title}$2`, 'H1');
+  if (h.split(TALK_C).length !== 2 || h.split(TALK_E).length !== 2) throw new Error(`${v.file}: 導入会話の最初の2行が見つからない`);
+  h = h.replace(TALK_C, talkRow('c', v.c)).replace(TALK_E, talkRow('e', v.e));
+  pages.push({ file: v.file, html: h });
+}
+
 /* ---------- スマホの折り返し（2026-11-10 ユーザー指示「会話とかちゃんと適切なところで折り返す」「変なところで折り返さない」） ----------
    ・本文も文節（wrap-ja.cjs が入れる <wbr>）でだけ折り返す（CSS の .kt-phrase）
    ・会話の吹き出しは、文の終わり（。！？）で改行する */
+for (const pg of pages) {
+let html = pg.html;
 const bodyTags = html.match(/<body>/g) || [];
 if (bodyTags.length !== 1) throw new Error('interview: <body> が1つではない');
 html = html.replace('<body>', '<body class="kt-phrase">');
@@ -212,5 +241,6 @@ html = html.replace(/(<div class="mt-talk__b">)([\s\S]*?)(<\/div>)/g, (all, open
 });
 if (!talkBreaks) throw new Error('interview: 会話の改行を入れる文が見つからない');
 html = html.replace('<!DOCTYPE html>', '<!DOCTYPE html>\n<!-- 生成物：tools/build-interview.cjs（index.html から作るインタビュー版。直接編集しない） -->');
-fs.writeFileSync(path.join(dir, 'interview.html'), html);
-console.log('variant: interview.html');
+fs.writeFileSync(path.join(dir, pg.file), html);
+console.log('variant: ' + pg.file);
+}
