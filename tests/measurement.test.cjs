@@ -58,13 +58,13 @@ test('ad dimensions persist without click IDs or stale CTA fields in later event
 });
 test('BuySell and Fukuchan official links send only their own Ads learning conversion, not kitte_mcv',()=>{
  const s=setup();
- s.window.__kitteMeasurement.adsLearningClicks={buysell:{urls:['https://buysell-kaitori.com/stamp/'],sendTo:'AW-1/buysell'},fukuchan:{urls:['https://px.a8.net/svt/ejp?a8mat=TEST+X'],sendTo:'AW-1/fukuchan'}};
- const b=s.link('https://buysell-kaitori.com/stamp/',{aff:'buysell'}),f=s.link('https://px.a8.net/svt/ejp?a8mat=TEST+X',{aff:'fukuchan'});
+ s.window.__kitteMeasurement.adsLearningClicks={buysell:{urls:['https://striangle.net/ex/cl?ak=J10523O.1.V169071G.L1419226'],sendTo:'AW-1/buysell'},fukuchan:{urls:['https://px.a8.net/svt/ejp?a8mat=TEST+X'],sendTo:'AW-1/fukuchan'}};
+ const b=s.link('https://striangle.net/ex/cl?ak=J10523O.1.V169071G.L1419226',{aff:'buysell'}),f=s.link('https://px.a8.net/svt/ejp?a8mat=TEST+X',{aff:'fukuchan'});
  s.click(b);s.click(b);s.click(f);
  s.click(s.link('https://buysell-kaitori.com/other/',{aff:'buysell'}));
- s.click(s.link('https://buysell-kaitori.com/stamp/',{aff:'buysell',pending:true}));
+ s.click(s.link('https://striangle.net/ex/cl?ak=J10523O.1.V169071G.L1419226',{aff:'buysell',pending:true}));
  assert.deepEqual(s.sent.filter(x=>x[1]==='conversion').map(x=>x[2].send_to),['AW-1/buysell','AW-1/fukuchan']);
  assert.equal(s.records.filter(x=>x.event==='kitte_mcv').length,0);
- const d=setup('debug');d.window.__kitteMeasurement.adsLearningClicks=s.window.__kitteMeasurement.adsLearningClicks;d.click(d.link('https://buysell-kaitori.com/stamp/',{aff:'buysell'}));
+ const d=setup('debug');d.window.__kitteMeasurement.adsLearningClicks=s.window.__kitteMeasurement.adsLearningClicks;d.click(d.link('https://striangle.net/ex/cl?ak=J10523O.1.V169071G.L1419226',{aff:'buysell'}));
  assert.equal(d.sent.filter(x=>x[1]==='conversion').length,0);
 });
