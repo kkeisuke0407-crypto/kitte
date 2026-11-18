@@ -26,10 +26,10 @@
   /* 2026-11-05 再出発：Google広告のMCVを新しいコンバージョン「切手_MCV_ウリエル_v2」(7890252661) へ。旧 JWJxCJyfup0dEIein_xE はサブ。 */
   /* 2026-11-07 旧CP①〜④の入札に使うため、送信先を旧「切手_MCV_公式遷移」(7846399900) へ戻す。v2には送らない（スプシは両方を合計するため、重複させない）。 */
   /* 2026-11-11 入札の学習用に、バイセル・福ちゃんの公式リンクへの遷移もGoogle広告のコンバージョン（メイン）へ送る。GA4のMCVとスプシのMCVには入れない。
-     バイセルはアフィリエイトリンクの発行待ちのため、今は公式サイトのリンク。 */
+     2026-11-18 バイセルのアフィリエイトリンク（striangle.net）が届いたので差し替え。 */
   window.__kitteMeasurement = { mode: mode, attribution: attribution, approvedAffiliateUrls: { uriel: ['https://t.felmat.net/fmcl?ak=D107130.1.E149890F.L1419226'] }, adsMcvDestination: 'AW-18514170119/JWJxCJyfup0dEIein_xE',
     adsLearningClicks: {
-      buysell: { urls: ['https://buysell-kaitori.com/stamp/'], sendTo: 'AW-18514170119/wFNMCLqUkbYdEIein_xE' },  /* 切手_MCV_バイセル 7898155578 */
+      buysell: { urls: ['https://striangle.net/ex/cl?ak=J10523O.1.V169071G.L1419226'], sendTo: 'AW-18514170119/wFNMCLqUkbYdEIein_xE' },  /* 切手_MCV_バイセル 7898155578 */
       fukuchan: { urls: ['https://px.a8.net/svt/ejp?a8mat=4BEMLP+7DJH7M+35HU+BZ0Z6'], sendTo: 'AW-18514170119/AaR1CL2UkbYdEIein_xE' }  /* 切手_MCV_福ちゃん 7898155581 */
     } };
   window.dataLayer = window.dataLayer || [];
